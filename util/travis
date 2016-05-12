@@ -3,13 +3,9 @@ set -o errexit -o nounset -o pipefail
 
 function main {
   case "${1:-${TRAVIS_OS_NAME:-}}" in
-    linux) linux ;;
     osx)   osx ;;
     *)     echo "No handler for: ${1:-}" >&2
   esac
-}
-
-function linux {
 }
 
 function osx {
