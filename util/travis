@@ -1,0 +1,38 @@
+#!/bin/bash
+set -o errexit -o nounset -o pipefail
+
+function main {
+  case "${1:-${TRAVIS_OS_NAME:-}}" in
+    linux) linux ;;
+    osx)   osx ;;
+    *)     echo "No handler for: ${1:-}" >&2
+  esac
+}
+
+function linux {
+}
+
+function osx {
+  BREW_LOG=brew.log
+  brew update > "$BREW_LOG"
+  brew remove postgresql >> "$BREW_LOG"
+  brew upgrade >> "$BREW_LOG"
+}
+
+
+##################################################################### Utilities
+
+function msg { out "$*" >&2 ;}
+function err { local x=$? ; msg "$*" ; return $(( $x == 0 ? 1 : $x )) ;}
+function out { printf '%s\n' "$*" ;}
+
+# Handles "no-match" exit code specified by POSIX for filtering tools.
+function maybe { "$@" || return $(( $? == 1 ? 0 : $? )) ;}
+
+
+######################### Delegates to subcommands or runs main, as appropriate
+
+if declare -f -- "${1:-}" >/dev/null
+then "$@"
+else main "$@"
+fi
