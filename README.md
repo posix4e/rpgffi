@@ -12,7 +12,7 @@ Bindings for postgresql 9.4 and 9.5
 #include "replication/output_plugin.h"
 #include "replication/logical.h"
 ```
-If you notice that there's api not present
+If you notice that there's an API not present
 You may need to contact the parent project's
-maintainers on #jsoncdc on efnet. Postgresql
-will add api even within a major version.
+maintainers on #jsoncdc on Freenode. Postgresql
+might add APIs even within a major version.
