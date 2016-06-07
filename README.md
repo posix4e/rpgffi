@@ -1,8 +1,7 @@
 [![Linux
 Status](https://travis-ci.org/posix4e/rpgffi.svg?branch=master)](https://travis-ci.org/posix4e/rpgffi)
 
-For example checkout [jsoncdc](https://github.com/posix4e/jsoncdc)
-Bindings for postgresql 9.4 and 9.5
+Imagine being able to create [postgresql extensions](https://www.postgresql.org/docs/9.4/static/extend-extensions.html) in [rust](https://github.com/posix4e/jsoncdc). Bindings for postgresql 9.4 and 9.5
 
 ```
 #include "postgres.h"
