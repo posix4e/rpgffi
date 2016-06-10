@@ -40,4 +40,4 @@ EOF
 
 gcc -I "`pg_config --includedir-server`" -E tmp/pgheaders.h > tmp/pgexpanded.h
 
-bindgen -allow-bitfields -builtins tmp/pgexpanded.h > "$output"
+bindgen -- -allow-bitfields -builtins tmp/pgexpanded.h > "$output"
