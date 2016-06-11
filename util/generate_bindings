@@ -30,6 +30,7 @@ mkdir -p tmp/
 cat > tmp/pgheaders.h <<\EOF
 #include <stdarg.h>
 #include "postgres.h"
+#include "utils/rel.h"
 #include "fmgr.h"
 #include "utils/builtins.h"
 #include "utils/json.h"
@@ -40,4 +41,4 @@ EOF
 
 gcc -I "`pg_config --includedir-server`" -E tmp/pgheaders.h > tmp/pgexpanded.h
 
-bindgen -- -allow-bitfields -builtins tmp/pgexpanded.h > "$output"
+bindgen -allow-bitfields -builtins tmp/pgexpanded.h > "$output"

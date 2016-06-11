@@ -1,6 +1,6 @@
 [package]
 name = "rpgffi"
-version = "0.1.0"
+version = "0.1.1"
 authors = ["posi@planet.com", "Jason Dusek <jason.dusek@gmail.com>"]
 build = "build.rs"
 description = "Bindgen generated bindings for postgresql 9.4, 9.5, 9.6 Beta!"
