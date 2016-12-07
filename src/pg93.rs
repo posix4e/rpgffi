@@ -1318,7 +1318,6 @@ pub struct ErrorContextCallback {
 impl ::std::default::Default for ErrorContextCallback {
     fn default() -> Self { unsafe { ::std::mem::zeroed() } }
 }
-pub enum MemoryContextData { }
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct ErrorData {
@@ -1347,7 +1346,6 @@ pub struct ErrorData {
     pub internalpos: ::std::os::raw::c_int,
     pub internalquery: *mut ::std::os::raw::c_char,
     pub saved_errno: ::std::os::raw::c_int,
-    pub assoc_context: *mut MemoryContextData,
 }
 impl ::std::default::Default for ErrorData {
     fn default() -> Self { unsafe { ::std::mem::zeroed() } }
@@ -1361,6 +1359,7 @@ pub enum PGErrorVerbosity {
     PGERROR_DEFAULT = 1,
     PGERROR_VERBOSE = 2,
 }
+pub enum MemoryContextData { }
 pub type MemoryContext = *mut MemoryContextData;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -1373,17 +1372,6 @@ pub struct varatt_external {
 impl ::std::default::Default for varatt_external {
     fn default() -> Self { unsafe { ::std::mem::zeroed() } }
 }
-#[repr(C)]
-#[derive(Copy, Clone)]
-pub struct varatt_indirect {
-    pub pointer: *mut varlena,
-}
-impl ::std::default::Default for varatt_indirect {
-    fn default() -> Self { unsafe { ::std::mem::zeroed() } }
-}
-#[derive(Copy, Clone)]
-#[repr(u32)]
-pub enum vartag_external { VARTAG_INDIRECT = 1, VARTAG_ONDISK = 18, }
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct varattrib_4b {
@@ -1434,7 +1422,7 @@ impl ::std::default::Default for varattrib_1b {
 #[derive(Copy, Clone)]
 pub struct varattrib_1b_e {
     pub va_header: uint8,
-    pub va_tag: uint8,
+    pub va_len_1be: uint8,
     pub va_data: [::std::os::raw::c_char; 1usize],
 }
 impl ::std::default::Default for varattrib_1b_e {
@@ -1806,17 +1794,14 @@ pub enum NodeTag {
     T_AlterUserMappingStmt = 784,
     T_DropUserMappingStmt = 785,
     T_AlterTableSpaceOptionsStmt = 786,
-    T_AlterTableMoveAllStmt = 787,
-    T_SecLabelStmt = 788,
-    T_CreateForeignTableStmt = 789,
-    T_CreateExtensionStmt = 790,
-    T_AlterExtensionStmt = 791,
-    T_AlterExtensionContentsStmt = 792,
-    T_CreateEventTrigStmt = 793,
-    T_AlterEventTrigStmt = 794,
-    T_RefreshMatViewStmt = 795,
-    T_ReplicaIdentityStmt = 796,
-    T_AlterSystemStmt = 797,
+    T_SecLabelStmt = 787,
+    T_CreateForeignTableStmt = 788,
+    T_CreateExtensionStmt = 789,
+    T_AlterExtensionStmt = 790,
+    T_AlterExtensionContentsStmt = 791,
+    T_CreateEventTrigStmt = 792,
+    T_AlterEventTrigStmt = 793,
+    T_RefreshMatViewStmt = 794,
     T_A_Expr = 900,
     T_ColumnRef = 901,
     T_ParamRef = 902,
@@ -1839,27 +1824,23 @@ pub enum NodeTag {
     T_Constraint = 919,
     T_DefElem = 920,
     T_RangeTblEntry = 921,
-    T_RangeTblFunction = 922,
-    T_WithCheckOption = 923,
-    T_SortGroupClause = 924,
-    T_WindowClause = 925,
-    T_PrivGrantee = 926,
-    T_FuncWithArgs = 927,
-    T_AccessPriv = 928,
-    T_CreateOpClassItem = 929,
-    T_TableLikeClause = 930,
-    T_FunctionParameter = 931,
-    T_LockingClause = 932,
-    T_RowMarkClause = 933,
-    T_XmlSerialize = 934,
-    T_WithClause = 935,
-    T_CommonTableExpr = 936,
-    T_IdentifySystemCmd = 937,
-    T_BaseBackupCmd = 938,
-    T_CreateReplicationSlotCmd = 939,
-    T_DropReplicationSlotCmd = 940,
-    T_StartReplicationCmd = 941,
-    T_TimeLineHistoryCmd = 942,
+    T_SortGroupClause = 922,
+    T_WindowClause = 923,
+    T_PrivGrantee = 924,
+    T_FuncWithArgs = 925,
+    T_AccessPriv = 926,
+    T_CreateOpClassItem = 927,
+    T_TableLikeClause = 928,
+    T_FunctionParameter = 929,
+    T_LockingClause = 930,
+    T_RowMarkClause = 931,
+    T_XmlSerialize = 932,
+    T_WithClause = 933,
+    T_CommonTableExpr = 934,
+    T_IdentifySystemCmd = 935,
+    T_BaseBackupCmd = 936,
+    T_StartReplicationCmd = 937,
+    T_TimeLineHistoryCmd = 938,
     T_TriggerData = 950,
     T_EventTriggerData = 951,
     T_ReturnSetInfo = 952,
@@ -2123,9 +2104,6 @@ impl ::std::default::Default for relopt_parse_elt {
     fn default() -> Self { unsafe { ::std::mem::zeroed() } }
 }
 pub type fmNodePtr = *mut Node;
-pub type fmAggrefPtr = *mut Aggref;
-pub type fmExprContextCallbackFunction =
-    ::std::option::Option<extern "C" fn(arg: Datum)>;
 pub type fmStringInfo = *mut StringInfoData;
 pub type FunctionCallInfo = *mut FunctionCallInfoData;
 pub type PGFunction =
@@ -2236,49 +2214,47 @@ impl ::std::default::Default for TBMIterateResult {
     fn default() -> Self { unsafe { ::std::mem::zeroed() } }
 }
 pub type BackendId = ::std::os::raw::c_int;
-pub type slock_t = ::std::os::raw::c_uchar;
-pub enum PGPROC { }
-#[repr(C)]
 #[derive(Copy, Clone)]
-pub struct LWLockTranche {
-    pub name: *const ::std::os::raw::c_char,
-    pub array_base: *mut ::std::os::raw::c_void,
-    pub array_stride: Size,
-}
-impl ::std::default::Default for LWLockTranche {
-    fn default() -> Self { unsafe { ::std::mem::zeroed() } }
-}
-#[repr(C)]
-#[derive(Copy, Clone)]
-pub struct LWLock {
-    pub mutex: slock_t,
-    pub releaseOK: bool_,
-    pub exclusive: ::std::os::raw::c_char,
-    pub shared: ::std::os::raw::c_int,
-    pub tranche: ::std::os::raw::c_int,
-    pub head: *mut PGPROC,
-    pub tail: *mut PGPROC,
-}
-impl ::std::default::Default for LWLock {
-    fn default() -> Self { unsafe { ::std::mem::zeroed() } }
-}
-#[repr(C)]
-#[derive(Copy, Clone)]
-pub struct LWLockPadded {
-    pub _bindgen_data_: [u64; 4usize],
-}
-impl LWLockPadded {
-    pub unsafe fn lock(&mut self) -> *mut LWLock {
-        let raw: *mut u8 = ::std::mem::transmute(&self._bindgen_data_);
-        ::std::mem::transmute(raw.offset(0))
-    }
-    pub unsafe fn pad(&mut self) -> *mut [::std::os::raw::c_char; 32usize] {
-        let raw: *mut u8 = ::std::mem::transmute(&self._bindgen_data_);
-        ::std::mem::transmute(raw.offset(0))
-    }
-}
-impl ::std::default::Default for LWLockPadded {
-    fn default() -> Self { unsafe { ::std::mem::zeroed() } }
+#[repr(u32)]
+pub enum LWLockId {
+    BufFreelistLock = 0,
+    ShmemIndexLock = 1,
+    OidGenLock = 2,
+    XidGenLock = 3,
+    ProcArrayLock = 4,
+    SInvalReadLock = 5,
+    SInvalWriteLock = 6,
+    WALInsertLock = 7,
+    WALWriteLock = 8,
+    ControlFileLock = 9,
+    CheckpointLock = 10,
+    CLogControlLock = 11,
+    SubtransControlLock = 12,
+    MultiXactGenLock = 13,
+    MultiXactOffsetControlLock = 14,
+    MultiXactMemberControlLock = 15,
+    RelCacheInitLock = 16,
+    CheckpointerCommLock = 17,
+    TwoPhaseStateLock = 18,
+    TablespaceCreateLock = 19,
+    BtreeVacuumLock = 20,
+    AddinShmemInitLock = 21,
+    AutovacuumLock = 22,
+    AutovacuumScheduleLock = 23,
+    SyncScanLock = 24,
+    RelationMappingLock = 25,
+    AsyncCtlLock = 26,
+    AsyncQueueLock = 27,
+    SerializableXactHashLock = 28,
+    SerializableFinishedListLock = 29,
+    SerializablePredicateLockListLock = 30,
+    OldSerXidLock = 31,
+    SyncRepLock = 32,
+    FirstBufMappingLock = 33,
+    FirstLockMgrLock = 49,
+    FirstPredicateLockMgrLock = 65,
+    NumFixedLWLocks = 81,
+    MaxDynamicLWLock = 1000000000,
 }
 #[derive(Copy, Clone)]
 #[repr(u32)]
@@ -2287,7 +2263,6 @@ pub enum LWLockMode {
     LW_SHARED = 1,
     LW_WAIT_UNTIL_FREE = 2,
 }
-pub type LWLockId = *mut LWLock;
 pub type HashValueFunc =
     ::std::option::Option<unsafe extern "C" fn(key:
                                                    *const ::std::os::raw::c_void,
@@ -2380,6 +2355,7 @@ impl ::std::clone::Clone for ShmemIndexEnt {
 impl ::std::default::Default for ShmemIndexEnt {
     fn default() -> Self { unsafe { ::std::mem::zeroed() } }
 }
+pub enum PGPROC { }
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct PROC_QUEUE {
@@ -2588,20 +2564,14 @@ pub enum BMS_Membership {
 }
 pub type Relation = *mut RelationData;
 pub type RelationPtr = *mut Relation;
-#[derive(Copy, Clone)]
-#[repr(u32)]
-pub enum IndexAttrBitmapKind {
-    INDEX_ATTR_BITMAP_ALL = 0,
-    INDEX_ATTR_BITMAP_KEY = 1,
-    INDEX_ATTR_BITMAP_IDENTITY_KEY = 2,
-}
 pub type Buffer = ::std::os::raw::c_int;
 pub enum BufferAccessStrategyData { }
 pub type BufferAccessStrategy = *mut BufferAccessStrategyData;
 pub type Snapshot = *mut SnapshotData;
 pub type SnapshotSatisfiesFunc =
-    ::std::option::Option<extern "C" fn(htup: HeapTuple, snapshot: Snapshot,
-                                        buffer: Buffer) -> bool_>;
+    ::std::option::Option<extern "C" fn(tuple: HeapTupleHeader,
+                                        snapshot: Snapshot, buffer: Buffer)
+                              -> bool_>;
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct SnapshotData {
@@ -2801,14 +2771,10 @@ pub struct Aggref {
     pub aggtype: Oid,
     pub aggcollid: Oid,
     pub inputcollid: Oid,
-    pub aggdirectargs: *mut List,
     pub args: *mut List,
     pub aggorder: *mut List,
     pub aggdistinct: *mut List,
-    pub aggfilter: *mut Expr,
     pub aggstar: bool_,
-    pub aggvariadic: bool_,
-    pub aggkind: ::std::os::raw::c_char,
     pub agglevelsup: Index,
     pub location: ::std::os::raw::c_int,
 }
@@ -2824,7 +2790,6 @@ pub struct WindowFunc {
     pub wincollid: Oid,
     pub inputcollid: Oid,
     pub args: *mut List,
-    pub aggfilter: *mut Expr,
     pub winref: Index,
     pub winstar: bool_,
     pub winagg: bool_,
@@ -3635,7 +3600,6 @@ pub struct ModifyTable {
     pub resultRelations: *mut List,
     pub resultRelIndex: ::std::os::raw::c_int,
     pub plans: *mut List,
-    pub withCheckOptionLists: *mut List,
     pub returningLists: *mut List,
     pub fdwPrivLists: *mut List,
     pub rowMarks: *mut List,
@@ -3777,8 +3741,11 @@ impl ::std::default::Default for SubqueryScan {
 #[derive(Copy, Clone)]
 pub struct FunctionScan {
     pub scan: Scan,
-    pub functions: *mut List,
-    pub funcordinality: bool_,
+    pub funcexpr: *mut Node,
+    pub funccolnames: *mut List,
+    pub funccoltypes: *mut List,
+    pub funccoltypmods: *mut List,
+    pub funccolcollations: *mut List,
 }
 impl ::std::default::Default for FunctionScan {
     fn default() -> Self { unsafe { ::std::mem::zeroed() } }
@@ -4268,8 +4235,6 @@ pub struct ResultRelInfo {
     pub ri_TrigInstrument: *mut Instrumentation,
     pub ri_FdwRoutine: *mut FdwRoutine,
     pub ri_FdwState: *mut ::std::os::raw::c_void,
-    pub ri_WithCheckOptions: *mut List,
-    pub ri_WithCheckOptionExprs: *mut List,
     pub ri_ConstraintExprs: *mut *mut List,
     pub ri_junkFilter: *mut JunkFilter,
     pub ri_projectReturning: *mut ProjectionInfo,
@@ -4401,8 +4366,8 @@ impl ::std::default::Default for GenericExprState {
 pub struct WholeRowVarExprState {
     pub xprstate: ExprState,
     pub parent: *mut PlanState,
-    pub wrv_tupdesc: TupleDesc,
     pub wrv_junkFilter: *mut JunkFilter,
+    pub wrv_tupdesc: TupleDesc,
 }
 impl ::std::default::Default for WholeRowVarExprState {
     fn default() -> Self { unsafe { ::std::mem::zeroed() } }
@@ -4411,9 +4376,7 @@ impl ::std::default::Default for WholeRowVarExprState {
 #[derive(Copy, Clone)]
 pub struct AggrefExprState {
     pub xprstate: ExprState,
-    pub aggdirectargs: *mut List,
     pub args: *mut List,
-    pub aggfilter: *mut ExprState,
     pub aggno: ::std::os::raw::c_int,
 }
 impl ::std::default::Default for AggrefExprState {
@@ -4424,7 +4387,6 @@ impl ::std::default::Default for AggrefExprState {
 pub struct WindowFuncExprState {
     pub xprstate: ExprState,
     pub args: *mut List,
-    pub aggfilter: *mut ExprState,
     pub wfuncno: ::std::os::raw::c_int,
 }
 impl ::std::default::Default for WindowFuncExprState {
@@ -4933,8 +4895,6 @@ pub struct BitmapHeapScanState {
     pub tbm: *mut TIDBitmap,
     pub tbmiterator: *mut TBMIterator,
     pub tbmres: *mut TBMIterateResult,
-    pub exact_pages: ::std::os::raw::c_long,
-    pub lossy_pages: ::std::os::raw::c_long,
     pub prefetch_iterator: *mut TBMIterator,
     pub prefetch_pages: ::std::os::raw::c_int,
     pub prefetch_target: ::std::os::raw::c_int,
@@ -4966,17 +4926,14 @@ pub struct SubqueryScanState {
 impl ::std::default::Default for SubqueryScanState {
     fn default() -> Self { unsafe { ::std::mem::zeroed() } }
 }
-pub enum FunctionScanPerFuncState { }
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct FunctionScanState {
     pub ss: ScanState,
     pub eflags: ::std::os::raw::c_int,
-    pub ordinality: bool_,
-    pub simple: bool_,
-    pub ordinal: int64,
-    pub nfuncs: ::std::os::raw::c_int,
-    pub funcstates: *mut FunctionScanPerFuncState,
+    pub tupdesc: TupleDesc,
+    pub tuplestorestate: *mut Tuplestorestate,
+    pub funcexpr: *mut ExprState,
     pub argcontext: MemoryContext,
 }
 impl ::std::default::Default for FunctionScanState {
@@ -5155,7 +5112,6 @@ pub struct AggState {
     pub peragg: AggStatePerAgg,
     pub aggcontext: MemoryContext,
     pub tmpcontext: *mut ExprContext,
-    pub curperagg: AggStatePerAgg,
     pub agg_done: bool_,
     pub pergroup: AggStatePerGroup,
     pub grp_firstTuple: HeapTuple,
@@ -5200,7 +5156,6 @@ pub struct WindowAggState {
     pub endOffsetValue: Datum,
     pub partcontext: MemoryContext,
     pub aggcontext: MemoryContext,
-    pub curaggcontext: MemoryContext,
     pub tmpcontext: *mut ExprContext,
     pub all_first: bool_,
     pub all_done: bool_,
@@ -5367,7 +5322,6 @@ pub struct Query {
     pub rtable: *mut List,
     pub jointree: *mut FromExpr,
     pub targetList: *mut List,
-    pub withCheckOptions: *mut List,
     pub returningList: *mut List,
     pub groupClause: *mut List,
     pub havingQual: *mut Node,
@@ -5485,8 +5439,6 @@ pub struct FuncCall {
     pub funcname: *mut List,
     pub args: *mut List,
     pub agg_order: *mut List,
-    pub agg_filter: *mut Node,
-    pub agg_within_group: bool_,
     pub agg_star: bool_,
     pub agg_distinct: bool_,
     pub func_variadic: bool_,
@@ -5591,9 +5543,7 @@ impl ::std::default::Default for RangeSubselect {
 pub struct RangeFunction {
     pub type_: NodeTag,
     pub lateral: bool_,
-    pub ordinality: bool_,
-    pub is_rowsfrom: bool_,
-    pub functions: *mut List,
+    pub funccallnode: *mut Node,
     pub alias: *mut Alias,
     pub coldeflist: *mut List,
 }
@@ -5617,7 +5567,6 @@ pub struct ColumnDef {
     pub collOid: Oid,
     pub constraints: *mut List,
     pub fdwoptions: *mut List,
-    pub location: ::std::os::raw::c_int,
 }
 impl ::std::default::Default for ColumnDef {
     fn default() -> Self { unsafe { ::std::mem::zeroed() } }
@@ -5729,8 +5678,10 @@ pub struct RangeTblEntry {
     pub security_barrier: bool_,
     pub jointype: JoinType,
     pub joinaliasvars: *mut List,
-    pub functions: *mut List,
-    pub funcordinality: bool_,
+    pub funcexpr: *mut Node,
+    pub funccoltypes: *mut List,
+    pub funccoltypmods: *mut List,
+    pub funccolcollations: *mut List,
     pub values_lists: *mut List,
     pub values_collations: *mut List,
     pub ctename: *mut ::std::os::raw::c_char,
@@ -5748,35 +5699,8 @@ pub struct RangeTblEntry {
     pub checkAsUser: Oid,
     pub selectedCols: *mut Bitmapset,
     pub modifiedCols: *mut Bitmapset,
-    pub securityQuals: *mut List,
 }
 impl ::std::default::Default for RangeTblEntry {
-    fn default() -> Self { unsafe { ::std::mem::zeroed() } }
-}
-#[repr(C)]
-#[derive(Copy, Clone)]
-pub struct RangeTblFunction {
-    pub type_: NodeTag,
-    pub funcexpr: *mut Node,
-    pub funccolcount: ::std::os::raw::c_int,
-    pub funccolnames: *mut List,
-    pub funccoltypes: *mut List,
-    pub funccoltypmods: *mut List,
-    pub funccolcollations: *mut List,
-    pub funcparams: *mut Bitmapset,
-}
-impl ::std::default::Default for RangeTblFunction {
-    fn default() -> Self { unsafe { ::std::mem::zeroed() } }
-}
-#[repr(C)]
-#[derive(Copy, Clone)]
-pub struct WithCheckOption {
-    pub type_: NodeTag,
-    pub viewname: *mut ::std::os::raw::c_char,
-    pub qual: *mut Node,
-    pub cascaded: bool_,
-}
-impl ::std::default::Default for WithCheckOption {
     fn default() -> Self { unsafe { ::std::mem::zeroed() } }
 }
 #[repr(C)]
@@ -6026,53 +5950,41 @@ pub enum AlterTableType {
     AT_AddConstraint = 14,
     AT_AddConstraintRecurse = 15,
     AT_ReAddConstraint = 16,
-    AT_AlterConstraint = 17,
-    AT_ValidateConstraint = 18,
-    AT_ValidateConstraintRecurse = 19,
-    AT_ProcessedConstraint = 20,
-    AT_AddIndexConstraint = 21,
-    AT_DropConstraint = 22,
-    AT_DropConstraintRecurse = 23,
-    AT_AlterColumnType = 24,
-    AT_AlterColumnGenericOptions = 25,
-    AT_ChangeOwner = 26,
-    AT_ClusterOn = 27,
-    AT_DropCluster = 28,
-    AT_AddOids = 29,
-    AT_AddOidsRecurse = 30,
-    AT_DropOids = 31,
-    AT_SetTableSpace = 32,
-    AT_SetRelOptions = 33,
-    AT_ResetRelOptions = 34,
-    AT_ReplaceRelOptions = 35,
-    AT_EnableTrig = 36,
-    AT_EnableAlwaysTrig = 37,
-    AT_EnableReplicaTrig = 38,
-    AT_DisableTrig = 39,
-    AT_EnableTrigAll = 40,
-    AT_DisableTrigAll = 41,
-    AT_EnableTrigUser = 42,
-    AT_DisableTrigUser = 43,
-    AT_EnableRule = 44,
-    AT_EnableAlwaysRule = 45,
-    AT_EnableReplicaRule = 46,
-    AT_DisableRule = 47,
-    AT_AddInherit = 48,
-    AT_DropInherit = 49,
-    AT_AddOf = 50,
-    AT_DropOf = 51,
-    AT_ReplicaIdentity = 52,
-    AT_GenericOptions = 53,
-}
-#[repr(C)]
-#[derive(Copy, Clone)]
-pub struct ReplicaIdentityStmt {
-    pub type_: NodeTag,
-    pub identity_type: ::std::os::raw::c_char,
-    pub name: *mut ::std::os::raw::c_char,
-}
-impl ::std::default::Default for ReplicaIdentityStmt {
-    fn default() -> Self { unsafe { ::std::mem::zeroed() } }
+    AT_ValidateConstraint = 17,
+    AT_ValidateConstraintRecurse = 18,
+    AT_ProcessedConstraint = 19,
+    AT_AddIndexConstraint = 20,
+    AT_DropConstraint = 21,
+    AT_DropConstraintRecurse = 22,
+    AT_AlterColumnType = 23,
+    AT_AlterColumnGenericOptions = 24,
+    AT_ChangeOwner = 25,
+    AT_ClusterOn = 26,
+    AT_DropCluster = 27,
+    AT_AddOids = 28,
+    AT_AddOidsRecurse = 29,
+    AT_DropOids = 30,
+    AT_SetTableSpace = 31,
+    AT_SetRelOptions = 32,
+    AT_ResetRelOptions = 33,
+    AT_ReplaceRelOptions = 34,
+    AT_EnableTrig = 35,
+    AT_EnableAlwaysTrig = 36,
+    AT_EnableReplicaTrig = 37,
+    AT_DisableTrig = 38,
+    AT_EnableTrigAll = 39,
+    AT_DisableTrigAll = 40,
+    AT_EnableTrigUser = 41,
+    AT_DisableTrigUser = 42,
+    AT_EnableRule = 43,
+    AT_EnableAlwaysRule = 44,
+    AT_EnableReplicaRule = 45,
+    AT_DisableRule = 46,
+    AT_AddInherit = 47,
+    AT_DropInherit = 48,
+    AT_AddOf = 49,
+    AT_DropOf = 50,
+    AT_GenericOptions = 51,
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -6299,9 +6211,9 @@ pub struct Constraint {
     pub fk_upd_action: ::std::os::raw::c_char,
     pub fk_del_action: ::std::os::raw::c_char,
     pub old_conpfeqop: *mut List,
-    pub old_pktable_oid: Oid,
     pub skip_validation: bool_,
     pub initially_valid: bool_,
+    pub old_pktable_oid: Oid,
 }
 impl ::std::default::Default for Constraint {
     fn default() -> Self { unsafe { ::std::mem::zeroed() } }
@@ -6313,7 +6225,6 @@ pub struct CreateTableSpaceStmt {
     pub tablespacename: *mut ::std::os::raw::c_char,
     pub owner: *mut ::std::os::raw::c_char,
     pub location: *mut ::std::os::raw::c_char,
-    pub options: *mut List,
 }
 impl ::std::default::Default for CreateTableSpaceStmt {
     fn default() -> Self { unsafe { ::std::mem::zeroed() } }
@@ -6337,19 +6248,6 @@ pub struct AlterTableSpaceOptionsStmt {
     pub isReset: bool_,
 }
 impl ::std::default::Default for AlterTableSpaceOptionsStmt {
-    fn default() -> Self { unsafe { ::std::mem::zeroed() } }
-}
-#[repr(C)]
-#[derive(Copy, Clone)]
-pub struct AlterTableMoveAllStmt {
-    pub type_: NodeTag,
-    pub orig_tablespacename: *mut ::std::os::raw::c_char,
-    pub objtype: ObjectType,
-    pub roles: *mut List,
-    pub new_tablespacename: *mut ::std::os::raw::c_char,
-    pub nowait: bool_,
-}
-impl ::std::default::Default for AlterTableMoveAllStmt {
     fn default() -> Self { unsafe { ::std::mem::zeroed() } }
 }
 #[repr(C)]
@@ -7016,13 +6914,6 @@ pub struct AlterEnumStmt {
 impl ::std::default::Default for AlterEnumStmt {
     fn default() -> Self { unsafe { ::std::mem::zeroed() } }
 }
-#[derive(Copy, Clone)]
-#[repr(u32)]
-pub enum ViewCheckOption {
-    NO_CHECK_OPTION = 0,
-    LOCAL_CHECK_OPTION = 1,
-    CASCADED_CHECK_OPTION = 2,
-}
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct ViewStmt {
@@ -7032,7 +6923,6 @@ pub struct ViewStmt {
     pub query: *mut Node,
     pub replace: bool_,
     pub options: *mut List,
-    pub withCheckOption: ViewCheckOption,
 }
 impl ::std::default::Default for ViewStmt {
     fn default() -> Self { unsafe { ::std::mem::zeroed() } }
@@ -7088,15 +6978,6 @@ impl ::std::default::Default for DropdbStmt {
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
-pub struct AlterSystemStmt {
-    pub type_: NodeTag,
-    pub setstmt: *mut VariableSetStmt,
-}
-impl ::std::default::Default for AlterSystemStmt {
-    fn default() -> Self { unsafe { ::std::mem::zeroed() } }
-}
-#[repr(C)]
-#[derive(Copy, Clone)]
 pub struct ClusterStmt {
     pub type_: NodeTag,
     pub relation: *mut RangeVar,
@@ -7123,10 +7004,10 @@ pub struct VacuumStmt {
     pub options: ::std::os::raw::c_int,
     pub freeze_min_age: ::std::os::raw::c_int,
     pub freeze_table_age: ::std::os::raw::c_int,
-    pub multixact_freeze_min_age: ::std::os::raw::c_int,
-    pub multixact_freeze_table_age: ::std::os::raw::c_int,
     pub relation: *mut RangeVar,
     pub va_cols: *mut List,
+    pub multixact_freeze_min_age: ::std::os::raw::c_int,
+    pub multixact_freeze_table_age: ::std::os::raw::c_int,
 }
 impl ::std::default::Default for VacuumStmt {
     fn default() -> Self { unsafe { ::std::mem::zeroed() } }
@@ -7157,7 +7038,6 @@ impl ::std::default::Default for CreateTableAsStmt {
 #[derive(Copy, Clone)]
 pub struct RefreshMatViewStmt {
     pub type_: NodeTag,
-    pub concurrent: bool_,
     pub skipData: bool_,
     pub relation: *mut RangeVar,
 }
@@ -7174,12 +7054,7 @@ impl ::std::default::Default for CheckPointStmt {
 }
 #[derive(Copy, Clone)]
 #[repr(u32)]
-pub enum DiscardMode {
-    DISCARD_ALL = 0,
-    DISCARD_PLANS = 1,
-    DISCARD_SEQUENCES = 2,
-    DISCARD_TEMP = 3,
-}
+pub enum DiscardMode { DISCARD_ALL = 0, DISCARD_PLANS = 1, DISCARD_TEMP = 2, }
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct DiscardStmt {
@@ -7382,7 +7257,6 @@ pub struct PlannerInfo {
     pub simple_rel_array_size: ::std::os::raw::c_int,
     pub simple_rte_array: *mut *mut RangeTblEntry,
     pub all_baserels: Relids,
-    pub nullable_baserels: Relids,
     pub join_rel_list: *mut List,
     pub join_rel_hash: *mut HTAB,
     pub join_rel_level: *mut *mut List,
@@ -7421,6 +7295,7 @@ pub struct PlannerInfo {
     pub curOuterRels: Relids,
     pub curOuterParams: *mut List,
     pub join_search_private: *mut ::std::os::raw::c_void,
+    pub nullable_baserels: Relids,
 }
 impl ::std::default::Default for PlannerInfo {
     fn default() -> Self { unsafe { ::std::mem::zeroed() } }
@@ -8172,6 +8047,7 @@ pub struct FormData_pg_class {
     pub reltuples: float4,
     pub relallvisible: int32,
     pub reltoastrelid: Oid,
+    pub reltoastidxid: Oid,
     pub relhasindex: bool_,
     pub relisshared: bool_,
     pub relpersistence: ::std::os::raw::c_char,
@@ -8184,7 +8060,6 @@ pub struct FormData_pg_class {
     pub relhastriggers: bool_,
     pub relhassubclass: bool_,
     pub relispopulated: bool_,
-    pub relreplident: ::std::os::raw::c_char,
     pub relfrozenxid: TransactionId,
     pub relminmxid: TransactionId,
 }
@@ -8207,7 +8082,6 @@ pub struct FormData_pg_index {
     pub indcheckxmin: bool_,
     pub indisready: bool_,
     pub indislive: bool_,
-    pub indisreplident: bool_,
     pub indkey: int2vector,
 }
 impl ::std::default::Default for FormData_pg_index {
@@ -8219,6 +8093,7 @@ pub type Form_pg_index = *mut FormData_pg_index;
 pub struct RewriteRule {
     pub ruleId: Oid,
     pub event: CmdType,
+    pub attrno: AttrNumber,
     pub qual: *mut Node,
     pub actions: *mut List,
     pub enabled: ::std::os::raw::c_char,
@@ -8316,16 +8191,14 @@ pub struct RelationData {
     pub rd_rel: Form_pg_class,
     pub rd_att: TupleDesc,
     pub rd_id: Oid,
+    pub rd_indexlist: *mut List,
+    pub rd_indexattr: *mut Bitmapset,
+    pub rd_keyattr: *mut Bitmapset,
+    pub rd_oidindex: Oid,
     pub rd_lockInfo: LockInfoData,
     pub rd_rules: *mut RuleLock,
     pub rd_rulescxt: MemoryContext,
     pub trigdesc: *mut TriggerDesc,
-    pub rd_indexlist: *mut List,
-    pub rd_oidindex: Oid,
-    pub rd_replidindex: Oid,
-    pub rd_indexattr: *mut Bitmapset,
-    pub rd_keyattr: *mut Bitmapset,
-    pub rd_idattr: *mut Bitmapset,
     pub rd_options: *mut bytea,
     pub rd_index: Form_pg_index,
     pub rd_indextuple: *mut HeapTupleData,
@@ -8362,9 +8235,6 @@ pub struct AutoVacOpts {
     pub freeze_min_age: ::std::os::raw::c_int,
     pub freeze_max_age: ::std::os::raw::c_int,
     pub freeze_table_age: ::std::os::raw::c_int,
-    pub multixact_freeze_min_age: ::std::os::raw::c_int,
-    pub multixact_freeze_max_age: ::std::os::raw::c_int,
-    pub multixact_freeze_table_age: ::std::os::raw::c_int,
     pub vacuum_scale_factor: float8,
     pub analyze_scale_factor: float8,
 }
@@ -8373,23 +8243,24 @@ impl ::std::default::Default for AutoVacOpts {
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
-pub struct StdRdOptions {
-    pub vl_len_: int32,
-    pub fillfactor: ::std::os::raw::c_int,
-    pub autovacuum: AutoVacOpts,
-    pub user_catalog_table: bool_,
+pub struct AutoVacOpts2 {
+    pub multixact_freeze_min_age: ::std::os::raw::c_int,
+    pub multixact_freeze_max_age: ::std::os::raw::c_int,
+    pub multixact_freeze_table_age: ::std::os::raw::c_int,
 }
-impl ::std::default::Default for StdRdOptions {
+impl ::std::default::Default for AutoVacOpts2 {
     fn default() -> Self { unsafe { ::std::mem::zeroed() } }
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
-pub struct ViewOptions {
+pub struct StdRdOptions {
     pub vl_len_: int32,
+    pub fillfactor: ::std::os::raw::c_int,
+    pub autovacuum: AutoVacOpts,
     pub security_barrier: bool_,
-    pub check_option_offset: ::std::os::raw::c_int,
+    pub autovacuum2: AutoVacOpts2,
 }
-impl ::std::default::Default for ViewOptions {
+impl ::std::default::Default for StdRdOptions {
     fn default() -> Self { unsafe { ::std::mem::zeroed() } }
 }
 pub type __builtin_va_list = [__va_list_tag; 1usize];
@@ -8428,7 +8299,6 @@ extern "C" {
     pub static mut needs_fmgr_hook: needs_fmgr_hook_type;
     pub static mut fmgr_hook: fmgr_hook_type;
     pub static mut MyBackendId: BackendId;
-    pub static mut MainLWLockArray: *mut LWLockPadded;
     pub static mut max_locks_per_xact: ::std::os::raw::c_int;
     pub static mut criticalRelcachesBuilt: bool_;
     pub static mut criticalSharedRelcachesBuilt: bool_;
@@ -8440,7 +8310,6 @@ extern "C" {
     pub static mut quote_all_identifiers: bool_;
     pub static mut get_attavgwidth_hook: get_attavgwidth_hook_type;
     pub static mut no_such_variable: ::std::os::raw::c_int;
-    pub static mut forkNames: [*const ::std::os::raw::c_char; 0usize];
 }
 extern "C" {
     pub fn __underflow(arg1: *mut _IO_FILE) -> ::std::os::raw::c_int;
@@ -9416,8 +9285,6 @@ extern "C" {
     pub fn path_is_prefix_of_path(path1: *const ::std::os::raw::c_char,
                                   path2: *const ::std::os::raw::c_char)
      -> bool_;
-    pub fn make_absolute_path(path: *const ::std::os::raw::c_char)
-     -> *mut ::std::os::raw::c_char;
     pub fn get_progname(argv0: *const ::std::os::raw::c_char)
      -> *const ::std::os::raw::c_char;
     pub fn get_share_path(my_exec_path: *const ::std::os::raw::c_char,
@@ -9562,10 +9429,6 @@ extern "C" {
      -> ::std::os::raw::c_int;
     pub fn errdetail_log(fmt: *const ::std::os::raw::c_char, ...)
      -> ::std::os::raw::c_int;
-    pub fn errdetail_log_plural(fmt_singular: *const ::std::os::raw::c_char,
-                                fmt_plural: *const ::std::os::raw::c_char,
-                                n: ::std::os::raw::c_ulong, ...)
-     -> ::std::os::raw::c_int;
     pub fn errdetail_plural(fmt_singular: *const ::std::os::raw::c_char,
                             fmt_plural: *const ::std::os::raw::c_char,
                             n: ::std::os::raw::c_ulong, ...)
@@ -9606,7 +9469,6 @@ extern "C" {
     pub fn FlushErrorState();
     pub fn ReThrowError(edata: *mut ErrorData);
     pub fn pg_re_throw();
-    pub fn GetErrorContextStack() -> *mut ::std::os::raw::c_char;
     pub fn DebugFileOpen();
     pub fn unpack_sql_state(sql_state: ::std::os::raw::c_int)
      -> *mut ::std::os::raw::c_char;
@@ -9625,10 +9487,6 @@ extern "C" {
     pub fn repalloc(pointer: *mut ::std::os::raw::c_void, size: Size)
      -> *mut ::std::os::raw::c_void;
     pub fn pfree(pointer: *mut ::std::os::raw::c_void);
-    pub fn MemoryContextAllocHuge(context: MemoryContext, size: Size)
-     -> *mut ::std::os::raw::c_void;
-    pub fn repalloc_huge(pointer: *mut ::std::os::raw::c_void, size: Size)
-     -> *mut ::std::os::raw::c_void;
     pub fn MemoryContextStrdup(context: MemoryContext,
                                string: *const ::std::os::raw::c_char)
      -> *mut ::std::os::raw::c_char;
@@ -9636,11 +9494,6 @@ extern "C" {
      -> *mut ::std::os::raw::c_char;
     pub fn pnstrdup(in_: *const ::std::os::raw::c_char, len: Size)
      -> *mut ::std::os::raw::c_char;
-    pub fn psprintf(fmt: *const ::std::os::raw::c_char, ...)
-     -> *mut ::std::os::raw::c_char;
-    pub fn pvsnprintf(buf: *mut ::std::os::raw::c_char, len: size_t,
-                      fmt: *const ::std::os::raw::c_char, args: va_list)
-     -> size_t;
     pub fn DatumGetFloat4(X: Datum) -> float4;
     pub fn Float4GetDatum(X: float4) -> Datum;
     pub fn DatumGetFloat8(X: Datum) -> float8;
@@ -9752,8 +9605,6 @@ extern "C" {
                            attrs: *mut Form_pg_attribute) -> TupleDesc;
     pub fn CreateTupleDescCopy(tupdesc: TupleDesc) -> TupleDesc;
     pub fn CreateTupleDescCopyConstr(tupdesc: TupleDesc) -> TupleDesc;
-    pub fn TupleDescCopyEntry(dst: TupleDesc, dstAttno: AttrNumber,
-                              src: TupleDesc, srcAttno: AttrNumber);
     pub fn FreeTupleDesc(tupdesc: TupleDesc);
     pub fn IncrTupleDescRefCount(tupdesc: TupleDesc);
     pub fn DecrTupleDescRefCount(tupdesc: TupleDesc);
@@ -9810,7 +9661,6 @@ extern "C" {
                               kind: relopt_kind) -> *mut bytea;
     pub fn heap_reloptions(relkind: ::std::os::raw::c_char, reloptions: Datum,
                            validate: bool_) -> *mut bytea;
-    pub fn view_reloptions(reloptions: Datum, validate: bool_) -> *mut bytea;
     pub fn index_reloptions(amoptions: RegProcedure, reloptions: Datum,
                             validate: bool_) -> *mut bytea;
     pub fn attribute_reloptions(reloptions: Datum, validate: bool_)
@@ -9963,11 +9813,6 @@ extern "C" {
     pub fn AggCheckCallContext(fcinfo: FunctionCallInfo,
                                aggcontext: *mut MemoryContext)
      -> ::std::os::raw::c_int;
-    pub fn AggGetAggref(fcinfo: FunctionCallInfo) -> fmAggrefPtr;
-    pub fn AggGetTempMemoryContext(fcinfo: FunctionCallInfo) -> MemoryContext;
-    pub fn AggRegisterCallback(fcinfo: FunctionCallInfo,
-                               func: fmExprContextCallbackFunction,
-                               arg: Datum);
     pub fn fmgr(procedureId: Oid, ...) -> *mut ::std::os::raw::c_char;
     pub fn ScanKeyInit(entry: ScanKey, attributeNumber: AttrNumber,
                        strategy: StrategyNumber, procedure: RegProcedure,
@@ -9996,34 +9841,18 @@ extern "C" {
     pub fn tbm_begin_iterate(tbm: *mut TIDBitmap) -> *mut TBMIterator;
     pub fn tbm_iterate(iterator: *mut TBMIterator) -> *mut TBMIterateResult;
     pub fn tbm_end_iterate(iterator: *mut TBMIterator);
-    pub fn s_lock(lock: *mut slock_t, file: *const ::std::os::raw::c_char,
-                  line: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
-    pub fn set_spins_per_delay(shared_spins_per_delay: ::std::os::raw::c_int);
-    pub fn update_spins_per_delay(shared_spins_per_delay:
-                                      ::std::os::raw::c_int)
-     -> ::std::os::raw::c_int;
-    pub fn LWLockAcquire(lock: *mut LWLock, mode: LWLockMode) -> bool_;
-    pub fn LWLockConditionalAcquire(lock: *mut LWLock, mode: LWLockMode)
+    pub fn LWLockAssign() -> LWLockId;
+    pub fn LWLockAcquire(lockid: LWLockId, mode: LWLockMode);
+    pub fn LWLockConditionalAcquire(lockid: LWLockId, mode: LWLockMode)
      -> bool_;
-    pub fn LWLockAcquireOrWait(lock: *mut LWLock, mode: LWLockMode) -> bool_;
-    pub fn LWLockRelease(lock: *mut LWLock);
+    pub fn LWLockAcquireOrWait(lockid: LWLockId, mode: LWLockMode) -> bool_;
+    pub fn LWLockRelease(lockid: LWLockId);
     pub fn LWLockReleaseAll();
-    pub fn LWLockHeldByMe(lock: *mut LWLock) -> bool_;
-    pub fn LWLockAcquireWithVar(lock: *mut LWLock, valptr: *mut uint64,
-                                val: uint64) -> bool_;
-    pub fn LWLockWaitForVar(lock: *mut LWLock, valptr: *mut uint64,
-                            oldval: uint64, newval: *mut uint64) -> bool_;
-    pub fn LWLockUpdateVar(lock: *mut LWLock, valptr: *mut uint64,
-                           value: uint64);
+    pub fn LWLockHeldByMe(lockid: LWLockId) -> bool_;
+    pub fn NumLWLocks() -> ::std::os::raw::c_int;
     pub fn LWLockShmemSize() -> Size;
     pub fn CreateLWLocks();
     pub fn RequestAddinLWLocks(n: ::std::os::raw::c_int);
-    pub fn LWLockAssign() -> *mut LWLock;
-    pub fn LWLockNewTrancheId() -> ::std::os::raw::c_int;
-    pub fn LWLockRegisterTranche(arg1: ::std::os::raw::c_int,
-                                 arg2: *mut LWLockTranche);
-    pub fn LWLockInitialize(arg1: *mut LWLock,
-                            tranche_id: ::std::os::raw::c_int);
     pub fn hash_create(tabname: *const ::std::os::raw::c_char,
                        nelem: ::std::os::raw::c_long, info: *mut HASHCTL,
                        flags: ::std::os::raw::c_int) -> *mut HTAB;
@@ -10125,8 +9954,8 @@ extern "C" {
     pub fn AtPrepare_Locks();
     pub fn PostPrepare_Locks(xid: TransactionId);
     pub fn LockCheckConflicts(lockMethodTable: LockMethod, lockmode: LOCKMODE,
-                              lock: *mut LOCK, proclock: *mut PROCLOCK)
-     -> ::std::os::raw::c_int;
+                              lock: *mut LOCK, proclock: *mut PROCLOCK,
+                              proc_: *mut PGPROC) -> ::std::os::raw::c_int;
     pub fn GrantLock(lock: *mut LOCK, proclock: *mut PROCLOCK,
                      lockmode: LOCKMODE);
     pub fn GrantAwaitedLock();
@@ -10198,11 +10027,9 @@ extern "C" {
     pub fn RelationClose(relation: Relation);
     pub fn RelationGetIndexList(relation: Relation) -> *mut List;
     pub fn RelationGetOidIndex(relation: Relation) -> Oid;
-    pub fn RelationGetReplicaIndex(relation: Relation) -> Oid;
     pub fn RelationGetIndexExpressions(relation: Relation) -> *mut List;
     pub fn RelationGetIndexPredicate(relation: Relation) -> *mut List;
-    pub fn RelationGetIndexAttrBitmap(relation: Relation,
-                                      keyAttrs: IndexAttrBitmapKind)
+    pub fn RelationGetIndexAttrBitmap(relation: Relation, keyAttrs: bool_)
      -> *mut Bitmapset;
     pub fn RelationGetExclusionInfo(indexRelation: Relation,
                                     operators: *mut *mut Oid,
@@ -10361,9 +10188,6 @@ extern "C" {
     pub fn heap_beginscan(relation: Relation, snapshot: Snapshot,
                           nkeys: ::std::os::raw::c_int, key: ScanKey)
      -> HeapScanDesc;
-    pub fn heap_beginscan_catalog(relation: Relation,
-                                  nkeys: ::std::os::raw::c_int, key: ScanKey)
-     -> HeapScanDesc;
     pub fn heap_beginscan_strat(relation: Relation, snapshot: Snapshot,
                                 nkeys: ::std::os::raw::c_int, key: ScanKey,
                                 allow_strat: bool_, allow_sync: bool_)
@@ -10423,7 +10247,8 @@ extern "C" {
     pub fn heap_markpos(scan: HeapScanDesc);
     pub fn heap_restrpos(scan: HeapScanDesc);
     pub fn heap_sync(relation: Relation);
-    pub fn heap_page_prune_opt(relation: Relation, buffer: Buffer);
+    pub fn heap_page_prune_opt(relation: Relation, buffer: Buffer,
+                               OldestXmin: TransactionId);
     pub fn heap_page_prune(relation: Relation, buffer: Buffer,
                            OldestXmin: TransactionId, report_stats: bool_,
                            latestRemovedXid: *mut TransactionId)
@@ -10530,8 +10355,6 @@ extern "C" {
                                    slot: *mut TupleTableSlot) -> bool_;
     pub fn tuplestore_advance(state: *mut Tuplestorestate, forward: bool_)
      -> bool_;
-    pub fn tuplestore_skiptuples(state: *mut Tuplestorestate, ntuples: int64,
-                                 forward: bool_) -> bool_;
     pub fn tuplestore_ateof(state: *mut Tuplestorestate) -> bool_;
     pub fn tuplestore_rescan(state: *mut Tuplestorestate);
     pub fn tuplestore_clear(state: *mut Tuplestorestate);
@@ -10613,7 +10436,7 @@ extern "C" {
                                     rel: *mut RelOptInfo, pathkeys: *mut List,
                                     required_outer: Relids) -> *mut Path;
     pub fn create_functionscan_path(root: *mut PlannerInfo,
-                                    rel: *mut RelOptInfo, pathkeys: *mut List,
+                                    rel: *mut RelOptInfo,
                                     required_outer: Relids) -> *mut Path;
     pub fn create_valuesscan_path(root: *mut PlannerInfo,
                                   rel: *mut RelOptInfo,
@@ -10683,7 +10506,6 @@ extern "C" {
                                      joinrelids: Relids,
                                      outer_rel: *mut RelOptInfo,
                                      inner_rel: *mut RelOptInfo) -> Relids;
-    pub fn build_empty_join_rel(root: *mut PlannerInfo) -> *mut RelOptInfo;
     pub fn find_childrel_appendrelinfo(root: *mut PlannerInfo,
                                        rel: *mut RelOptInfo)
      -> *mut AppendRelInfo;
@@ -10707,9 +10529,11 @@ extern "C" {
                                        required_outer: Relids)
      -> *mut ParamPathInfo;
     pub fn query_planner(root: *mut PlannerInfo, tlist: *mut List,
+                         tuple_fraction: f64, limit_tuples: f64,
                          qp_callback: query_pathkeys_callback,
-                         qp_extra: *mut ::std::os::raw::c_void)
-     -> *mut RelOptInfo;
+                         qp_extra: *mut ::std::os::raw::c_void,
+                         cheapest_path: *mut *mut Path,
+                         sorted_path: *mut *mut Path, num_groups: *mut f64);
     pub fn preprocess_minmax_aggregates(root: *mut PlannerInfo,
                                         tlist: *mut List);
     pub fn optimize_minmax_aggregates(root: *mut PlannerInfo,
@@ -10781,9 +10605,8 @@ extern "C" {
      -> *mut Result;
     pub fn make_modifytable(root: *mut PlannerInfo, operation: CmdType,
                             canSetTag: bool_, resultRelations: *mut List,
-                            subplans: *mut List,
-                            withCheckOptionLists: *mut List,
-                            returningLists: *mut List, rowMarks: *mut List,
+                            subplans: *mut List, returningLists: *mut List,
+                            rowMarks: *mut List,
                             epqParam: ::std::os::raw::c_int)
      -> *mut ModifyTable;
     pub fn is_projection_capable_plan(plan: *mut Plan) -> bool_;
@@ -10824,6 +10647,10 @@ extern "C" {
                              outerjoin_delayed: bool_, pseudoconstant: bool_,
                              required_relids: Relids, outer_relids: Relids,
                              nullable_relids: Relids) -> *mut RestrictInfo;
+    pub fn make_restrictinfo_from_bitmapqual(bitmapqual: *mut Path,
+                                             is_pushed_down: bool_,
+                                             include_predicates: bool_)
+     -> *mut List;
     pub fn make_restrictinfos_from_actual_clauses(root: *mut PlannerInfo,
                                                   clause_list: *mut List)
      -> *mut List;
@@ -10964,10 +10791,6 @@ extern "C" {
     pub fn boolge(fcinfo: FunctionCallInfo) -> Datum;
     pub fn booland_statefunc(fcinfo: FunctionCallInfo) -> Datum;
     pub fn boolor_statefunc(fcinfo: FunctionCallInfo) -> Datum;
-    pub fn bool_accum(fcinfo: FunctionCallInfo) -> Datum;
-    pub fn bool_accum_inv(fcinfo: FunctionCallInfo) -> Datum;
-    pub fn bool_alltrue(fcinfo: FunctionCallInfo) -> Datum;
-    pub fn bool_anytrue(fcinfo: FunctionCallInfo) -> Datum;
     pub fn parse_bool(value: *const ::std::os::raw::c_char,
                       result: *mut bool_) -> bool_;
     pub fn parse_bool_with_len(value: *const ::std::os::raw::c_char,
@@ -11292,7 +11115,6 @@ extern "C" {
     pub fn pg_table_size(fcinfo: FunctionCallInfo) -> Datum;
     pub fn pg_indexes_size(fcinfo: FunctionCallInfo) -> Datum;
     pub fn pg_relation_filenode(fcinfo: FunctionCallInfo) -> Datum;
-    pub fn pg_filenode_relation(fcinfo: FunctionCallInfo) -> Datum;
     pub fn pg_relation_filepath(fcinfo: FunctionCallInfo) -> Datum;
     pub fn read_binary_file(filename: *const ::std::os::raw::c_char,
                             seek_offset: int64, bytes_to_read: int64)
@@ -11342,21 +11164,6 @@ extern "C" {
     pub fn buildoidvector(oids: *const Oid, n: ::std::os::raw::c_int)
      -> *mut oidvector;
     pub fn oidparse(node: *mut Node) -> Oid;
-    pub fn ordered_set_transition(fcinfo: FunctionCallInfo) -> Datum;
-    pub fn ordered_set_transition_multi(fcinfo: FunctionCallInfo) -> Datum;
-    pub fn percentile_disc_final(fcinfo: FunctionCallInfo) -> Datum;
-    pub fn percentile_cont_float8_final(fcinfo: FunctionCallInfo) -> Datum;
-    pub fn percentile_cont_interval_final(fcinfo: FunctionCallInfo) -> Datum;
-    pub fn percentile_disc_multi_final(fcinfo: FunctionCallInfo) -> Datum;
-    pub fn percentile_cont_float8_multi_final(fcinfo: FunctionCallInfo)
-     -> Datum;
-    pub fn percentile_cont_interval_multi_final(fcinfo: FunctionCallInfo)
-     -> Datum;
-    pub fn mode_final(fcinfo: FunctionCallInfo) -> Datum;
-    pub fn hypothetical_rank_final(fcinfo: FunctionCallInfo) -> Datum;
-    pub fn hypothetical_percent_rank_final(fcinfo: FunctionCallInfo) -> Datum;
-    pub fn hypothetical_cume_dist_final(fcinfo: FunctionCallInfo) -> Datum;
-    pub fn hypothetical_dense_rank_final(fcinfo: FunctionCallInfo) -> Datum;
     pub fn cstring_in(fcinfo: FunctionCallInfo) -> Datum;
     pub fn cstring_out(fcinfo: FunctionCallInfo) -> Datum;
     pub fn cstring_recv(fcinfo: FunctionCallInfo) -> Datum;
@@ -11420,8 +11227,6 @@ extern "C" {
      -> *mut ::std::os::raw::c_char;
     pub fn regprocin(fcinfo: FunctionCallInfo) -> Datum;
     pub fn regprocout(fcinfo: FunctionCallInfo) -> Datum;
-    pub fn to_regproc(fcinfo: FunctionCallInfo) -> Datum;
-    pub fn to_regprocedure(fcinfo: FunctionCallInfo) -> Datum;
     pub fn regprocrecv(fcinfo: FunctionCallInfo) -> Datum;
     pub fn regprocsend(fcinfo: FunctionCallInfo) -> Datum;
     pub fn regprocedurein(fcinfo: FunctionCallInfo) -> Datum;
@@ -11432,8 +11237,6 @@ extern "C" {
     pub fn regoperout(fcinfo: FunctionCallInfo) -> Datum;
     pub fn regoperrecv(fcinfo: FunctionCallInfo) -> Datum;
     pub fn regopersend(fcinfo: FunctionCallInfo) -> Datum;
-    pub fn to_regoper(fcinfo: FunctionCallInfo) -> Datum;
-    pub fn to_regoperator(fcinfo: FunctionCallInfo) -> Datum;
     pub fn regoperatorin(fcinfo: FunctionCallInfo) -> Datum;
     pub fn regoperatorout(fcinfo: FunctionCallInfo) -> Datum;
     pub fn regoperatorrecv(fcinfo: FunctionCallInfo) -> Datum;
@@ -11442,12 +11245,10 @@ extern "C" {
     pub fn regclassout(fcinfo: FunctionCallInfo) -> Datum;
     pub fn regclassrecv(fcinfo: FunctionCallInfo) -> Datum;
     pub fn regclasssend(fcinfo: FunctionCallInfo) -> Datum;
-    pub fn to_regclass(fcinfo: FunctionCallInfo) -> Datum;
     pub fn regtypein(fcinfo: FunctionCallInfo) -> Datum;
     pub fn regtypeout(fcinfo: FunctionCallInfo) -> Datum;
     pub fn regtyperecv(fcinfo: FunctionCallInfo) -> Datum;
     pub fn regtypesend(fcinfo: FunctionCallInfo) -> Datum;
-    pub fn to_regtype(fcinfo: FunctionCallInfo) -> Datum;
     pub fn regconfigin(fcinfo: FunctionCallInfo) -> Datum;
     pub fn regconfigout(fcinfo: FunctionCallInfo) -> Datum;
     pub fn regconfigrecv(fcinfo: FunctionCallInfo) -> Datum;
@@ -11477,13 +11278,6 @@ extern "C" {
     pub fn record_le(fcinfo: FunctionCallInfo) -> Datum;
     pub fn record_ge(fcinfo: FunctionCallInfo) -> Datum;
     pub fn btrecordcmp(fcinfo: FunctionCallInfo) -> Datum;
-    pub fn record_image_eq(fcinfo: FunctionCallInfo) -> Datum;
-    pub fn record_image_ne(fcinfo: FunctionCallInfo) -> Datum;
-    pub fn record_image_lt(fcinfo: FunctionCallInfo) -> Datum;
-    pub fn record_image_gt(fcinfo: FunctionCallInfo) -> Datum;
-    pub fn record_image_le(fcinfo: FunctionCallInfo) -> Datum;
-    pub fn record_image_ge(fcinfo: FunctionCallInfo) -> Datum;
-    pub fn btrecordimagecmp(fcinfo: FunctionCallInfo) -> Datum;
     pub fn pg_get_ruledef(fcinfo: FunctionCallInfo) -> Datum;
     pub fn pg_get_ruledef_ext(fcinfo: FunctionCallInfo) -> Datum;
     pub fn pg_get_viewdef(fcinfo: FunctionCallInfo) -> Datum;
@@ -11512,7 +11306,6 @@ extern "C" {
     pub fn pg_get_function_identity_arguments(fcinfo: FunctionCallInfo)
      -> Datum;
     pub fn pg_get_function_result(fcinfo: FunctionCallInfo) -> Datum;
-    pub fn pg_get_function_arg_default(fcinfo: FunctionCallInfo) -> Datum;
     pub fn deparse_expression(expr: *mut Node, dpcontext: *mut List,
                               forceprefix: bool_, showimplicit: bool_)
      -> *mut ::std::os::raw::c_char;
@@ -11733,7 +11526,6 @@ extern "C" {
     pub fn network_subeq(fcinfo: FunctionCallInfo) -> Datum;
     pub fn network_sup(fcinfo: FunctionCallInfo) -> Datum;
     pub fn network_supeq(fcinfo: FunctionCallInfo) -> Datum;
-    pub fn network_overlap(fcinfo: FunctionCallInfo) -> Datum;
     pub fn network_network(fcinfo: FunctionCallInfo) -> Datum;
     pub fn network_netmask(fcinfo: FunctionCallInfo) -> Datum;
     pub fn network_hostmask(fcinfo: FunctionCallInfo) -> Datum;
@@ -11829,16 +11621,11 @@ extern "C" {
     pub fn numeric_float4(fcinfo: FunctionCallInfo) -> Datum;
     pub fn numeric_accum(fcinfo: FunctionCallInfo) -> Datum;
     pub fn numeric_avg_accum(fcinfo: FunctionCallInfo) -> Datum;
-    pub fn numeric_accum_inv(fcinfo: FunctionCallInfo) -> Datum;
     pub fn int2_accum(fcinfo: FunctionCallInfo) -> Datum;
     pub fn int4_accum(fcinfo: FunctionCallInfo) -> Datum;
     pub fn int8_accum(fcinfo: FunctionCallInfo) -> Datum;
-    pub fn int2_accum_inv(fcinfo: FunctionCallInfo) -> Datum;
-    pub fn int4_accum_inv(fcinfo: FunctionCallInfo) -> Datum;
-    pub fn int8_accum_inv(fcinfo: FunctionCallInfo) -> Datum;
     pub fn int8_avg_accum(fcinfo: FunctionCallInfo) -> Datum;
     pub fn numeric_avg(fcinfo: FunctionCallInfo) -> Datum;
-    pub fn numeric_sum(fcinfo: FunctionCallInfo) -> Datum;
     pub fn numeric_var_pop(fcinfo: FunctionCallInfo) -> Datum;
     pub fn numeric_var_samp(fcinfo: FunctionCallInfo) -> Datum;
     pub fn numeric_stddev_pop(fcinfo: FunctionCallInfo) -> Datum;
@@ -11848,10 +11635,7 @@ extern "C" {
     pub fn int8_sum(fcinfo: FunctionCallInfo) -> Datum;
     pub fn int2_avg_accum(fcinfo: FunctionCallInfo) -> Datum;
     pub fn int4_avg_accum(fcinfo: FunctionCallInfo) -> Datum;
-    pub fn int2_avg_accum_inv(fcinfo: FunctionCallInfo) -> Datum;
-    pub fn int4_avg_accum_inv(fcinfo: FunctionCallInfo) -> Datum;
     pub fn int8_avg(fcinfo: FunctionCallInfo) -> Datum;
-    pub fn int2int4_sum(fcinfo: FunctionCallInfo) -> Datum;
     pub fn width_bucket_numeric(fcinfo: FunctionCallInfo) -> Datum;
     pub fn hash_numeric(fcinfo: FunctionCallInfo) -> Datum;
     pub fn RI_FKey_check_ins(fcinfo: FunctionCallInfo) -> Datum;
@@ -11981,7 +11765,6 @@ extern "C" {
     pub fn ginarrayextract_2args(fcinfo: FunctionCallInfo) -> Datum;
     pub fn ginqueryarrayextract(fcinfo: FunctionCallInfo) -> Datum;
     pub fn ginarrayconsistent(fcinfo: FunctionCallInfo) -> Datum;
-    pub fn ginarraytriconsistent(fcinfo: FunctionCallInfo) -> Datum;
     pub fn pg_prepared_xact(fcinfo: FunctionCallInfo) -> Datum;
     pub fn pg_get_multixact_members(fcinfo: FunctionCallInfo) -> Datum;
     pub fn pg_describe_object(fcinfo: FunctionCallInfo) -> Datum;
@@ -12002,7 +11785,7 @@ extern "C" {
                             fmt: *const ::std::os::raw::c_char, ...);
     pub fn appendStringInfoVA(str: StringInfo,
                               fmt: *const ::std::os::raw::c_char,
-                              args: va_list) -> ::std::os::raw::c_int;
+                              args: va_list) -> bool_;
     pub fn appendStringInfoString(str: StringInfo,
                                   s: *const ::std::os::raw::c_char);
     pub fn appendStringInfoChar(str: StringInfo, ch: ::std::os::raw::c_char);
@@ -12023,16 +11806,7 @@ extern "C" {
     pub fn to_json(fcinfo: FunctionCallInfo) -> Datum;
     pub fn json_agg_transfn(fcinfo: FunctionCallInfo) -> Datum;
     pub fn json_agg_finalfn(fcinfo: FunctionCallInfo) -> Datum;
-    pub fn json_object_agg_finalfn(fcinfo: FunctionCallInfo) -> Datum;
-    pub fn json_object_agg_transfn(fcinfo: FunctionCallInfo) -> Datum;
-    pub fn json_build_object(fcinfo: FunctionCallInfo) -> Datum;
-    pub fn json_build_object_noargs(fcinfo: FunctionCallInfo) -> Datum;
-    pub fn json_build_array(fcinfo: FunctionCallInfo) -> Datum;
-    pub fn json_build_array_noargs(fcinfo: FunctionCallInfo) -> Datum;
-    pub fn json_object(fcinfo: FunctionCallInfo) -> Datum;
-    pub fn json_object_two_arg(fcinfo: FunctionCallInfo) -> Datum;
     pub fn escape_json(buf: StringInfo, str: *const ::std::os::raw::c_char);
-    pub fn json_typeof(fcinfo: FunctionCallInfo) -> Datum;
     pub fn json_object_field(fcinfo: FunctionCallInfo) -> Datum;
     pub fn json_object_field_text(fcinfo: FunctionCallInfo) -> Datum;
     pub fn json_array_element(fcinfo: FunctionCallInfo) -> Datum;
@@ -12044,27 +11818,8 @@ extern "C" {
     pub fn json_each(fcinfo: FunctionCallInfo) -> Datum;
     pub fn json_each_text(fcinfo: FunctionCallInfo) -> Datum;
     pub fn json_array_elements(fcinfo: FunctionCallInfo) -> Datum;
-    pub fn json_array_elements_text(fcinfo: FunctionCallInfo) -> Datum;
     pub fn json_populate_record(fcinfo: FunctionCallInfo) -> Datum;
     pub fn json_populate_recordset(fcinfo: FunctionCallInfo) -> Datum;
-    pub fn json_to_record(fcinfo: FunctionCallInfo) -> Datum;
-    pub fn json_to_recordset(fcinfo: FunctionCallInfo) -> Datum;
-    pub fn jsonb_object_field(fcinfo: FunctionCallInfo) -> Datum;
-    pub fn jsonb_object_field_text(fcinfo: FunctionCallInfo) -> Datum;
-    pub fn jsonb_array_element(fcinfo: FunctionCallInfo) -> Datum;
-    pub fn jsonb_array_element_text(fcinfo: FunctionCallInfo) -> Datum;
-    pub fn jsonb_extract_path(fcinfo: FunctionCallInfo) -> Datum;
-    pub fn jsonb_extract_path_text(fcinfo: FunctionCallInfo) -> Datum;
-    pub fn jsonb_object_keys(fcinfo: FunctionCallInfo) -> Datum;
-    pub fn jsonb_array_length(fcinfo: FunctionCallInfo) -> Datum;
-    pub fn jsonb_each(fcinfo: FunctionCallInfo) -> Datum;
-    pub fn jsonb_each_text(fcinfo: FunctionCallInfo) -> Datum;
-    pub fn jsonb_array_elements_text(fcinfo: FunctionCallInfo) -> Datum;
-    pub fn jsonb_array_elements(fcinfo: FunctionCallInfo) -> Datum;
-    pub fn jsonb_populate_record(fcinfo: FunctionCallInfo) -> Datum;
-    pub fn jsonb_populate_recordset(fcinfo: FunctionCallInfo) -> Datum;
-    pub fn jsonb_to_record(fcinfo: FunctionCallInfo) -> Datum;
-    pub fn jsonb_to_recordset(fcinfo: FunctionCallInfo) -> Datum;
     pub fn op_in_opfamily(opno: Oid, opfamily: Oid) -> bool_;
     pub fn get_op_opfamily_strategy(opno: Oid, opfamily: Oid)
      -> ::std::os::raw::c_int;
@@ -12127,7 +11882,6 @@ extern "C" {
     pub fn get_func_nargs(funcid: Oid) -> ::std::os::raw::c_int;
     pub fn get_func_signature(funcid: Oid, argtypes: *mut *mut Oid,
                               nargs: *mut ::std::os::raw::c_int) -> Oid;
-    pub fn get_func_variadictype(funcid: Oid) -> Oid;
     pub fn get_func_retset(funcid: Oid) -> bool_;
     pub fn func_strict(funcid: Oid) -> bool_;
     pub fn func_volatile(funcid: Oid) -> ::std::os::raw::c_char;
@@ -12197,16 +11951,6 @@ extern "C" {
                              nnumbers: ::std::os::raw::c_int);
     pub fn get_namespace_name(nspid: Oid) -> *mut ::std::os::raw::c_char;
     pub fn get_range_subtype(rangeOid: Oid) -> Oid;
-    pub fn forkname_to_number(forkName: *const ::std::os::raw::c_char)
-     -> ForkNumber;
-    pub fn forkname_chars(str: *const ::std::os::raw::c_char,
-                          fork: *mut ForkNumber) -> ::std::os::raw::c_int;
-    pub fn GetDatabasePath(dbNode: Oid, spcNode: Oid)
-     -> *mut ::std::os::raw::c_char;
-    pub fn GetRelationPath(dbNode: Oid, spcNode: Oid, relNode: Oid,
-                           backendId: ::std::os::raw::c_int,
-                           forkNumber: ForkNumber)
-     -> *mut ::std::os::raw::c_char;
     pub fn RelationIncrementReferenceCount(rel: Relation);
     pub fn RelationDecrementReferenceCount(rel: Relation);
 }
