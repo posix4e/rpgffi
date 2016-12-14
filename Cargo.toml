@@ -1,9 +1,9 @@
 [package]
 name = "rpgffi"
-version = "0.1.1"
+version = "0.2.0"
 authors = ["posi@planet.com", "Jason Dusek <jason.dusek@gmail.com>"]
 build = "build.rs"
-description = "Bindgen generated bindings for postgresql 9.4, 9.5, 9.6 Beta!"
+description = "Toolkit for FDW and Logical Decoders for postgresql"
 keywords = ["postgresql"]
 license = "Apache-2.0/PostgreSQL"
 repository = "http://github.com/posix4e/rpgffi"
