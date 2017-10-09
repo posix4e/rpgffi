@@ -11,6 +11,7 @@ Bindings for postgresql
 - 9.4 FDW, Logical Decoding
 - 9.5 FDW, Logical Decoding
 - 9.6 FDW, Logical Decoding
+- 10.0 FDW, Logical Decoding
 
 - [jsoncdc](https://github.com/posix4e/jsoncdc)
 
