@@ -1,33 +1,39 @@
 version: '2'
 services:
-  rpgffi96:
+  rpgffi10:
     environment:
       - PATH=$PATH:/root/.cargo/bin
     build:
       context: .
       dockerfile: Dockerfile
       args:
-        - PG_VER=9.6
-        - RUST_VER=1.13.0
+        - PG_VER=10
+        - RUST_VER=1.20.0
     volumes:
       - .:/source
     working_dir: /source
     command: util/generate_bindings
+  rpgffi96:
+    extends:
+      service: rpgffi10
+    build:
+      args:
+        - PG_VER=9.6
   rpgffi95:
     extends:
-      service: rpgffi96
+      service: rpgffi10
     build:
       args:
         - PG_VER=9.5
   rpgffi94:
     extends:
-      service: rpgffi95
+      service: rpgffi10
     build:
       args:
         - PG_VER=9.4
   rpgffi93:
     extends:
-      service: rpgffi94
+      service: rpgffi10
     build:
       args:
         - PG_VER=9.3

@@ -1,7 +1,7 @@
 FROM ubuntu:xenial
 MAINTAINER Drazen Urch <github@drazenur.ch>
 
-ARG PG_VER=9.6
+ARG PG_VER=10
 ARG RUST_VER=1.13.0
 
 ENV USER root
