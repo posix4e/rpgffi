@@ -53,4 +53,4 @@ fi
 
 gcc -I "`pg_config --includedir-server`" -E tmp/pgheaders.h | grep -v int128 > tmp/pgexpanded.h
 
-bindgen --no-derive-debug --builtins tmp/pgexpanded.h > "$output"
+bindgen --no-derive-debug --builtins tmp/pgexpanded.h -o "$output"
