@@ -1,7 +1,8 @@
 #!/bin/bash
 set -ex
 
-pg_short_version=pg"`pg_config --version | cut -d' ' -f2 | tr -d . | cut -c-2`"
+pg_version_num="`pg_config --version | cut -d' ' -f2 | tr -d . | cut -c-2`"
+pg_short_version=pg"$pg_version_num"
 output=src/"$pg_short_version".rs
 
 case "${1:-}" in
@@ -43,7 +44,7 @@ cat > tmp/pgheaders.h <<\EOF
 #include "utils/rel.h"
 EOF
 
-if (( $(bc <<< "$pg_short_version > 9.3") ))
+if (( $(bc <<< "$pg_version_num > 9.3") ))
   then cat >> tmp/pgheaders.h <<\EOF
 #include "replication/output_plugin.h"
 #include "replication/logical.h"
