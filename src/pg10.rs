@@ -9630,15 +9630,71 @@ extern "C" {
     pub static mut criticalSharedRelcachesBuilt: bool_;
 }
 #[repr(C)]
-#[derive(Debug, Copy, Clone)]
 pub struct HeapTupleHeaderData {
-    _unused: [u8; 0],
+    pub t_choice: HeapTupleHeaderData__bindgen_ty_1,
+    pub t_ctid: ItemPointerData,
+    pub t_infomask2: uint16,
+    pub t_infomask: uint16,
+    pub t_hoff: uint8,
+    pub t_bits: __IncompleteArrayField<bits8>,
+}
+#[repr(C)]
+#[derive(Copy)]
+pub union HeapTupleHeaderData__bindgen_ty_1 {
+    pub t_heap: HeapTupleFields,
+    pub t_datum: DatumTupleFields,
+    _bindgen_union_align: [u32; 3usize],
+}
+#[test]
+fn bindgen_test_layout_HeapTupleHeaderData__bindgen_ty_1() {
+    assert_eq!(::std::mem::size_of::<HeapTupleHeaderData__bindgen_ty_1>() ,
+               12usize , concat ! (
+               "Size of: " , stringify ! ( HeapTupleHeaderData__bindgen_ty_1 )
+               ));
+    assert_eq! (::std::mem::align_of::<HeapTupleHeaderData__bindgen_ty_1>() ,
+                4usize , concat ! (
+                "Alignment of " , stringify ! (
+                HeapTupleHeaderData__bindgen_ty_1 ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const HeapTupleHeaderData__bindgen_ty_1 ) ) .
+                t_heap as * const _ as usize } , 0usize , concat ! (
+                "Alignment of field: " , stringify ! (
+                HeapTupleHeaderData__bindgen_ty_1 ) , "::" , stringify ! (
+                t_heap ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const HeapTupleHeaderData__bindgen_ty_1 ) ) .
+                t_datum as * const _ as usize } , 0usize , concat ! (
+                "Alignment of field: " , stringify ! (
+                HeapTupleHeaderData__bindgen_ty_1 ) , "::" , stringify ! (
+                t_datum ) ));
+}
+impl Clone for HeapTupleHeaderData__bindgen_ty_1 {
+    fn clone(&self) -> Self { *self }
+}
+#[test]
+fn bindgen_test_layout_HeapTupleHeaderData() {
+    assert_eq!(::std::mem::size_of::<HeapTupleHeaderData>() , 24usize , concat
+               ! ( "Size of: " , stringify ! ( HeapTupleHeaderData ) ));
+    assert_eq! (::std::mem::align_of::<HeapTupleHeaderData>() , 4usize ,
+                concat ! (
+                "Alignment of " , stringify ! ( HeapTupleHeaderData ) ));
 }
 pub type HeapTupleHeader = *mut HeapTupleHeaderData;
 #[repr(C)]
-#[derive(Debug, Copy, Clone)]
 pub struct MinimalTupleData {
-    _unused: [u8; 0],
+    pub t_len: uint32,
+    pub mt_padding: [::std::os::raw::c_char; 6usize],
+    pub t_infomask2: uint16,
+    pub t_infomask: uint16,
+    pub t_hoff: uint8,
+    pub t_bits: __IncompleteArrayField<bits8>,
+}
+#[test]
+fn bindgen_test_layout_MinimalTupleData() {
+    assert_eq!(::std::mem::size_of::<MinimalTupleData>() , 16usize , concat !
+               ( "Size of: " , stringify ! ( MinimalTupleData ) ));
+    assert_eq! (::std::mem::align_of::<MinimalTupleData>() , 4usize , concat !
+                ( "Alignment of " , stringify ! ( MinimalTupleData ) ));
 }
 pub type MinimalTuple = *mut MinimalTupleData;
 #[repr(C)]
@@ -53325,6 +53381,2285 @@ extern "C" {
 extern "C" {
     pub fn RelationGetRepsetList(rel: Relation) -> *mut List;
 }
+#[repr(C)]
+#[derive(Copy)]
+pub struct VariableCacheData {
+    pub nextOid: Oid,
+    pub oidCount: uint32,
+    pub nextXid: TransactionId,
+    pub oldestXid: TransactionId,
+    pub xidVacLimit: TransactionId,
+    pub xidWarnLimit: TransactionId,
+    pub xidStopLimit: TransactionId,
+    pub xidWrapLimit: TransactionId,
+    pub oldestXidDB: Oid,
+    pub oldestCommitTsXid: TransactionId,
+    pub newestCommitTsXid: TransactionId,
+    pub latestCompletedXid: TransactionId,
+    pub oldestClogXid: TransactionId,
+}
+#[test]
+fn bindgen_test_layout_VariableCacheData() {
+    assert_eq!(::std::mem::size_of::<VariableCacheData>() , 52usize , concat !
+               ( "Size of: " , stringify ! ( VariableCacheData ) ));
+    assert_eq! (::std::mem::align_of::<VariableCacheData>() , 4usize , concat
+                ! ( "Alignment of " , stringify ! ( VariableCacheData ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const VariableCacheData ) ) . nextOid as *
+                const _ as usize } , 0usize , concat ! (
+                "Alignment of field: " , stringify ! ( VariableCacheData ) ,
+                "::" , stringify ! ( nextOid ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const VariableCacheData ) ) . oidCount as *
+                const _ as usize } , 4usize , concat ! (
+                "Alignment of field: " , stringify ! ( VariableCacheData ) ,
+                "::" , stringify ! ( oidCount ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const VariableCacheData ) ) . nextXid as *
+                const _ as usize } , 8usize , concat ! (
+                "Alignment of field: " , stringify ! ( VariableCacheData ) ,
+                "::" , stringify ! ( nextXid ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const VariableCacheData ) ) . oldestXid as *
+                const _ as usize } , 12usize , concat ! (
+                "Alignment of field: " , stringify ! ( VariableCacheData ) ,
+                "::" , stringify ! ( oldestXid ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const VariableCacheData ) ) . xidVacLimit as *
+                const _ as usize } , 16usize , concat ! (
+                "Alignment of field: " , stringify ! ( VariableCacheData ) ,
+                "::" , stringify ! ( xidVacLimit ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const VariableCacheData ) ) . xidWarnLimit as *
+                const _ as usize } , 20usize , concat ! (
+                "Alignment of field: " , stringify ! ( VariableCacheData ) ,
+                "::" , stringify ! ( xidWarnLimit ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const VariableCacheData ) ) . xidStopLimit as *
+                const _ as usize } , 24usize , concat ! (
+                "Alignment of field: " , stringify ! ( VariableCacheData ) ,
+                "::" , stringify ! ( xidStopLimit ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const VariableCacheData ) ) . xidWrapLimit as *
+                const _ as usize } , 28usize , concat ! (
+                "Alignment of field: " , stringify ! ( VariableCacheData ) ,
+                "::" , stringify ! ( xidWrapLimit ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const VariableCacheData ) ) . oldestXidDB as *
+                const _ as usize } , 32usize , concat ! (
+                "Alignment of field: " , stringify ! ( VariableCacheData ) ,
+                "::" , stringify ! ( oldestXidDB ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const VariableCacheData ) ) . oldestCommitTsXid
+                as * const _ as usize } , 36usize , concat ! (
+                "Alignment of field: " , stringify ! ( VariableCacheData ) ,
+                "::" , stringify ! ( oldestCommitTsXid ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const VariableCacheData ) ) . newestCommitTsXid
+                as * const _ as usize } , 40usize , concat ! (
+                "Alignment of field: " , stringify ! ( VariableCacheData ) ,
+                "::" , stringify ! ( newestCommitTsXid ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const VariableCacheData ) ) .
+                latestCompletedXid as * const _ as usize } , 44usize , concat
+                ! (
+                "Alignment of field: " , stringify ! ( VariableCacheData ) ,
+                "::" , stringify ! ( latestCompletedXid ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const VariableCacheData ) ) . oldestClogXid as
+                * const _ as usize } , 48usize , concat ! (
+                "Alignment of field: " , stringify ! ( VariableCacheData ) ,
+                "::" , stringify ! ( oldestClogXid ) ));
+}
+impl Clone for VariableCacheData {
+    fn clone(&self) -> Self { *self }
+}
+pub type VariableCache = *mut VariableCacheData;
+extern "C" {
+    pub fn TransactionStartedDuringRecovery() -> bool_;
+}
+extern "C" {
+    #[link_name = "ShmemVariableCache"]
+    pub static mut ShmemVariableCache: VariableCache;
+}
+extern "C" {
+    pub fn TransactionIdDidCommit(transactionId: TransactionId) -> bool_;
+}
+extern "C" {
+    pub fn TransactionIdDidAbort(transactionId: TransactionId) -> bool_;
+}
+extern "C" {
+    pub fn TransactionIdIsKnownCompleted(transactionId: TransactionId)
+     -> bool_;
+}
+extern "C" {
+    pub fn TransactionIdAbort(transactionId: TransactionId);
+}
+extern "C" {
+    pub fn TransactionIdCommitTree(xid: TransactionId,
+                                   nxids: ::std::os::raw::c_int,
+                                   xids: *mut TransactionId);
+}
+extern "C" {
+    pub fn TransactionIdAsyncCommitTree(xid: TransactionId,
+                                        nxids: ::std::os::raw::c_int,
+                                        xids: *mut TransactionId,
+                                        lsn: XLogRecPtr);
+}
+extern "C" {
+    pub fn TransactionIdAbortTree(xid: TransactionId,
+                                  nxids: ::std::os::raw::c_int,
+                                  xids: *mut TransactionId);
+}
+extern "C" {
+    pub fn TransactionIdPrecedes(id1: TransactionId, id2: TransactionId)
+     -> bool_;
+}
+extern "C" {
+    pub fn TransactionIdPrecedesOrEquals(id1: TransactionId,
+                                         id2: TransactionId) -> bool_;
+}
+extern "C" {
+    pub fn TransactionIdFollows(id1: TransactionId, id2: TransactionId)
+     -> bool_;
+}
+extern "C" {
+    pub fn TransactionIdFollowsOrEquals(id1: TransactionId,
+                                        id2: TransactionId) -> bool_;
+}
+extern "C" {
+    pub fn TransactionIdLatest(mainxid: TransactionId,
+                               nxids: ::std::os::raw::c_int,
+                               xids: *const TransactionId) -> TransactionId;
+}
+extern "C" {
+    pub fn TransactionIdGetCommitLSN(xid: TransactionId) -> XLogRecPtr;
+}
+extern "C" {
+    pub fn GetNewTransactionId(isSubXact: bool_) -> TransactionId;
+}
+extern "C" {
+    pub fn ReadNewTransactionId() -> TransactionId;
+}
+extern "C" {
+    pub fn SetTransactionIdLimit(oldest_datfrozenxid: TransactionId,
+                                 oldest_datoid: Oid);
+}
+extern "C" {
+    pub fn AdvanceOldestClogXid(oldest_datfrozenxid: TransactionId);
+}
+extern "C" {
+    pub fn ForceTransactionIdLimitUpdate() -> bool_;
+}
+extern "C" {
+    pub fn GetNewObjectId() -> Oid;
+}
+#[repr(C)]
+#[derive(Copy)]
+pub struct HeapTupleFields {
+    pub t_xmin: TransactionId,
+    pub t_xmax: TransactionId,
+    pub t_field3: HeapTupleFields__bindgen_ty_1,
+}
+#[repr(C)]
+#[derive(Copy)]
+pub union HeapTupleFields__bindgen_ty_1 {
+    pub t_cid: CommandId,
+    pub t_xvac: TransactionId,
+    _bindgen_union_align: u32,
+}
+#[test]
+fn bindgen_test_layout_HeapTupleFields__bindgen_ty_1() {
+    assert_eq!(::std::mem::size_of::<HeapTupleFields__bindgen_ty_1>() , 4usize
+               , concat ! (
+               "Size of: " , stringify ! ( HeapTupleFields__bindgen_ty_1 ) ));
+    assert_eq! (::std::mem::align_of::<HeapTupleFields__bindgen_ty_1>() ,
+                4usize , concat ! (
+                "Alignment of " , stringify ! ( HeapTupleFields__bindgen_ty_1
+                ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const HeapTupleFields__bindgen_ty_1 ) ) . t_cid
+                as * const _ as usize } , 0usize , concat ! (
+                "Alignment of field: " , stringify ! (
+                HeapTupleFields__bindgen_ty_1 ) , "::" , stringify ! ( t_cid )
+                ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const HeapTupleFields__bindgen_ty_1 ) ) .
+                t_xvac as * const _ as usize } , 0usize , concat ! (
+                "Alignment of field: " , stringify ! (
+                HeapTupleFields__bindgen_ty_1 ) , "::" , stringify ! ( t_xvac
+                ) ));
+}
+impl Clone for HeapTupleFields__bindgen_ty_1 {
+    fn clone(&self) -> Self { *self }
+}
+#[test]
+fn bindgen_test_layout_HeapTupleFields() {
+    assert_eq!(::std::mem::size_of::<HeapTupleFields>() , 12usize , concat ! (
+               "Size of: " , stringify ! ( HeapTupleFields ) ));
+    assert_eq! (::std::mem::align_of::<HeapTupleFields>() , 4usize , concat !
+                ( "Alignment of " , stringify ! ( HeapTupleFields ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const HeapTupleFields ) ) . t_xmin as * const _
+                as usize } , 0usize , concat ! (
+                "Alignment of field: " , stringify ! ( HeapTupleFields ) ,
+                "::" , stringify ! ( t_xmin ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const HeapTupleFields ) ) . t_xmax as * const _
+                as usize } , 4usize , concat ! (
+                "Alignment of field: " , stringify ! ( HeapTupleFields ) ,
+                "::" , stringify ! ( t_xmax ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const HeapTupleFields ) ) . t_field3 as * const
+                _ as usize } , 8usize , concat ! (
+                "Alignment of field: " , stringify ! ( HeapTupleFields ) ,
+                "::" , stringify ! ( t_field3 ) ));
+}
+impl Clone for HeapTupleFields {
+    fn clone(&self) -> Self { *self }
+}
+#[repr(C)]
+#[derive(Copy)]
+pub struct DatumTupleFields {
+    pub datum_len_: int32,
+    pub datum_typmod: int32,
+    pub datum_typeid: Oid,
+}
+#[test]
+fn bindgen_test_layout_DatumTupleFields() {
+    assert_eq!(::std::mem::size_of::<DatumTupleFields>() , 12usize , concat !
+               ( "Size of: " , stringify ! ( DatumTupleFields ) ));
+    assert_eq! (::std::mem::align_of::<DatumTupleFields>() , 4usize , concat !
+                ( "Alignment of " , stringify ! ( DatumTupleFields ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const DatumTupleFields ) ) . datum_len_ as *
+                const _ as usize } , 0usize , concat ! (
+                "Alignment of field: " , stringify ! ( DatumTupleFields ) ,
+                "::" , stringify ! ( datum_len_ ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const DatumTupleFields ) ) . datum_typmod as *
+                const _ as usize } , 4usize , concat ! (
+                "Alignment of field: " , stringify ! ( DatumTupleFields ) ,
+                "::" , stringify ! ( datum_typmod ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const DatumTupleFields ) ) . datum_typeid as *
+                const _ as usize } , 8usize , concat ! (
+                "Alignment of field: " , stringify ! ( DatumTupleFields ) ,
+                "::" , stringify ! ( datum_typeid ) ));
+}
+impl Clone for DatumTupleFields {
+    fn clone(&self) -> Self { *self }
+}
+extern "C" {
+    pub fn heap_compute_data_size(tupleDesc: TupleDesc, values: *mut Datum,
+                                  isnull: *mut bool_) -> Size;
+}
+extern "C" {
+    pub fn heap_fill_tuple(tupleDesc: TupleDesc, values: *mut Datum,
+                           isnull: *mut bool_,
+                           data: *mut ::std::os::raw::c_char, data_size: Size,
+                           infomask: *mut uint16, bit: *mut bits8);
+}
+extern "C" {
+    pub fn heap_attisnull(tup: HeapTuple, attnum: ::std::os::raw::c_int)
+     -> bool_;
+}
+extern "C" {
+    pub fn nocachegetattr(tup: HeapTuple, attnum: ::std::os::raw::c_int,
+                          att: TupleDesc) -> Datum;
+}
+extern "C" {
+    pub fn heap_getsysattr(tup: HeapTuple, attnum: ::std::os::raw::c_int,
+                           tupleDesc: TupleDesc, isnull: *mut bool_) -> Datum;
+}
+extern "C" {
+    pub fn heap_copytuple(tuple: HeapTuple) -> HeapTuple;
+}
+extern "C" {
+    pub fn heap_copytuple_with_tuple(src: HeapTuple, dest: HeapTuple);
+}
+extern "C" {
+    pub fn heap_copy_tuple_as_datum(tuple: HeapTuple, tupleDesc: TupleDesc)
+     -> Datum;
+}
+extern "C" {
+    pub fn heap_form_tuple(tupleDescriptor: TupleDesc, values: *mut Datum,
+                           isnull: *mut bool_) -> HeapTuple;
+}
+extern "C" {
+    pub fn heap_modify_tuple(tuple: HeapTuple, tupleDesc: TupleDesc,
+                             replValues: *mut Datum, replIsnull: *mut bool_,
+                             doReplace: *mut bool_) -> HeapTuple;
+}
+extern "C" {
+    pub fn heap_modify_tuple_by_cols(tuple: HeapTuple, tupleDesc: TupleDesc,
+                                     nCols: ::std::os::raw::c_int,
+                                     replCols: *mut ::std::os::raw::c_int,
+                                     replValues: *mut Datum,
+                                     replIsnull: *mut bool_) -> HeapTuple;
+}
+extern "C" {
+    pub fn heap_deform_tuple(tuple: HeapTuple, tupleDesc: TupleDesc,
+                             values: *mut Datum, isnull: *mut bool_);
+}
+extern "C" {
+    pub fn heap_freetuple(htup: HeapTuple);
+}
+extern "C" {
+    pub fn heap_form_minimal_tuple(tupleDescriptor: TupleDesc,
+                                   values: *mut Datum, isnull: *mut bool_)
+     -> MinimalTuple;
+}
+extern "C" {
+    pub fn heap_free_minimal_tuple(mtup: MinimalTuple);
+}
+extern "C" {
+    pub fn heap_copy_minimal_tuple(mtup: MinimalTuple) -> MinimalTuple;
+}
+extern "C" {
+    pub fn heap_tuple_from_minimal_tuple(mtup: MinimalTuple) -> HeapTuple;
+}
+extern "C" {
+    pub fn minimal_tuple_from_heap_tuple(htup: HeapTuple) -> MinimalTuple;
+}
+#[repr(C)]
+#[derive(Copy)]
+pub struct SharedInvalCatcacheMsg {
+    pub id: int8,
+    pub dbId: Oid,
+    pub hashValue: uint32,
+}
+#[test]
+fn bindgen_test_layout_SharedInvalCatcacheMsg() {
+    assert_eq!(::std::mem::size_of::<SharedInvalCatcacheMsg>() , 12usize ,
+               concat ! ( "Size of: " , stringify ! ( SharedInvalCatcacheMsg )
+               ));
+    assert_eq! (::std::mem::align_of::<SharedInvalCatcacheMsg>() , 4usize ,
+                concat ! (
+                "Alignment of " , stringify ! ( SharedInvalCatcacheMsg ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const SharedInvalCatcacheMsg ) ) . id as *
+                const _ as usize } , 0usize , concat ! (
+                "Alignment of field: " , stringify ! ( SharedInvalCatcacheMsg
+                ) , "::" , stringify ! ( id ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const SharedInvalCatcacheMsg ) ) . dbId as *
+                const _ as usize } , 4usize , concat ! (
+                "Alignment of field: " , stringify ! ( SharedInvalCatcacheMsg
+                ) , "::" , stringify ! ( dbId ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const SharedInvalCatcacheMsg ) ) . hashValue as
+                * const _ as usize } , 8usize , concat ! (
+                "Alignment of field: " , stringify ! ( SharedInvalCatcacheMsg
+                ) , "::" , stringify ! ( hashValue ) ));
+}
+impl Clone for SharedInvalCatcacheMsg {
+    fn clone(&self) -> Self { *self }
+}
+#[repr(C)]
+#[derive(Copy)]
+pub struct SharedInvalCatalogMsg {
+    pub id: int8,
+    pub dbId: Oid,
+    pub catId: Oid,
+}
+#[test]
+fn bindgen_test_layout_SharedInvalCatalogMsg() {
+    assert_eq!(::std::mem::size_of::<SharedInvalCatalogMsg>() , 12usize ,
+               concat ! ( "Size of: " , stringify ! ( SharedInvalCatalogMsg )
+               ));
+    assert_eq! (::std::mem::align_of::<SharedInvalCatalogMsg>() , 4usize ,
+                concat ! (
+                "Alignment of " , stringify ! ( SharedInvalCatalogMsg ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const SharedInvalCatalogMsg ) ) . id as * const
+                _ as usize } , 0usize , concat ! (
+                "Alignment of field: " , stringify ! ( SharedInvalCatalogMsg )
+                , "::" , stringify ! ( id ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const SharedInvalCatalogMsg ) ) . dbId as *
+                const _ as usize } , 4usize , concat ! (
+                "Alignment of field: " , stringify ! ( SharedInvalCatalogMsg )
+                , "::" , stringify ! ( dbId ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const SharedInvalCatalogMsg ) ) . catId as *
+                const _ as usize } , 8usize , concat ! (
+                "Alignment of field: " , stringify ! ( SharedInvalCatalogMsg )
+                , "::" , stringify ! ( catId ) ));
+}
+impl Clone for SharedInvalCatalogMsg {
+    fn clone(&self) -> Self { *self }
+}
+#[repr(C)]
+#[derive(Copy)]
+pub struct SharedInvalRelcacheMsg {
+    pub id: int8,
+    pub dbId: Oid,
+    pub relId: Oid,
+}
+#[test]
+fn bindgen_test_layout_SharedInvalRelcacheMsg() {
+    assert_eq!(::std::mem::size_of::<SharedInvalRelcacheMsg>() , 12usize ,
+               concat ! ( "Size of: " , stringify ! ( SharedInvalRelcacheMsg )
+               ));
+    assert_eq! (::std::mem::align_of::<SharedInvalRelcacheMsg>() , 4usize ,
+                concat ! (
+                "Alignment of " , stringify ! ( SharedInvalRelcacheMsg ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const SharedInvalRelcacheMsg ) ) . id as *
+                const _ as usize } , 0usize , concat ! (
+                "Alignment of field: " , stringify ! ( SharedInvalRelcacheMsg
+                ) , "::" , stringify ! ( id ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const SharedInvalRelcacheMsg ) ) . dbId as *
+                const _ as usize } , 4usize , concat ! (
+                "Alignment of field: " , stringify ! ( SharedInvalRelcacheMsg
+                ) , "::" , stringify ! ( dbId ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const SharedInvalRelcacheMsg ) ) . relId as *
+                const _ as usize } , 8usize , concat ! (
+                "Alignment of field: " , stringify ! ( SharedInvalRelcacheMsg
+                ) , "::" , stringify ! ( relId ) ));
+}
+impl Clone for SharedInvalRelcacheMsg {
+    fn clone(&self) -> Self { *self }
+}
+#[repr(C)]
+#[derive(Copy)]
+pub struct SharedInvalSmgrMsg {
+    pub id: int8,
+    pub backend_hi: int8,
+    pub backend_lo: uint16,
+    pub rnode: RelFileNode,
+}
+#[test]
+fn bindgen_test_layout_SharedInvalSmgrMsg() {
+    assert_eq!(::std::mem::size_of::<SharedInvalSmgrMsg>() , 16usize , concat
+               ! ( "Size of: " , stringify ! ( SharedInvalSmgrMsg ) ));
+    assert_eq! (::std::mem::align_of::<SharedInvalSmgrMsg>() , 4usize , concat
+                ! ( "Alignment of " , stringify ! ( SharedInvalSmgrMsg ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const SharedInvalSmgrMsg ) ) . id as * const _
+                as usize } , 0usize , concat ! (
+                "Alignment of field: " , stringify ! ( SharedInvalSmgrMsg ) ,
+                "::" , stringify ! ( id ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const SharedInvalSmgrMsg ) ) . backend_hi as *
+                const _ as usize } , 1usize , concat ! (
+                "Alignment of field: " , stringify ! ( SharedInvalSmgrMsg ) ,
+                "::" , stringify ! ( backend_hi ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const SharedInvalSmgrMsg ) ) . backend_lo as *
+                const _ as usize } , 2usize , concat ! (
+                "Alignment of field: " , stringify ! ( SharedInvalSmgrMsg ) ,
+                "::" , stringify ! ( backend_lo ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const SharedInvalSmgrMsg ) ) . rnode as * const
+                _ as usize } , 4usize , concat ! (
+                "Alignment of field: " , stringify ! ( SharedInvalSmgrMsg ) ,
+                "::" , stringify ! ( rnode ) ));
+}
+impl Clone for SharedInvalSmgrMsg {
+    fn clone(&self) -> Self { *self }
+}
+#[repr(C)]
+#[derive(Copy)]
+pub struct SharedInvalRelmapMsg {
+    pub id: int8,
+    pub dbId: Oid,
+}
+#[test]
+fn bindgen_test_layout_SharedInvalRelmapMsg() {
+    assert_eq!(::std::mem::size_of::<SharedInvalRelmapMsg>() , 8usize , concat
+               ! ( "Size of: " , stringify ! ( SharedInvalRelmapMsg ) ));
+    assert_eq! (::std::mem::align_of::<SharedInvalRelmapMsg>() , 4usize ,
+                concat ! (
+                "Alignment of " , stringify ! ( SharedInvalRelmapMsg ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const SharedInvalRelmapMsg ) ) . id as * const
+                _ as usize } , 0usize , concat ! (
+                "Alignment of field: " , stringify ! ( SharedInvalRelmapMsg )
+                , "::" , stringify ! ( id ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const SharedInvalRelmapMsg ) ) . dbId as *
+                const _ as usize } , 4usize , concat ! (
+                "Alignment of field: " , stringify ! ( SharedInvalRelmapMsg )
+                , "::" , stringify ! ( dbId ) ));
+}
+impl Clone for SharedInvalRelmapMsg {
+    fn clone(&self) -> Self { *self }
+}
+#[repr(C)]
+#[derive(Copy)]
+pub struct SharedInvalSnapshotMsg {
+    pub id: int8,
+    pub dbId: Oid,
+    pub relId: Oid,
+}
+#[test]
+fn bindgen_test_layout_SharedInvalSnapshotMsg() {
+    assert_eq!(::std::mem::size_of::<SharedInvalSnapshotMsg>() , 12usize ,
+               concat ! ( "Size of: " , stringify ! ( SharedInvalSnapshotMsg )
+               ));
+    assert_eq! (::std::mem::align_of::<SharedInvalSnapshotMsg>() , 4usize ,
+                concat ! (
+                "Alignment of " , stringify ! ( SharedInvalSnapshotMsg ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const SharedInvalSnapshotMsg ) ) . id as *
+                const _ as usize } , 0usize , concat ! (
+                "Alignment of field: " , stringify ! ( SharedInvalSnapshotMsg
+                ) , "::" , stringify ! ( id ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const SharedInvalSnapshotMsg ) ) . dbId as *
+                const _ as usize } , 4usize , concat ! (
+                "Alignment of field: " , stringify ! ( SharedInvalSnapshotMsg
+                ) , "::" , stringify ! ( dbId ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const SharedInvalSnapshotMsg ) ) . relId as *
+                const _ as usize } , 8usize , concat ! (
+                "Alignment of field: " , stringify ! ( SharedInvalSnapshotMsg
+                ) , "::" , stringify ! ( relId ) ));
+}
+impl Clone for SharedInvalSnapshotMsg {
+    fn clone(&self) -> Self { *self }
+}
+#[repr(C)]
+#[derive(Copy)]
+pub union SharedInvalidationMessage {
+    pub id: int8,
+    pub cc: SharedInvalCatcacheMsg,
+    pub cat: SharedInvalCatalogMsg,
+    pub rc: SharedInvalRelcacheMsg,
+    pub sm: SharedInvalSmgrMsg,
+    pub rm: SharedInvalRelmapMsg,
+    pub sn: SharedInvalSnapshotMsg,
+    _bindgen_union_align: [u32; 4usize],
+}
+#[test]
+fn bindgen_test_layout_SharedInvalidationMessage() {
+    assert_eq!(::std::mem::size_of::<SharedInvalidationMessage>() , 16usize ,
+               concat ! (
+               "Size of: " , stringify ! ( SharedInvalidationMessage ) ));
+    assert_eq! (::std::mem::align_of::<SharedInvalidationMessage>() , 4usize ,
+                concat ! (
+                "Alignment of " , stringify ! ( SharedInvalidationMessage )
+                ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const SharedInvalidationMessage ) ) . id as *
+                const _ as usize } , 0usize , concat ! (
+                "Alignment of field: " , stringify ! (
+                SharedInvalidationMessage ) , "::" , stringify ! ( id ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const SharedInvalidationMessage ) ) . cc as *
+                const _ as usize } , 0usize , concat ! (
+                "Alignment of field: " , stringify ! (
+                SharedInvalidationMessage ) , "::" , stringify ! ( cc ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const SharedInvalidationMessage ) ) . cat as *
+                const _ as usize } , 0usize , concat ! (
+                "Alignment of field: " , stringify ! (
+                SharedInvalidationMessage ) , "::" , stringify ! ( cat ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const SharedInvalidationMessage ) ) . rc as *
+                const _ as usize } , 0usize , concat ! (
+                "Alignment of field: " , stringify ! (
+                SharedInvalidationMessage ) , "::" , stringify ! ( rc ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const SharedInvalidationMessage ) ) . sm as *
+                const _ as usize } , 0usize , concat ! (
+                "Alignment of field: " , stringify ! (
+                SharedInvalidationMessage ) , "::" , stringify ! ( sm ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const SharedInvalidationMessage ) ) . rm as *
+                const _ as usize } , 0usize , concat ! (
+                "Alignment of field: " , stringify ! (
+                SharedInvalidationMessage ) , "::" , stringify ! ( rm ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const SharedInvalidationMessage ) ) . sn as *
+                const _ as usize } , 0usize , concat ! (
+                "Alignment of field: " , stringify ! (
+                SharedInvalidationMessage ) , "::" , stringify ! ( sn ) ));
+}
+impl Clone for SharedInvalidationMessage {
+    fn clone(&self) -> Self { *self }
+}
+extern "C" {
+    #[link_name = "SharedInvalidMessageCounter"]
+    pub static mut SharedInvalidMessageCounter: uint64;
+}
+extern "C" {
+    #[link_name = "catchupInterruptPending"]
+    pub static mut catchupInterruptPending: sig_atomic_t;
+}
+extern "C" {
+    pub fn SendSharedInvalidMessages(msgs: *const SharedInvalidationMessage,
+                                     n: ::std::os::raw::c_int);
+}
+extern "C" {
+    pub fn ReceiveSharedInvalidMessages(invalFunction:
+                                            ::std::option::Option<unsafe extern "C" fn(msg:
+                                                                                           *mut SharedInvalidationMessage)>,
+                                        resetFunction:
+                                            ::std::option::Option<unsafe extern "C" fn()>);
+}
+extern "C" {
+    pub fn HandleCatchupInterrupt();
+}
+extern "C" {
+    pub fn ProcessCatchupInterrupt();
+}
+extern "C" {
+    pub fn xactGetCommittedInvalidationMessages(msgs:
+                                                    *mut *mut SharedInvalidationMessage,
+                                                RelcacheInitFileInval:
+                                                    *mut bool_)
+     -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn ProcessCommittedInvalidationMessages(msgs:
+                                                    *mut SharedInvalidationMessage,
+                                                nmsgs: ::std::os::raw::c_int,
+                                                RelcacheInitFileInval: bool_,
+                                                dbid: Oid, tsid: Oid);
+}
+extern "C" {
+    pub fn LocalExecuteInvalidationMessage(msg:
+                                               *mut SharedInvalidationMessage);
+}
+pub type pg_time_t = int64;
+#[repr(C)]
+#[derive(Copy)]
+pub struct pg_tm {
+    pub tm_sec: ::std::os::raw::c_int,
+    pub tm_min: ::std::os::raw::c_int,
+    pub tm_hour: ::std::os::raw::c_int,
+    pub tm_mday: ::std::os::raw::c_int,
+    pub tm_mon: ::std::os::raw::c_int,
+    pub tm_year: ::std::os::raw::c_int,
+    pub tm_wday: ::std::os::raw::c_int,
+    pub tm_yday: ::std::os::raw::c_int,
+    pub tm_isdst: ::std::os::raw::c_int,
+    pub tm_gmtoff: ::std::os::raw::c_long,
+    pub tm_zone: *const ::std::os::raw::c_char,
+}
+#[test]
+fn bindgen_test_layout_pg_tm() {
+    assert_eq!(::std::mem::size_of::<pg_tm>() , 56usize , concat ! (
+               "Size of: " , stringify ! ( pg_tm ) ));
+    assert_eq! (::std::mem::align_of::<pg_tm>() , 8usize , concat ! (
+                "Alignment of " , stringify ! ( pg_tm ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const pg_tm ) ) . tm_sec as * const _ as usize
+                } , 0usize , concat ! (
+                "Alignment of field: " , stringify ! ( pg_tm ) , "::" ,
+                stringify ! ( tm_sec ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const pg_tm ) ) . tm_min as * const _ as usize
+                } , 4usize , concat ! (
+                "Alignment of field: " , stringify ! ( pg_tm ) , "::" ,
+                stringify ! ( tm_min ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const pg_tm ) ) . tm_hour as * const _ as usize
+                } , 8usize , concat ! (
+                "Alignment of field: " , stringify ! ( pg_tm ) , "::" ,
+                stringify ! ( tm_hour ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const pg_tm ) ) . tm_mday as * const _ as usize
+                } , 12usize , concat ! (
+                "Alignment of field: " , stringify ! ( pg_tm ) , "::" ,
+                stringify ! ( tm_mday ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const pg_tm ) ) . tm_mon as * const _ as usize
+                } , 16usize , concat ! (
+                "Alignment of field: " , stringify ! ( pg_tm ) , "::" ,
+                stringify ! ( tm_mon ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const pg_tm ) ) . tm_year as * const _ as usize
+                } , 20usize , concat ! (
+                "Alignment of field: " , stringify ! ( pg_tm ) , "::" ,
+                stringify ! ( tm_year ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const pg_tm ) ) . tm_wday as * const _ as usize
+                } , 24usize , concat ! (
+                "Alignment of field: " , stringify ! ( pg_tm ) , "::" ,
+                stringify ! ( tm_wday ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const pg_tm ) ) . tm_yday as * const _ as usize
+                } , 28usize , concat ! (
+                "Alignment of field: " , stringify ! ( pg_tm ) , "::" ,
+                stringify ! ( tm_yday ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const pg_tm ) ) . tm_isdst as * const _ as
+                usize } , 32usize , concat ! (
+                "Alignment of field: " , stringify ! ( pg_tm ) , "::" ,
+                stringify ! ( tm_isdst ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const pg_tm ) ) . tm_gmtoff as * const _ as
+                usize } , 40usize , concat ! (
+                "Alignment of field: " , stringify ! ( pg_tm ) , "::" ,
+                stringify ! ( tm_gmtoff ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const pg_tm ) ) . tm_zone as * const _ as usize
+                } , 48usize , concat ! (
+                "Alignment of field: " , stringify ! ( pg_tm ) , "::" ,
+                stringify ! ( tm_zone ) ));
+}
+impl Clone for pg_tm {
+    fn clone(&self) -> Self { *self }
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct pg_tz {
+    _unused: [u8; 0],
+}
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct pg_tzenum {
+    _unused: [u8; 0],
+}
+extern "C" {
+    pub fn pg_localtime(timep: *const pg_time_t, tz: *const pg_tz)
+     -> *mut pg_tm;
+}
+extern "C" {
+    pub fn pg_gmtime(timep: *const pg_time_t) -> *mut pg_tm;
+}
+extern "C" {
+    pub fn pg_next_dst_boundary(timep: *const pg_time_t,
+                                before_gmtoff: *mut ::std::os::raw::c_long,
+                                before_isdst: *mut ::std::os::raw::c_int,
+                                boundary: *mut pg_time_t,
+                                after_gmtoff: *mut ::std::os::raw::c_long,
+                                after_isdst: *mut ::std::os::raw::c_int,
+                                tz: *const pg_tz) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn pg_interpret_timezone_abbrev(abbrev: *const ::std::os::raw::c_char,
+                                        timep: *const pg_time_t,
+                                        gmtoff: *mut ::std::os::raw::c_long,
+                                        isdst: *mut ::std::os::raw::c_int,
+                                        tz: *const pg_tz) -> bool_;
+}
+extern "C" {
+    pub fn pg_get_timezone_offset(tz: *const pg_tz,
+                                  gmtoff: *mut ::std::os::raw::c_long)
+     -> bool_;
+}
+extern "C" {
+    pub fn pg_get_timezone_name(tz: *mut pg_tz)
+     -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn pg_tz_acceptable(tz: *mut pg_tz) -> bool_;
+}
+extern "C" {
+    pub fn pg_strftime(s: *mut ::std::os::raw::c_char, max: usize,
+                       format: *const ::std::os::raw::c_char,
+                       tm: *const pg_tm) -> usize;
+}
+extern "C" {
+    #[link_name = "session_timezone"]
+    pub static mut session_timezone: *mut pg_tz;
+}
+extern "C" {
+    #[link_name = "log_timezone"]
+    pub static mut log_timezone: *mut pg_tz;
+}
+extern "C" {
+    pub fn pg_timezone_initialize();
+}
+extern "C" {
+    pub fn pg_tzset(tzname: *const ::std::os::raw::c_char) -> *mut pg_tz;
+}
+extern "C" {
+    pub fn pg_tzset_offset(gmtoffset: ::std::os::raw::c_long) -> *mut pg_tz;
+}
+extern "C" {
+    pub fn pg_tzenumerate_start() -> *mut pg_tzenum;
+}
+extern "C" {
+    pub fn pg_tzenumerate_next(dir: *mut pg_tzenum) -> *mut pg_tz;
+}
+extern "C" {
+    pub fn pg_tzenumerate_end(dir: *mut pg_tzenum);
+}
+extern "C" {
+    #[link_name = "PgStartTime"]
+    pub static mut PgStartTime: TimestampTz;
+}
+extern "C" {
+    #[link_name = "PgReloadTime"]
+    pub static mut PgReloadTime: TimestampTz;
+}
+extern "C" {
+    pub fn anytimestamp_typmod_check(istz: bool_, typmod: int32) -> int32;
+}
+extern "C" {
+    pub fn GetCurrentTimestamp() -> TimestampTz;
+}
+extern "C" {
+    pub fn GetSQLCurrentTimestamp(typmod: int32) -> TimestampTz;
+}
+extern "C" {
+    pub fn GetSQLLocalTimestamp(typmod: int32) -> Timestamp;
+}
+extern "C" {
+    pub fn TimestampDifference(start_time: TimestampTz,
+                               stop_time: TimestampTz,
+                               secs: *mut ::std::os::raw::c_long,
+                               microsecs: *mut ::std::os::raw::c_int);
+}
+extern "C" {
+    pub fn TimestampDifferenceExceeds(start_time: TimestampTz,
+                                      stop_time: TimestampTz,
+                                      msec: ::std::os::raw::c_int) -> bool_;
+}
+extern "C" {
+    pub fn time_t_to_timestamptz(tm: pg_time_t) -> TimestampTz;
+}
+extern "C" {
+    pub fn timestamptz_to_time_t(t: TimestampTz) -> pg_time_t;
+}
+extern "C" {
+    pub fn timestamptz_to_str(t: TimestampTz)
+     -> *const ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn tm2timestamp(tm: *mut pg_tm, fsec: fsec_t,
+                        tzp: *mut ::std::os::raw::c_int, dt: *mut Timestamp)
+     -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn timestamp2tm(dt: Timestamp, tzp: *mut ::std::os::raw::c_int,
+                        tm: *mut pg_tm, fsec: *mut fsec_t,
+                        tzn: *mut *const ::std::os::raw::c_char,
+                        attimezone: *mut pg_tz) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn dt2time(dt: Timestamp, hour: *mut ::std::os::raw::c_int,
+                   min: *mut ::std::os::raw::c_int,
+                   sec: *mut ::std::os::raw::c_int, fsec: *mut fsec_t);
+}
+extern "C" {
+    pub fn interval2tm(span: Interval, tm: *mut pg_tm, fsec: *mut fsec_t)
+     -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn tm2interval(tm: *mut pg_tm, fsec: fsec_t, span: *mut Interval)
+     -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn SetEpochTimestamp() -> Timestamp;
+}
+extern "C" {
+    pub fn GetEpochTime(tm: *mut pg_tm);
+}
+extern "C" {
+    pub fn timestamp_cmp_internal(dt1: Timestamp, dt2: Timestamp)
+     -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn isoweek2j(year: ::std::os::raw::c_int, week: ::std::os::raw::c_int)
+     -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn isoweek2date(woy: ::std::os::raw::c_int,
+                        year: *mut ::std::os::raw::c_int,
+                        mon: *mut ::std::os::raw::c_int,
+                        mday: *mut ::std::os::raw::c_int);
+}
+extern "C" {
+    pub fn isoweekdate2date(isoweek: ::std::os::raw::c_int,
+                            wday: ::std::os::raw::c_int,
+                            year: *mut ::std::os::raw::c_int,
+                            mon: *mut ::std::os::raw::c_int,
+                            mday: *mut ::std::os::raw::c_int);
+}
+extern "C" {
+    pub fn date2isoweek(year: ::std::os::raw::c_int,
+                        mon: ::std::os::raw::c_int,
+                        mday: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn date2isoyear(year: ::std::os::raw::c_int,
+                        mon: ::std::os::raw::c_int,
+                        mday: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn date2isoyearday(year: ::std::os::raw::c_int,
+                           mon: ::std::os::raw::c_int,
+                           mday: ::std::os::raw::c_int)
+     -> ::std::os::raw::c_int;
+}
+#[repr(C)]
+#[derive(Copy)]
+pub struct ReorderBufferTupleBuf {
+    pub node: slist_node,
+    pub tuple: HeapTupleData,
+    pub alloc_tuple_size: Size,
+}
+#[test]
+fn bindgen_test_layout_ReorderBufferTupleBuf() {
+    assert_eq!(::std::mem::size_of::<ReorderBufferTupleBuf>() , 40usize ,
+               concat ! ( "Size of: " , stringify ! ( ReorderBufferTupleBuf )
+               ));
+    assert_eq! (::std::mem::align_of::<ReorderBufferTupleBuf>() , 8usize ,
+                concat ! (
+                "Alignment of " , stringify ! ( ReorderBufferTupleBuf ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const ReorderBufferTupleBuf ) ) . node as *
+                const _ as usize } , 0usize , concat ! (
+                "Alignment of field: " , stringify ! ( ReorderBufferTupleBuf )
+                , "::" , stringify ! ( node ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const ReorderBufferTupleBuf ) ) . tuple as *
+                const _ as usize } , 8usize , concat ! (
+                "Alignment of field: " , stringify ! ( ReorderBufferTupleBuf )
+                , "::" , stringify ! ( tuple ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const ReorderBufferTupleBuf ) ) .
+                alloc_tuple_size as * const _ as usize } , 32usize , concat !
+                (
+                "Alignment of field: " , stringify ! ( ReorderBufferTupleBuf )
+                , "::" , stringify ! ( alloc_tuple_size ) ));
+}
+impl Clone for ReorderBufferTupleBuf {
+    fn clone(&self) -> Self { *self }
+}
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
+pub enum ReorderBufferChangeType {
+    REORDER_BUFFER_CHANGE_INSERT = 0,
+    REORDER_BUFFER_CHANGE_UPDATE = 1,
+    REORDER_BUFFER_CHANGE_DELETE = 2,
+    REORDER_BUFFER_CHANGE_MESSAGE = 3,
+    REORDER_BUFFER_CHANGE_INTERNAL_SNAPSHOT = 4,
+    REORDER_BUFFER_CHANGE_INTERNAL_COMMAND_ID = 5,
+    REORDER_BUFFER_CHANGE_INTERNAL_TUPLECID = 6,
+    REORDER_BUFFER_CHANGE_INTERNAL_SPEC_INSERT = 7,
+    REORDER_BUFFER_CHANGE_INTERNAL_SPEC_CONFIRM = 8,
+}
+#[repr(C)]
+#[derive(Copy)]
+pub struct ReorderBufferChange {
+    pub lsn: XLogRecPtr,
+    pub action: ReorderBufferChangeType,
+    pub origin_id: RepOriginId,
+    pub data: ReorderBufferChange__bindgen_ty_1,
+    pub node: dlist_node,
+}
+#[repr(C)]
+#[derive(Copy)]
+pub union ReorderBufferChange__bindgen_ty_1 {
+    pub tp: ReorderBufferChange__bindgen_ty_1__bindgen_ty_1,
+    pub msg: ReorderBufferChange__bindgen_ty_1__bindgen_ty_2,
+    pub snapshot: Snapshot,
+    pub command_id: CommandId,
+    pub tuplecid: ReorderBufferChange__bindgen_ty_1__bindgen_ty_3,
+    _bindgen_union_align: [u64; 4usize],
+}
+#[repr(C)]
+#[derive(Copy)]
+pub struct ReorderBufferChange__bindgen_ty_1__bindgen_ty_1 {
+    pub relnode: RelFileNode,
+    pub clear_toast_afterwards: bool_,
+    pub oldtuple: *mut ReorderBufferTupleBuf,
+    pub newtuple: *mut ReorderBufferTupleBuf,
+}
+#[test]
+fn bindgen_test_layout_ReorderBufferChange__bindgen_ty_1__bindgen_ty_1() {
+    assert_eq!(::std::mem::size_of::<ReorderBufferChange__bindgen_ty_1__bindgen_ty_1>()
+               , 32usize , concat ! (
+               "Size of: " , stringify ! (
+               ReorderBufferChange__bindgen_ty_1__bindgen_ty_1 ) ));
+    assert_eq! (::std::mem::align_of::<ReorderBufferChange__bindgen_ty_1__bindgen_ty_1>()
+                , 8usize , concat ! (
+                "Alignment of " , stringify ! (
+                ReorderBufferChange__bindgen_ty_1__bindgen_ty_1 ) ));
+    assert_eq! (unsafe {
+                & (
+                * (
+                0 as * const ReorderBufferChange__bindgen_ty_1__bindgen_ty_1 )
+                ) . relnode as * const _ as usize } , 0usize , concat ! (
+                "Alignment of field: " , stringify ! (
+                ReorderBufferChange__bindgen_ty_1__bindgen_ty_1 ) , "::" ,
+                stringify ! ( relnode ) ));
+    assert_eq! (unsafe {
+                & (
+                * (
+                0 as * const ReorderBufferChange__bindgen_ty_1__bindgen_ty_1 )
+                ) . clear_toast_afterwards as * const _ as usize } , 12usize ,
+                concat ! (
+                "Alignment of field: " , stringify ! (
+                ReorderBufferChange__bindgen_ty_1__bindgen_ty_1 ) , "::" ,
+                stringify ! ( clear_toast_afterwards ) ));
+    assert_eq! (unsafe {
+                & (
+                * (
+                0 as * const ReorderBufferChange__bindgen_ty_1__bindgen_ty_1 )
+                ) . oldtuple as * const _ as usize } , 16usize , concat ! (
+                "Alignment of field: " , stringify ! (
+                ReorderBufferChange__bindgen_ty_1__bindgen_ty_1 ) , "::" ,
+                stringify ! ( oldtuple ) ));
+    assert_eq! (unsafe {
+                & (
+                * (
+                0 as * const ReorderBufferChange__bindgen_ty_1__bindgen_ty_1 )
+                ) . newtuple as * const _ as usize } , 24usize , concat ! (
+                "Alignment of field: " , stringify ! (
+                ReorderBufferChange__bindgen_ty_1__bindgen_ty_1 ) , "::" ,
+                stringify ! ( newtuple ) ));
+}
+impl Clone for ReorderBufferChange__bindgen_ty_1__bindgen_ty_1 {
+    fn clone(&self) -> Self { *self }
+}
+#[repr(C)]
+#[derive(Copy)]
+pub struct ReorderBufferChange__bindgen_ty_1__bindgen_ty_2 {
+    pub prefix: *mut ::std::os::raw::c_char,
+    pub message_size: Size,
+    pub message: *mut ::std::os::raw::c_char,
+}
+#[test]
+fn bindgen_test_layout_ReorderBufferChange__bindgen_ty_1__bindgen_ty_2() {
+    assert_eq!(::std::mem::size_of::<ReorderBufferChange__bindgen_ty_1__bindgen_ty_2>()
+               , 24usize , concat ! (
+               "Size of: " , stringify ! (
+               ReorderBufferChange__bindgen_ty_1__bindgen_ty_2 ) ));
+    assert_eq! (::std::mem::align_of::<ReorderBufferChange__bindgen_ty_1__bindgen_ty_2>()
+                , 8usize , concat ! (
+                "Alignment of " , stringify ! (
+                ReorderBufferChange__bindgen_ty_1__bindgen_ty_2 ) ));
+    assert_eq! (unsafe {
+                & (
+                * (
+                0 as * const ReorderBufferChange__bindgen_ty_1__bindgen_ty_2 )
+                ) . prefix as * const _ as usize } , 0usize , concat ! (
+                "Alignment of field: " , stringify ! (
+                ReorderBufferChange__bindgen_ty_1__bindgen_ty_2 ) , "::" ,
+                stringify ! ( prefix ) ));
+    assert_eq! (unsafe {
+                & (
+                * (
+                0 as * const ReorderBufferChange__bindgen_ty_1__bindgen_ty_2 )
+                ) . message_size as * const _ as usize } , 8usize , concat ! (
+                "Alignment of field: " , stringify ! (
+                ReorderBufferChange__bindgen_ty_1__bindgen_ty_2 ) , "::" ,
+                stringify ! ( message_size ) ));
+    assert_eq! (unsafe {
+                & (
+                * (
+                0 as * const ReorderBufferChange__bindgen_ty_1__bindgen_ty_2 )
+                ) . message as * const _ as usize } , 16usize , concat ! (
+                "Alignment of field: " , stringify ! (
+                ReorderBufferChange__bindgen_ty_1__bindgen_ty_2 ) , "::" ,
+                stringify ! ( message ) ));
+}
+impl Clone for ReorderBufferChange__bindgen_ty_1__bindgen_ty_2 {
+    fn clone(&self) -> Self { *self }
+}
+#[repr(C)]
+#[derive(Copy)]
+pub struct ReorderBufferChange__bindgen_ty_1__bindgen_ty_3 {
+    pub node: RelFileNode,
+    pub tid: ItemPointerData,
+    pub cmin: CommandId,
+    pub cmax: CommandId,
+    pub combocid: CommandId,
+}
+#[test]
+fn bindgen_test_layout_ReorderBufferChange__bindgen_ty_1__bindgen_ty_3() {
+    assert_eq!(::std::mem::size_of::<ReorderBufferChange__bindgen_ty_1__bindgen_ty_3>()
+               , 32usize , concat ! (
+               "Size of: " , stringify ! (
+               ReorderBufferChange__bindgen_ty_1__bindgen_ty_3 ) ));
+    assert_eq! (::std::mem::align_of::<ReorderBufferChange__bindgen_ty_1__bindgen_ty_3>()
+                , 4usize , concat ! (
+                "Alignment of " , stringify ! (
+                ReorderBufferChange__bindgen_ty_1__bindgen_ty_3 ) ));
+    assert_eq! (unsafe {
+                & (
+                * (
+                0 as * const ReorderBufferChange__bindgen_ty_1__bindgen_ty_3 )
+                ) . node as * const _ as usize } , 0usize , concat ! (
+                "Alignment of field: " , stringify ! (
+                ReorderBufferChange__bindgen_ty_1__bindgen_ty_3 ) , "::" ,
+                stringify ! ( node ) ));
+    assert_eq! (unsafe {
+                & (
+                * (
+                0 as * const ReorderBufferChange__bindgen_ty_1__bindgen_ty_3 )
+                ) . tid as * const _ as usize } , 12usize , concat ! (
+                "Alignment of field: " , stringify ! (
+                ReorderBufferChange__bindgen_ty_1__bindgen_ty_3 ) , "::" ,
+                stringify ! ( tid ) ));
+    assert_eq! (unsafe {
+                & (
+                * (
+                0 as * const ReorderBufferChange__bindgen_ty_1__bindgen_ty_3 )
+                ) . cmin as * const _ as usize } , 20usize , concat ! (
+                "Alignment of field: " , stringify ! (
+                ReorderBufferChange__bindgen_ty_1__bindgen_ty_3 ) , "::" ,
+                stringify ! ( cmin ) ));
+    assert_eq! (unsafe {
+                & (
+                * (
+                0 as * const ReorderBufferChange__bindgen_ty_1__bindgen_ty_3 )
+                ) . cmax as * const _ as usize } , 24usize , concat ! (
+                "Alignment of field: " , stringify ! (
+                ReorderBufferChange__bindgen_ty_1__bindgen_ty_3 ) , "::" ,
+                stringify ! ( cmax ) ));
+    assert_eq! (unsafe {
+                & (
+                * (
+                0 as * const ReorderBufferChange__bindgen_ty_1__bindgen_ty_3 )
+                ) . combocid as * const _ as usize } , 28usize , concat ! (
+                "Alignment of field: " , stringify ! (
+                ReorderBufferChange__bindgen_ty_1__bindgen_ty_3 ) , "::" ,
+                stringify ! ( combocid ) ));
+}
+impl Clone for ReorderBufferChange__bindgen_ty_1__bindgen_ty_3 {
+    fn clone(&self) -> Self { *self }
+}
+#[test]
+fn bindgen_test_layout_ReorderBufferChange__bindgen_ty_1() {
+    assert_eq!(::std::mem::size_of::<ReorderBufferChange__bindgen_ty_1>() ,
+               32usize , concat ! (
+               "Size of: " , stringify ! ( ReorderBufferChange__bindgen_ty_1 )
+               ));
+    assert_eq! (::std::mem::align_of::<ReorderBufferChange__bindgen_ty_1>() ,
+                8usize , concat ! (
+                "Alignment of " , stringify ! (
+                ReorderBufferChange__bindgen_ty_1 ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const ReorderBufferChange__bindgen_ty_1 ) ) .
+                tp as * const _ as usize } , 0usize , concat ! (
+                "Alignment of field: " , stringify ! (
+                ReorderBufferChange__bindgen_ty_1 ) , "::" , stringify ! ( tp
+                ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const ReorderBufferChange__bindgen_ty_1 ) ) .
+                msg as * const _ as usize } , 0usize , concat ! (
+                "Alignment of field: " , stringify ! (
+                ReorderBufferChange__bindgen_ty_1 ) , "::" , stringify ! ( msg
+                ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const ReorderBufferChange__bindgen_ty_1 ) ) .
+                snapshot as * const _ as usize } , 0usize , concat ! (
+                "Alignment of field: " , stringify ! (
+                ReorderBufferChange__bindgen_ty_1 ) , "::" , stringify ! (
+                snapshot ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const ReorderBufferChange__bindgen_ty_1 ) ) .
+                command_id as * const _ as usize } , 0usize , concat ! (
+                "Alignment of field: " , stringify ! (
+                ReorderBufferChange__bindgen_ty_1 ) , "::" , stringify ! (
+                command_id ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const ReorderBufferChange__bindgen_ty_1 ) ) .
+                tuplecid as * const _ as usize } , 0usize , concat ! (
+                "Alignment of field: " , stringify ! (
+                ReorderBufferChange__bindgen_ty_1 ) , "::" , stringify ! (
+                tuplecid ) ));
+}
+impl Clone for ReorderBufferChange__bindgen_ty_1 {
+    fn clone(&self) -> Self { *self }
+}
+#[test]
+fn bindgen_test_layout_ReorderBufferChange() {
+    assert_eq!(::std::mem::size_of::<ReorderBufferChange>() , 64usize , concat
+               ! ( "Size of: " , stringify ! ( ReorderBufferChange ) ));
+    assert_eq! (::std::mem::align_of::<ReorderBufferChange>() , 8usize ,
+                concat ! (
+                "Alignment of " , stringify ! ( ReorderBufferChange ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const ReorderBufferChange ) ) . lsn as * const
+                _ as usize } , 0usize , concat ! (
+                "Alignment of field: " , stringify ! ( ReorderBufferChange ) ,
+                "::" , stringify ! ( lsn ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const ReorderBufferChange ) ) . action as *
+                const _ as usize } , 8usize , concat ! (
+                "Alignment of field: " , stringify ! ( ReorderBufferChange ) ,
+                "::" , stringify ! ( action ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const ReorderBufferChange ) ) . origin_id as *
+                const _ as usize } , 12usize , concat ! (
+                "Alignment of field: " , stringify ! ( ReorderBufferChange ) ,
+                "::" , stringify ! ( origin_id ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const ReorderBufferChange ) ) . data as * const
+                _ as usize } , 16usize , concat ! (
+                "Alignment of field: " , stringify ! ( ReorderBufferChange ) ,
+                "::" , stringify ! ( data ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const ReorderBufferChange ) ) . node as * const
+                _ as usize } , 48usize , concat ! (
+                "Alignment of field: " , stringify ! ( ReorderBufferChange ) ,
+                "::" , stringify ! ( node ) ));
+}
+impl Clone for ReorderBufferChange {
+    fn clone(&self) -> Self { *self }
+}
+#[repr(C)]
+#[derive(Copy)]
+pub struct ReorderBufferTXN {
+    pub xid: TransactionId,
+    pub has_catalog_changes: bool_,
+    pub is_known_as_subxact: bool_,
+    pub first_lsn: XLogRecPtr,
+    pub final_lsn: XLogRecPtr,
+    pub end_lsn: XLogRecPtr,
+    pub restart_decoding_lsn: XLogRecPtr,
+    pub origin_id: RepOriginId,
+    pub origin_lsn: XLogRecPtr,
+    pub commit_time: TimestampTz,
+    pub base_snapshot: Snapshot,
+    pub base_snapshot_lsn: XLogRecPtr,
+    pub nentries: uint64,
+    pub nentries_mem: uint64,
+    pub serialized: bool_,
+    pub changes: dlist_head,
+    pub tuplecids: dlist_head,
+    pub ntuplecids: uint64,
+    pub tuplecid_hash: *mut HTAB,
+    pub toast_hash: *mut HTAB,
+    pub subtxns: dlist_head,
+    pub nsubtxns: uint32,
+    pub ninvalidations: uint32,
+    pub invalidations: *mut SharedInvalidationMessage,
+    pub node: dlist_node,
+}
+#[test]
+fn bindgen_test_layout_ReorderBufferTXN() {
+    assert_eq!(::std::mem::size_of::<ReorderBufferTXN>() , 208usize , concat !
+               ( "Size of: " , stringify ! ( ReorderBufferTXN ) ));
+    assert_eq! (::std::mem::align_of::<ReorderBufferTXN>() , 8usize , concat !
+                ( "Alignment of " , stringify ! ( ReorderBufferTXN ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const ReorderBufferTXN ) ) . xid as * const _
+                as usize } , 0usize , concat ! (
+                "Alignment of field: " , stringify ! ( ReorderBufferTXN ) ,
+                "::" , stringify ! ( xid ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const ReorderBufferTXN ) ) .
+                has_catalog_changes as * const _ as usize } , 4usize , concat
+                ! (
+                "Alignment of field: " , stringify ! ( ReorderBufferTXN ) ,
+                "::" , stringify ! ( has_catalog_changes ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const ReorderBufferTXN ) ) .
+                is_known_as_subxact as * const _ as usize } , 5usize , concat
+                ! (
+                "Alignment of field: " , stringify ! ( ReorderBufferTXN ) ,
+                "::" , stringify ! ( is_known_as_subxact ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const ReorderBufferTXN ) ) . first_lsn as *
+                const _ as usize } , 8usize , concat ! (
+                "Alignment of field: " , stringify ! ( ReorderBufferTXN ) ,
+                "::" , stringify ! ( first_lsn ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const ReorderBufferTXN ) ) . final_lsn as *
+                const _ as usize } , 16usize , concat ! (
+                "Alignment of field: " , stringify ! ( ReorderBufferTXN ) ,
+                "::" , stringify ! ( final_lsn ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const ReorderBufferTXN ) ) . end_lsn as * const
+                _ as usize } , 24usize , concat ! (
+                "Alignment of field: " , stringify ! ( ReorderBufferTXN ) ,
+                "::" , stringify ! ( end_lsn ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const ReorderBufferTXN ) ) .
+                restart_decoding_lsn as * const _ as usize } , 32usize ,
+                concat ! (
+                "Alignment of field: " , stringify ! ( ReorderBufferTXN ) ,
+                "::" , stringify ! ( restart_decoding_lsn ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const ReorderBufferTXN ) ) . origin_id as *
+                const _ as usize } , 40usize , concat ! (
+                "Alignment of field: " , stringify ! ( ReorderBufferTXN ) ,
+                "::" , stringify ! ( origin_id ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const ReorderBufferTXN ) ) . origin_lsn as *
+                const _ as usize } , 48usize , concat ! (
+                "Alignment of field: " , stringify ! ( ReorderBufferTXN ) ,
+                "::" , stringify ! ( origin_lsn ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const ReorderBufferTXN ) ) . commit_time as *
+                const _ as usize } , 56usize , concat ! (
+                "Alignment of field: " , stringify ! ( ReorderBufferTXN ) ,
+                "::" , stringify ! ( commit_time ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const ReorderBufferTXN ) ) . base_snapshot as *
+                const _ as usize } , 64usize , concat ! (
+                "Alignment of field: " , stringify ! ( ReorderBufferTXN ) ,
+                "::" , stringify ! ( base_snapshot ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const ReorderBufferTXN ) ) . base_snapshot_lsn
+                as * const _ as usize } , 72usize , concat ! (
+                "Alignment of field: " , stringify ! ( ReorderBufferTXN ) ,
+                "::" , stringify ! ( base_snapshot_lsn ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const ReorderBufferTXN ) ) . nentries as *
+                const _ as usize } , 80usize , concat ! (
+                "Alignment of field: " , stringify ! ( ReorderBufferTXN ) ,
+                "::" , stringify ! ( nentries ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const ReorderBufferTXN ) ) . nentries_mem as *
+                const _ as usize } , 88usize , concat ! (
+                "Alignment of field: " , stringify ! ( ReorderBufferTXN ) ,
+                "::" , stringify ! ( nentries_mem ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const ReorderBufferTXN ) ) . serialized as *
+                const _ as usize } , 96usize , concat ! (
+                "Alignment of field: " , stringify ! ( ReorderBufferTXN ) ,
+                "::" , stringify ! ( serialized ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const ReorderBufferTXN ) ) . changes as * const
+                _ as usize } , 104usize , concat ! (
+                "Alignment of field: " , stringify ! ( ReorderBufferTXN ) ,
+                "::" , stringify ! ( changes ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const ReorderBufferTXN ) ) . tuplecids as *
+                const _ as usize } , 120usize , concat ! (
+                "Alignment of field: " , stringify ! ( ReorderBufferTXN ) ,
+                "::" , stringify ! ( tuplecids ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const ReorderBufferTXN ) ) . ntuplecids as *
+                const _ as usize } , 136usize , concat ! (
+                "Alignment of field: " , stringify ! ( ReorderBufferTXN ) ,
+                "::" , stringify ! ( ntuplecids ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const ReorderBufferTXN ) ) . tuplecid_hash as *
+                const _ as usize } , 144usize , concat ! (
+                "Alignment of field: " , stringify ! ( ReorderBufferTXN ) ,
+                "::" , stringify ! ( tuplecid_hash ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const ReorderBufferTXN ) ) . toast_hash as *
+                const _ as usize } , 152usize , concat ! (
+                "Alignment of field: " , stringify ! ( ReorderBufferTXN ) ,
+                "::" , stringify ! ( toast_hash ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const ReorderBufferTXN ) ) . subtxns as * const
+                _ as usize } , 160usize , concat ! (
+                "Alignment of field: " , stringify ! ( ReorderBufferTXN ) ,
+                "::" , stringify ! ( subtxns ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const ReorderBufferTXN ) ) . nsubtxns as *
+                const _ as usize } , 176usize , concat ! (
+                "Alignment of field: " , stringify ! ( ReorderBufferTXN ) ,
+                "::" , stringify ! ( nsubtxns ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const ReorderBufferTXN ) ) . ninvalidations as
+                * const _ as usize } , 180usize , concat ! (
+                "Alignment of field: " , stringify ! ( ReorderBufferTXN ) ,
+                "::" , stringify ! ( ninvalidations ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const ReorderBufferTXN ) ) . invalidations as *
+                const _ as usize } , 184usize , concat ! (
+                "Alignment of field: " , stringify ! ( ReorderBufferTXN ) ,
+                "::" , stringify ! ( invalidations ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const ReorderBufferTXN ) ) . node as * const _
+                as usize } , 192usize , concat ! (
+                "Alignment of field: " , stringify ! ( ReorderBufferTXN ) ,
+                "::" , stringify ! ( node ) ));
+}
+impl Clone for ReorderBufferTXN {
+    fn clone(&self) -> Self { *self }
+}
+#[repr(C)]
+#[derive(Copy)]
+pub struct ReorderBuffer {
+    pub by_txn: *mut HTAB,
+    pub toplevel_by_lsn: dlist_head,
+    pub by_txn_last_xid: TransactionId,
+    pub by_txn_last_txn: *mut ReorderBufferTXN,
+    pub begin: ReorderBufferBeginCB,
+    pub apply_change: ReorderBufferApplyChangeCB,
+    pub commit: ReorderBufferCommitCB,
+    pub message: ReorderBufferMessageCB,
+    pub private_data: *mut ::std::os::raw::c_void,
+    pub context: MemoryContext,
+    pub change_context: MemoryContext,
+    pub txn_context: MemoryContext,
+    pub cached_tuplebufs: slist_head,
+    pub nr_cached_tuplebufs: Size,
+    pub current_restart_decoding_lsn: XLogRecPtr,
+    pub outbuf: *mut ::std::os::raw::c_char,
+    pub outbufsize: Size,
+}
+#[test]
+fn bindgen_test_layout_ReorderBuffer() {
+    assert_eq!(::std::mem::size_of::<ReorderBuffer>() , 144usize , concat ! (
+               "Size of: " , stringify ! ( ReorderBuffer ) ));
+    assert_eq! (::std::mem::align_of::<ReorderBuffer>() , 8usize , concat ! (
+                "Alignment of " , stringify ! ( ReorderBuffer ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const ReorderBuffer ) ) . by_txn as * const _
+                as usize } , 0usize , concat ! (
+                "Alignment of field: " , stringify ! ( ReorderBuffer ) , "::"
+                , stringify ! ( by_txn ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const ReorderBuffer ) ) . toplevel_by_lsn as *
+                const _ as usize } , 8usize , concat ! (
+                "Alignment of field: " , stringify ! ( ReorderBuffer ) , "::"
+                , stringify ! ( toplevel_by_lsn ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const ReorderBuffer ) ) . by_txn_last_xid as *
+                const _ as usize } , 24usize , concat ! (
+                "Alignment of field: " , stringify ! ( ReorderBuffer ) , "::"
+                , stringify ! ( by_txn_last_xid ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const ReorderBuffer ) ) . by_txn_last_txn as *
+                const _ as usize } , 32usize , concat ! (
+                "Alignment of field: " , stringify ! ( ReorderBuffer ) , "::"
+                , stringify ! ( by_txn_last_txn ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const ReorderBuffer ) ) . begin as * const _ as
+                usize } , 40usize , concat ! (
+                "Alignment of field: " , stringify ! ( ReorderBuffer ) , "::"
+                , stringify ! ( begin ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const ReorderBuffer ) ) . apply_change as *
+                const _ as usize } , 48usize , concat ! (
+                "Alignment of field: " , stringify ! ( ReorderBuffer ) , "::"
+                , stringify ! ( apply_change ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const ReorderBuffer ) ) . commit as * const _
+                as usize } , 56usize , concat ! (
+                "Alignment of field: " , stringify ! ( ReorderBuffer ) , "::"
+                , stringify ! ( commit ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const ReorderBuffer ) ) . message as * const _
+                as usize } , 64usize , concat ! (
+                "Alignment of field: " , stringify ! ( ReorderBuffer ) , "::"
+                , stringify ! ( message ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const ReorderBuffer ) ) . private_data as *
+                const _ as usize } , 72usize , concat ! (
+                "Alignment of field: " , stringify ! ( ReorderBuffer ) , "::"
+                , stringify ! ( private_data ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const ReorderBuffer ) ) . context as * const _
+                as usize } , 80usize , concat ! (
+                "Alignment of field: " , stringify ! ( ReorderBuffer ) , "::"
+                , stringify ! ( context ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const ReorderBuffer ) ) . change_context as *
+                const _ as usize } , 88usize , concat ! (
+                "Alignment of field: " , stringify ! ( ReorderBuffer ) , "::"
+                , stringify ! ( change_context ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const ReorderBuffer ) ) . txn_context as *
+                const _ as usize } , 96usize , concat ! (
+                "Alignment of field: " , stringify ! ( ReorderBuffer ) , "::"
+                , stringify ! ( txn_context ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const ReorderBuffer ) ) . cached_tuplebufs as *
+                const _ as usize } , 104usize , concat ! (
+                "Alignment of field: " , stringify ! ( ReorderBuffer ) , "::"
+                , stringify ! ( cached_tuplebufs ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const ReorderBuffer ) ) . nr_cached_tuplebufs
+                as * const _ as usize } , 112usize , concat ! (
+                "Alignment of field: " , stringify ! ( ReorderBuffer ) , "::"
+                , stringify ! ( nr_cached_tuplebufs ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const ReorderBuffer ) ) .
+                current_restart_decoding_lsn as * const _ as usize } ,
+                120usize , concat ! (
+                "Alignment of field: " , stringify ! ( ReorderBuffer ) , "::"
+                , stringify ! ( current_restart_decoding_lsn ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const ReorderBuffer ) ) . outbuf as * const _
+                as usize } , 128usize , concat ! (
+                "Alignment of field: " , stringify ! ( ReorderBuffer ) , "::"
+                , stringify ! ( outbuf ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const ReorderBuffer ) ) . outbufsize as * const
+                _ as usize } , 136usize , concat ! (
+                "Alignment of field: " , stringify ! ( ReorderBuffer ) , "::"
+                , stringify ! ( outbufsize ) ));
+}
+impl Clone for ReorderBuffer {
+    fn clone(&self) -> Self { *self }
+}
+pub type ReorderBufferApplyChangeCB =
+    ::std::option::Option<unsafe extern "C" fn(rb: *mut ReorderBuffer,
+                                               txn: *mut ReorderBufferTXN,
+                                               relation: Relation,
+                                               change:
+                                                   *mut ReorderBufferChange)>;
+pub type ReorderBufferBeginCB =
+    ::std::option::Option<unsafe extern "C" fn(rb: *mut ReorderBuffer,
+                                               txn: *mut ReorderBufferTXN)>;
+pub type ReorderBufferCommitCB =
+    ::std::option::Option<unsafe extern "C" fn(rb: *mut ReorderBuffer,
+                                               txn: *mut ReorderBufferTXN,
+                                               commit_lsn: XLogRecPtr)>;
+pub type ReorderBufferMessageCB =
+    ::std::option::Option<unsafe extern "C" fn(rb: *mut ReorderBuffer,
+                                               txn: *mut ReorderBufferTXN,
+                                               message_lsn: XLogRecPtr,
+                                               transactional: bool_,
+                                               prefix:
+                                                   *const ::std::os::raw::c_char,
+                                               sz: Size,
+                                               message:
+                                                   *const ::std::os::raw::c_char)>;
+extern "C" {
+    pub fn ReorderBufferAllocate() -> *mut ReorderBuffer;
+}
+extern "C" {
+    pub fn ReorderBufferFree(arg1: *mut ReorderBuffer);
+}
+extern "C" {
+    pub fn ReorderBufferGetTupleBuf(arg1: *mut ReorderBuffer, tuple_len: Size)
+     -> *mut ReorderBufferTupleBuf;
+}
+extern "C" {
+    pub fn ReorderBufferReturnTupleBuf(arg1: *mut ReorderBuffer,
+                                       tuple: *mut ReorderBufferTupleBuf);
+}
+extern "C" {
+    pub fn ReorderBufferGetChange(arg1: *mut ReorderBuffer)
+     -> *mut ReorderBufferChange;
+}
+extern "C" {
+    pub fn ReorderBufferReturnChange(arg1: *mut ReorderBuffer,
+                                     arg2: *mut ReorderBufferChange);
+}
+extern "C" {
+    pub fn ReorderBufferQueueChange(arg1: *mut ReorderBuffer,
+                                    arg2: TransactionId, lsn: XLogRecPtr,
+                                    arg3: *mut ReorderBufferChange);
+}
+extern "C" {
+    pub fn ReorderBufferQueueMessage(arg1: *mut ReorderBuffer,
+                                     arg2: TransactionId, snapshot: Snapshot,
+                                     lsn: XLogRecPtr, transactional: bool_,
+                                     prefix: *const ::std::os::raw::c_char,
+                                     message_size: Size,
+                                     message: *const ::std::os::raw::c_char);
+}
+extern "C" {
+    pub fn ReorderBufferCommit(arg1: *mut ReorderBuffer, arg2: TransactionId,
+                               commit_lsn: XLogRecPtr, end_lsn: XLogRecPtr,
+                               commit_time: TimestampTz,
+                               origin_id: RepOriginId,
+                               origin_lsn: XLogRecPtr);
+}
+extern "C" {
+    pub fn ReorderBufferAssignChild(arg1: *mut ReorderBuffer,
+                                    arg2: TransactionId, arg3: TransactionId,
+                                    commit_lsn: XLogRecPtr);
+}
+extern "C" {
+    pub fn ReorderBufferCommitChild(arg1: *mut ReorderBuffer,
+                                    arg2: TransactionId, arg3: TransactionId,
+                                    commit_lsn: XLogRecPtr,
+                                    end_lsn: XLogRecPtr);
+}
+extern "C" {
+    pub fn ReorderBufferAbort(arg1: *mut ReorderBuffer, arg2: TransactionId,
+                              lsn: XLogRecPtr);
+}
+extern "C" {
+    pub fn ReorderBufferAbortOld(arg1: *mut ReorderBuffer,
+                                 xid: TransactionId);
+}
+extern "C" {
+    pub fn ReorderBufferForget(arg1: *mut ReorderBuffer, arg2: TransactionId,
+                               lsn: XLogRecPtr);
+}
+extern "C" {
+    pub fn ReorderBufferSetBaseSnapshot(arg1: *mut ReorderBuffer,
+                                        arg2: TransactionId, lsn: XLogRecPtr,
+                                        snap: *mut SnapshotData);
+}
+extern "C" {
+    pub fn ReorderBufferAddSnapshot(arg1: *mut ReorderBuffer,
+                                    arg2: TransactionId, lsn: XLogRecPtr,
+                                    snap: *mut SnapshotData);
+}
+extern "C" {
+    pub fn ReorderBufferAddNewCommandId(arg1: *mut ReorderBuffer,
+                                        arg2: TransactionId, lsn: XLogRecPtr,
+                                        cid: CommandId);
+}
+extern "C" {
+    pub fn ReorderBufferAddNewTupleCids(arg1: *mut ReorderBuffer,
+                                        arg2: TransactionId, lsn: XLogRecPtr,
+                                        node: RelFileNode,
+                                        pt: ItemPointerData, cmin: CommandId,
+                                        cmax: CommandId, combocid: CommandId);
+}
+extern "C" {
+    pub fn ReorderBufferAddInvalidations(arg1: *mut ReorderBuffer,
+                                         arg2: TransactionId, lsn: XLogRecPtr,
+                                         nmsgs: Size,
+                                         msgs:
+                                             *mut SharedInvalidationMessage);
+}
+extern "C" {
+    pub fn ReorderBufferImmediateInvalidation(arg1: *mut ReorderBuffer,
+                                              ninvalidations: uint32,
+                                              invalidations:
+                                                  *mut SharedInvalidationMessage);
+}
+extern "C" {
+    pub fn ReorderBufferProcessXid(arg1: *mut ReorderBuffer,
+                                   xid: TransactionId, lsn: XLogRecPtr);
+}
+extern "C" {
+    pub fn ReorderBufferXidSetCatalogChanges(arg1: *mut ReorderBuffer,
+                                             xid: TransactionId,
+                                             lsn: XLogRecPtr);
+}
+extern "C" {
+    pub fn ReorderBufferXidHasCatalogChanges(arg1: *mut ReorderBuffer,
+                                             xid: TransactionId) -> bool_;
+}
+extern "C" {
+    pub fn ReorderBufferXidHasBaseSnapshot(arg1: *mut ReorderBuffer,
+                                           xid: TransactionId) -> bool_;
+}
+extern "C" {
+    pub fn ReorderBufferGetOldestTXN(arg1: *mut ReorderBuffer)
+     -> *mut ReorderBufferTXN;
+}
+extern "C" {
+    pub fn ReorderBufferSetRestartPoint(arg1: *mut ReorderBuffer,
+                                        ptr: XLogRecPtr);
+}
+extern "C" {
+    pub fn StartupReorderBuffer();
+}
+#[repr(C)]
+#[derive(Copy)]
+pub struct LogicalDecodingContext {
+    pub context: MemoryContext,
+    pub slot: *mut ReplicationSlot,
+    pub reader: *mut XLogReaderState,
+    pub reorder: *mut ReorderBuffer,
+    pub snapshot_builder: *mut SnapBuild,
+    pub callbacks: OutputPluginCallbacks,
+    pub options: OutputPluginOptions,
+    pub output_plugin_options: *mut List,
+    pub prepare_write: LogicalOutputPluginWriterPrepareWrite,
+    pub write: LogicalOutputPluginWriterWrite,
+    pub update_progress: LogicalOutputPluginWriterUpdateProgress,
+    pub out: StringInfo,
+    pub output_plugin_private: *mut ::std::os::raw::c_void,
+    pub output_writer_private: *mut ::std::os::raw::c_void,
+    pub accept_writes: bool_,
+    pub prepared_write: bool_,
+    pub write_location: XLogRecPtr,
+    pub write_xid: TransactionId,
+}
+#[test]
+fn bindgen_test_layout_LogicalDecodingContext() {
+    assert_eq!(::std::mem::size_of::<LogicalDecodingContext>() , 184usize ,
+               concat ! ( "Size of: " , stringify ! ( LogicalDecodingContext )
+               ));
+    assert_eq! (::std::mem::align_of::<LogicalDecodingContext>() , 8usize ,
+                concat ! (
+                "Alignment of " , stringify ! ( LogicalDecodingContext ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const LogicalDecodingContext ) ) . context as *
+                const _ as usize } , 0usize , concat ! (
+                "Alignment of field: " , stringify ! ( LogicalDecodingContext
+                ) , "::" , stringify ! ( context ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const LogicalDecodingContext ) ) . slot as *
+                const _ as usize } , 8usize , concat ! (
+                "Alignment of field: " , stringify ! ( LogicalDecodingContext
+                ) , "::" , stringify ! ( slot ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const LogicalDecodingContext ) ) . reader as *
+                const _ as usize } , 16usize , concat ! (
+                "Alignment of field: " , stringify ! ( LogicalDecodingContext
+                ) , "::" , stringify ! ( reader ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const LogicalDecodingContext ) ) . reorder as *
+                const _ as usize } , 24usize , concat ! (
+                "Alignment of field: " , stringify ! ( LogicalDecodingContext
+                ) , "::" , stringify ! ( reorder ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const LogicalDecodingContext ) ) .
+                snapshot_builder as * const _ as usize } , 32usize , concat !
+                (
+                "Alignment of field: " , stringify ! ( LogicalDecodingContext
+                ) , "::" , stringify ! ( snapshot_builder ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const LogicalDecodingContext ) ) . callbacks as
+                * const _ as usize } , 40usize , concat ! (
+                "Alignment of field: " , stringify ! ( LogicalDecodingContext
+                ) , "::" , stringify ! ( callbacks ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const LogicalDecodingContext ) ) . options as *
+                const _ as usize } , 96usize , concat ! (
+                "Alignment of field: " , stringify ! ( LogicalDecodingContext
+                ) , "::" , stringify ! ( options ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const LogicalDecodingContext ) ) .
+                output_plugin_options as * const _ as usize } , 104usize ,
+                concat ! (
+                "Alignment of field: " , stringify ! ( LogicalDecodingContext
+                ) , "::" , stringify ! ( output_plugin_options ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const LogicalDecodingContext ) ) .
+                prepare_write as * const _ as usize } , 112usize , concat ! (
+                "Alignment of field: " , stringify ! ( LogicalDecodingContext
+                ) , "::" , stringify ! ( prepare_write ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const LogicalDecodingContext ) ) . write as *
+                const _ as usize } , 120usize , concat ! (
+                "Alignment of field: " , stringify ! ( LogicalDecodingContext
+                ) , "::" , stringify ! ( write ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const LogicalDecodingContext ) ) .
+                update_progress as * const _ as usize } , 128usize , concat !
+                (
+                "Alignment of field: " , stringify ! ( LogicalDecodingContext
+                ) , "::" , stringify ! ( update_progress ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const LogicalDecodingContext ) ) . out as *
+                const _ as usize } , 136usize , concat ! (
+                "Alignment of field: " , stringify ! ( LogicalDecodingContext
+                ) , "::" , stringify ! ( out ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const LogicalDecodingContext ) ) .
+                output_plugin_private as * const _ as usize } , 144usize ,
+                concat ! (
+                "Alignment of field: " , stringify ! ( LogicalDecodingContext
+                ) , "::" , stringify ! ( output_plugin_private ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const LogicalDecodingContext ) ) .
+                output_writer_private as * const _ as usize } , 152usize ,
+                concat ! (
+                "Alignment of field: " , stringify ! ( LogicalDecodingContext
+                ) , "::" , stringify ! ( output_writer_private ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const LogicalDecodingContext ) ) .
+                accept_writes as * const _ as usize } , 160usize , concat ! (
+                "Alignment of field: " , stringify ! ( LogicalDecodingContext
+                ) , "::" , stringify ! ( accept_writes ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const LogicalDecodingContext ) ) .
+                prepared_write as * const _ as usize } , 161usize , concat ! (
+                "Alignment of field: " , stringify ! ( LogicalDecodingContext
+                ) , "::" , stringify ! ( prepared_write ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const LogicalDecodingContext ) ) .
+                write_location as * const _ as usize } , 168usize , concat ! (
+                "Alignment of field: " , stringify ! ( LogicalDecodingContext
+                ) , "::" , stringify ! ( write_location ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const LogicalDecodingContext ) ) . write_xid as
+                * const _ as usize } , 176usize , concat ! (
+                "Alignment of field: " , stringify ! ( LogicalDecodingContext
+                ) , "::" , stringify ! ( write_xid ) ));
+}
+impl Clone for LogicalDecodingContext {
+    fn clone(&self) -> Self { *self }
+}
+#[repr(C)]
+#[derive(Copy)]
+pub struct OutputPluginCallbacks {
+    pub startup_cb: LogicalDecodeStartupCB,
+    pub begin_cb: LogicalDecodeBeginCB,
+    pub change_cb: LogicalDecodeChangeCB,
+    pub commit_cb: LogicalDecodeCommitCB,
+    pub message_cb: LogicalDecodeMessageCB,
+    pub filter_by_origin_cb: LogicalDecodeFilterByOriginCB,
+    pub shutdown_cb: LogicalDecodeShutdownCB,
+}
+#[test]
+fn bindgen_test_layout_OutputPluginCallbacks() {
+    assert_eq!(::std::mem::size_of::<OutputPluginCallbacks>() , 56usize ,
+               concat ! ( "Size of: " , stringify ! ( OutputPluginCallbacks )
+               ));
+    assert_eq! (::std::mem::align_of::<OutputPluginCallbacks>() , 8usize ,
+                concat ! (
+                "Alignment of " , stringify ! ( OutputPluginCallbacks ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const OutputPluginCallbacks ) ) . startup_cb as
+                * const _ as usize } , 0usize , concat ! (
+                "Alignment of field: " , stringify ! ( OutputPluginCallbacks )
+                , "::" , stringify ! ( startup_cb ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const OutputPluginCallbacks ) ) . begin_cb as *
+                const _ as usize } , 8usize , concat ! (
+                "Alignment of field: " , stringify ! ( OutputPluginCallbacks )
+                , "::" , stringify ! ( begin_cb ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const OutputPluginCallbacks ) ) . change_cb as
+                * const _ as usize } , 16usize , concat ! (
+                "Alignment of field: " , stringify ! ( OutputPluginCallbacks )
+                , "::" , stringify ! ( change_cb ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const OutputPluginCallbacks ) ) . commit_cb as
+                * const _ as usize } , 24usize , concat ! (
+                "Alignment of field: " , stringify ! ( OutputPluginCallbacks )
+                , "::" , stringify ! ( commit_cb ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const OutputPluginCallbacks ) ) . message_cb as
+                * const _ as usize } , 32usize , concat ! (
+                "Alignment of field: " , stringify ! ( OutputPluginCallbacks )
+                , "::" , stringify ! ( message_cb ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const OutputPluginCallbacks ) ) .
+                filter_by_origin_cb as * const _ as usize } , 40usize , concat
+                ! (
+                "Alignment of field: " , stringify ! ( OutputPluginCallbacks )
+                , "::" , stringify ! ( filter_by_origin_cb ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const OutputPluginCallbacks ) ) . shutdown_cb
+                as * const _ as usize } , 48usize , concat ! (
+                "Alignment of field: " , stringify ! ( OutputPluginCallbacks )
+                , "::" , stringify ! ( shutdown_cb ) ));
+}
+impl Clone for OutputPluginCallbacks {
+    fn clone(&self) -> Self { *self }
+}
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
+pub enum OutputPluginOutputType {
+    OUTPUT_PLUGIN_BINARY_OUTPUT = 0,
+    OUTPUT_PLUGIN_TEXTUAL_OUTPUT = 1,
+}
+#[repr(C)]
+#[derive(Copy)]
+pub struct OutputPluginOptions {
+    pub output_type: OutputPluginOutputType,
+}
+#[test]
+fn bindgen_test_layout_OutputPluginOptions() {
+    assert_eq!(::std::mem::size_of::<OutputPluginOptions>() , 4usize , concat
+               ! ( "Size of: " , stringify ! ( OutputPluginOptions ) ));
+    assert_eq! (::std::mem::align_of::<OutputPluginOptions>() , 4usize ,
+                concat ! (
+                "Alignment of " , stringify ! ( OutputPluginOptions ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const OutputPluginOptions ) ) . output_type as
+                * const _ as usize } , 0usize , concat ! (
+                "Alignment of field: " , stringify ! ( OutputPluginOptions ) ,
+                "::" , stringify ! ( output_type ) ));
+}
+impl Clone for OutputPluginOptions {
+    fn clone(&self) -> Self { *self }
+}
+pub type LogicalOutputPluginInit =
+    ::std::option::Option<unsafe extern "C" fn(cb:
+                                                   *mut OutputPluginCallbacks)>;
+pub type LogicalDecodeStartupCB =
+    ::std::option::Option<unsafe extern "C" fn(ctx:
+                                                   *mut LogicalDecodingContext,
+                                               options:
+                                                   *mut OutputPluginOptions,
+                                               is_init: bool_)>;
+pub type LogicalDecodeBeginCB =
+    ::std::option::Option<unsafe extern "C" fn(ctx:
+                                                   *mut LogicalDecodingContext,
+                                               txn: *mut ReorderBufferTXN)>;
+pub type LogicalDecodeChangeCB =
+    ::std::option::Option<unsafe extern "C" fn(ctx:
+                                                   *mut LogicalDecodingContext,
+                                               txn: *mut ReorderBufferTXN,
+                                               relation: Relation,
+                                               change:
+                                                   *mut ReorderBufferChange)>;
+pub type LogicalDecodeCommitCB =
+    ::std::option::Option<unsafe extern "C" fn(ctx:
+                                                   *mut LogicalDecodingContext,
+                                               txn: *mut ReorderBufferTXN,
+                                               commit_lsn: XLogRecPtr)>;
+pub type LogicalDecodeMessageCB =
+    ::std::option::Option<unsafe extern "C" fn(ctx:
+                                                   *mut LogicalDecodingContext,
+                                               txn: *mut ReorderBufferTXN,
+                                               message_lsn: XLogRecPtr,
+                                               transactional: bool_,
+                                               prefix:
+                                                   *const ::std::os::raw::c_char,
+                                               message_size: Size,
+                                               message:
+                                                   *const ::std::os::raw::c_char)>;
+pub type LogicalDecodeFilterByOriginCB =
+    ::std::option::Option<unsafe extern "C" fn(ctx:
+                                                   *mut LogicalDecodingContext,
+                                               origin_id: RepOriginId)
+                              -> bool_>;
+pub type LogicalDecodeShutdownCB =
+    ::std::option::Option<unsafe extern "C" fn(ctx:
+                                                   *mut LogicalDecodingContext)>;
+extern "C" {
+    pub fn OutputPluginPrepareWrite(ctx: *mut LogicalDecodingContext,
+                                    last_write: bool_);
+}
+extern "C" {
+    pub fn OutputPluginWrite(ctx: *mut LogicalDecodingContext,
+                             last_write: bool_);
+}
+extern "C" {
+    pub fn OutputPluginUpdateProgress(ctx: *mut LogicalDecodingContext);
+}
+extern "C" {
+    pub fn SpinlockSemas() -> ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn SpinlockSemaSize() -> Size;
+}
+#[repr(u32)]
+#[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
+pub enum ReplicationSlotPersistency {
+    RS_PERSISTENT = 0,
+    RS_EPHEMERAL = 1,
+    RS_TEMPORARY = 2,
+}
+#[repr(C)]
+#[derive(Copy)]
+pub struct ReplicationSlotPersistentData {
+    pub name: NameData,
+    pub database: Oid,
+    pub persistency: ReplicationSlotPersistency,
+    pub xmin: TransactionId,
+    pub catalog_xmin: TransactionId,
+    pub restart_lsn: XLogRecPtr,
+    pub confirmed_flush: XLogRecPtr,
+    pub plugin: NameData,
+}
+#[test]
+fn bindgen_test_layout_ReplicationSlotPersistentData() {
+    assert_eq!(::std::mem::size_of::<ReplicationSlotPersistentData>() ,
+               160usize , concat ! (
+               "Size of: " , stringify ! ( ReplicationSlotPersistentData ) ));
+    assert_eq! (::std::mem::align_of::<ReplicationSlotPersistentData>() ,
+                8usize , concat ! (
+                "Alignment of " , stringify ! ( ReplicationSlotPersistentData
+                ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const ReplicationSlotPersistentData ) ) . name
+                as * const _ as usize } , 0usize , concat ! (
+                "Alignment of field: " , stringify ! (
+                ReplicationSlotPersistentData ) , "::" , stringify ! ( name )
+                ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const ReplicationSlotPersistentData ) ) .
+                database as * const _ as usize } , 64usize , concat ! (
+                "Alignment of field: " , stringify ! (
+                ReplicationSlotPersistentData ) , "::" , stringify ! (
+                database ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const ReplicationSlotPersistentData ) ) .
+                persistency as * const _ as usize } , 68usize , concat ! (
+                "Alignment of field: " , stringify ! (
+                ReplicationSlotPersistentData ) , "::" , stringify ! (
+                persistency ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const ReplicationSlotPersistentData ) ) . xmin
+                as * const _ as usize } , 72usize , concat ! (
+                "Alignment of field: " , stringify ! (
+                ReplicationSlotPersistentData ) , "::" , stringify ! ( xmin )
+                ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const ReplicationSlotPersistentData ) ) .
+                catalog_xmin as * const _ as usize } , 76usize , concat ! (
+                "Alignment of field: " , stringify ! (
+                ReplicationSlotPersistentData ) , "::" , stringify ! (
+                catalog_xmin ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const ReplicationSlotPersistentData ) ) .
+                restart_lsn as * const _ as usize } , 80usize , concat ! (
+                "Alignment of field: " , stringify ! (
+                ReplicationSlotPersistentData ) , "::" , stringify ! (
+                restart_lsn ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const ReplicationSlotPersistentData ) ) .
+                confirmed_flush as * const _ as usize } , 88usize , concat ! (
+                "Alignment of field: " , stringify ! (
+                ReplicationSlotPersistentData ) , "::" , stringify ! (
+                confirmed_flush ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const ReplicationSlotPersistentData ) ) .
+                plugin as * const _ as usize } , 96usize , concat ! (
+                "Alignment of field: " , stringify ! (
+                ReplicationSlotPersistentData ) , "::" , stringify ! ( plugin
+                ) ));
+}
+impl Clone for ReplicationSlotPersistentData {
+    fn clone(&self) -> Self { *self }
+}
+#[repr(C)]
+#[derive(Copy)]
+pub struct ReplicationSlot {
+    pub mutex: slock_t,
+    pub in_use: bool_,
+    pub active_pid: pid_t,
+    pub just_dirtied: bool_,
+    pub dirty: bool_,
+    pub effective_xmin: TransactionId,
+    pub effective_catalog_xmin: TransactionId,
+    pub data: ReplicationSlotPersistentData,
+    pub io_in_progress_lock: LWLock,
+    pub active_cv: ConditionVariable,
+    pub candidate_catalog_xmin: TransactionId,
+    pub candidate_xmin_lsn: XLogRecPtr,
+    pub candidate_restart_valid: XLogRecPtr,
+    pub candidate_restart_lsn: XLogRecPtr,
+}
+#[test]
+fn bindgen_test_layout_ReplicationSlot() {
+    assert_eq!(::std::mem::size_of::<ReplicationSlot>() , 240usize , concat !
+               ( "Size of: " , stringify ! ( ReplicationSlot ) ));
+    assert_eq! (::std::mem::align_of::<ReplicationSlot>() , 8usize , concat !
+                ( "Alignment of " , stringify ! ( ReplicationSlot ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const ReplicationSlot ) ) . mutex as * const _
+                as usize } , 0usize , concat ! (
+                "Alignment of field: " , stringify ! ( ReplicationSlot ) ,
+                "::" , stringify ! ( mutex ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const ReplicationSlot ) ) . in_use as * const _
+                as usize } , 1usize , concat ! (
+                "Alignment of field: " , stringify ! ( ReplicationSlot ) ,
+                "::" , stringify ! ( in_use ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const ReplicationSlot ) ) . active_pid as *
+                const _ as usize } , 4usize , concat ! (
+                "Alignment of field: " , stringify ! ( ReplicationSlot ) ,
+                "::" , stringify ! ( active_pid ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const ReplicationSlot ) ) . just_dirtied as *
+                const _ as usize } , 8usize , concat ! (
+                "Alignment of field: " , stringify ! ( ReplicationSlot ) ,
+                "::" , stringify ! ( just_dirtied ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const ReplicationSlot ) ) . dirty as * const _
+                as usize } , 9usize , concat ! (
+                "Alignment of field: " , stringify ! ( ReplicationSlot ) ,
+                "::" , stringify ! ( dirty ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const ReplicationSlot ) ) . effective_xmin as *
+                const _ as usize } , 12usize , concat ! (
+                "Alignment of field: " , stringify ! ( ReplicationSlot ) ,
+                "::" , stringify ! ( effective_xmin ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const ReplicationSlot ) ) .
+                effective_catalog_xmin as * const _ as usize } , 16usize ,
+                concat ! (
+                "Alignment of field: " , stringify ! ( ReplicationSlot ) ,
+                "::" , stringify ! ( effective_catalog_xmin ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const ReplicationSlot ) ) . data as * const _
+                as usize } , 24usize , concat ! (
+                "Alignment of field: " , stringify ! ( ReplicationSlot ) ,
+                "::" , stringify ! ( data ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const ReplicationSlot ) ) . io_in_progress_lock
+                as * const _ as usize } , 184usize , concat ! (
+                "Alignment of field: " , stringify ! ( ReplicationSlot ) ,
+                "::" , stringify ! ( io_in_progress_lock ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const ReplicationSlot ) ) . active_cv as *
+                const _ as usize } , 200usize , concat ! (
+                "Alignment of field: " , stringify ! ( ReplicationSlot ) ,
+                "::" , stringify ! ( active_cv ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const ReplicationSlot ) ) .
+                candidate_catalog_xmin as * const _ as usize } , 212usize ,
+                concat ! (
+                "Alignment of field: " , stringify ! ( ReplicationSlot ) ,
+                "::" , stringify ! ( candidate_catalog_xmin ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const ReplicationSlot ) ) . candidate_xmin_lsn
+                as * const _ as usize } , 216usize , concat ! (
+                "Alignment of field: " , stringify ! ( ReplicationSlot ) ,
+                "::" , stringify ! ( candidate_xmin_lsn ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const ReplicationSlot ) ) .
+                candidate_restart_valid as * const _ as usize } , 224usize ,
+                concat ! (
+                "Alignment of field: " , stringify ! ( ReplicationSlot ) ,
+                "::" , stringify ! ( candidate_restart_valid ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const ReplicationSlot ) ) .
+                candidate_restart_lsn as * const _ as usize } , 232usize ,
+                concat ! (
+                "Alignment of field: " , stringify ! ( ReplicationSlot ) ,
+                "::" , stringify ! ( candidate_restart_lsn ) ));
+}
+impl Clone for ReplicationSlot {
+    fn clone(&self) -> Self { *self }
+}
+#[repr(C)]
+#[derive(Copy)]
+pub struct ReplicationSlotCtlData {
+    pub replication_slots: [ReplicationSlot; 1usize],
+}
+#[test]
+fn bindgen_test_layout_ReplicationSlotCtlData() {
+    assert_eq!(::std::mem::size_of::<ReplicationSlotCtlData>() , 240usize ,
+               concat ! ( "Size of: " , stringify ! ( ReplicationSlotCtlData )
+               ));
+    assert_eq! (::std::mem::align_of::<ReplicationSlotCtlData>() , 8usize ,
+                concat ! (
+                "Alignment of " , stringify ! ( ReplicationSlotCtlData ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const ReplicationSlotCtlData ) ) .
+                replication_slots as * const _ as usize } , 0usize , concat !
+                (
+                "Alignment of field: " , stringify ! ( ReplicationSlotCtlData
+                ) , "::" , stringify ! ( replication_slots ) ));
+}
+impl Clone for ReplicationSlotCtlData {
+    fn clone(&self) -> Self { *self }
+}
+extern "C" {
+    #[link_name = "ReplicationSlotCtl"]
+    pub static mut ReplicationSlotCtl: *mut ReplicationSlotCtlData;
+}
+extern "C" {
+    #[link_name = "MyReplicationSlot"]
+    pub static mut MyReplicationSlot: *mut ReplicationSlot;
+}
+extern "C" {
+    #[link_name = "max_replication_slots"]
+    pub static mut max_replication_slots: ::std::os::raw::c_int;
+}
+extern "C" {
+    pub fn ReplicationSlotsShmemSize() -> Size;
+}
+extern "C" {
+    pub fn ReplicationSlotsShmemInit();
+}
+extern "C" {
+    pub fn ReplicationSlotCreate(name: *const ::std::os::raw::c_char,
+                                 db_specific: bool_,
+                                 p: ReplicationSlotPersistency);
+}
+extern "C" {
+    pub fn ReplicationSlotPersist();
+}
+extern "C" {
+    pub fn ReplicationSlotDrop(name: *const ::std::os::raw::c_char,
+                               nowait: bool_);
+}
+extern "C" {
+    pub fn ReplicationSlotAcquire(name: *const ::std::os::raw::c_char,
+                                  nowait: bool_);
+}
+extern "C" {
+    pub fn ReplicationSlotRelease();
+}
+extern "C" {
+    pub fn ReplicationSlotCleanup();
+}
+extern "C" {
+    pub fn ReplicationSlotSave();
+}
+extern "C" {
+    pub fn ReplicationSlotMarkDirty();
+}
+extern "C" {
+    pub fn ReplicationSlotValidateName(name: *const ::std::os::raw::c_char,
+                                       elevel: ::std::os::raw::c_int)
+     -> bool_;
+}
+extern "C" {
+    pub fn ReplicationSlotReserveWal();
+}
+extern "C" {
+    pub fn ReplicationSlotsComputeRequiredXmin(already_locked: bool_);
+}
+extern "C" {
+    pub fn ReplicationSlotsComputeRequiredLSN();
+}
+extern "C" {
+    pub fn ReplicationSlotsComputeLogicalRestartLSN() -> XLogRecPtr;
+}
+extern "C" {
+    pub fn ReplicationSlotsCountDBSlots(dboid: Oid,
+                                        nslots: *mut ::std::os::raw::c_int,
+                                        nactive: *mut ::std::os::raw::c_int)
+     -> bool_;
+}
+extern "C" {
+    pub fn ReplicationSlotsDropDBSlots(dboid: Oid);
+}
+extern "C" {
+    pub fn StartupReplicationSlots();
+}
+extern "C" {
+    pub fn CheckPointReplicationSlots();
+}
+extern "C" {
+    pub fn CheckSlotRequirements();
+}
+pub type LogicalOutputPluginWriterWrite =
+    ::std::option::Option<unsafe extern "C" fn(lr:
+                                                   *mut LogicalDecodingContext,
+                                               Ptr: XLogRecPtr,
+                                               xid: TransactionId,
+                                               last_write: bool_)>;
+pub type LogicalOutputPluginWriterPrepareWrite =
+    LogicalOutputPluginWriterWrite;
+pub type LogicalOutputPluginWriterUpdateProgress =
+    ::std::option::Option<unsafe extern "C" fn(lr:
+                                                   *mut LogicalDecodingContext,
+                                               Ptr: XLogRecPtr,
+                                               xid: TransactionId)>;
+extern "C" {
+    pub fn CheckLogicalDecodingRequirements();
+}
+extern "C" {
+    pub fn CreateInitDecodingContext(plugin: *mut ::std::os::raw::c_char,
+                                     output_plugin_options: *mut List,
+                                     need_full_snapshot: bool_,
+                                     read_page: XLogPageReadCB,
+                                     prepare_write:
+                                         LogicalOutputPluginWriterPrepareWrite,
+                                     do_write: LogicalOutputPluginWriterWrite,
+                                     update_progress:
+                                         LogicalOutputPluginWriterUpdateProgress)
+     -> *mut LogicalDecodingContext;
+}
+extern "C" {
+    pub fn CreateDecodingContext(start_lsn: XLogRecPtr,
+                                 output_plugin_options: *mut List,
+                                 read_page: XLogPageReadCB,
+                                 prepare_write:
+                                     LogicalOutputPluginWriterPrepareWrite,
+                                 do_write: LogicalOutputPluginWriterWrite,
+                                 update_progress:
+                                     LogicalOutputPluginWriterUpdateProgress)
+     -> *mut LogicalDecodingContext;
+}
+extern "C" {
+    pub fn DecodingContextFindStartpoint(ctx: *mut LogicalDecodingContext);
+}
+extern "C" {
+    pub fn DecodingContextReady(ctx: *mut LogicalDecodingContext) -> bool_;
+}
+extern "C" {
+    pub fn FreeDecodingContext(ctx: *mut LogicalDecodingContext);
+}
+extern "C" {
+    pub fn LogicalIncreaseXminForSlot(lsn: XLogRecPtr, xmin: TransactionId);
+}
+extern "C" {
+    pub fn LogicalIncreaseRestartDecodingForSlot(current_lsn: XLogRecPtr,
+                                                 restart_lsn: XLogRecPtr);
+}
+extern "C" {
+    pub fn LogicalConfirmReceivedLocation(lsn: XLogRecPtr);
+}
+extern "C" {
+    pub fn filter_by_origin_cb_wrapper(ctx: *mut LogicalDecodingContext,
+                                       origin_id: RepOriginId) -> bool_;
+}
 pub type __builtin_va_list = [__va_list_tag; 1usize];
 #[repr(C)]
 #[derive(Copy)]
@@ -53482,5 +55817,13 @@ pub struct TupleQueueReader {
     pub _address: u8,
 }
 impl Clone for TupleQueueReader {
+    fn clone(&self) -> Self { *self }
+}
+#[repr(C)]
+#[derive(Copy)]
+pub struct SnapBuild {
+    pub _address: u8,
+}
+impl Clone for SnapBuild {
     fn clone(&self) -> Self { *self }
 }
