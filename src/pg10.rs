@@ -57,13 +57,6 @@ impl <T> ::std::fmt::Debug for __BindgenUnionField<T> {
         fmt.write_str("__BindgenUnionField")
     }
 }
-impl <T> ::std::hash::Hash for __BindgenUnionField<T> {
-    fn hash<H: ::std::hash::Hasher>(&self, _state: &mut H) { }
-}
-impl <T> ::std::cmp::PartialEq for __BindgenUnionField<T> {
-    fn eq(&self, _other: &__BindgenUnionField<T>) -> bool { true }
-}
-impl <T> ::std::cmp::Eq for __BindgenUnionField<T> { }
 pub const __llvm__: ::std::os::raw::c_uint = 1;
 pub const __clang__: ::std::os::raw::c_uint = 1;
 pub const __clang_major__: ::std::os::raw::c_uint = 3;
@@ -600,10 +593,10 @@ pub struct __mbstate_t {
 }
 #[repr(C)]
 #[derive(Copy)]
-pub union __mbstate_t__bindgen_ty_1 {
-    pub __wch: ::std::os::raw::c_uint,
-    pub __wchb: [::std::os::raw::c_char; 4usize],
-    _bindgen_union_align: u32,
+pub struct __mbstate_t__bindgen_ty_1 {
+    pub __wch: __BindgenUnionField<::std::os::raw::c_uint>,
+    pub __wchb: __BindgenUnionField<[::std::os::raw::c_char; 4usize]>,
+    pub bindgen_union_field: u32,
 }
 #[test]
 fn bindgen_test_layout___mbstate_t__bindgen_ty_1() {
@@ -1231,11 +1224,11 @@ pub type wchar_t = ::std::os::raw::c_int;
 pub enum idtype_t { P_ALL = 0, P_PID = 1, P_PGID = 2, }
 #[repr(C)]
 #[derive(Copy)]
-pub union wait {
-    pub w_status: ::std::os::raw::c_int,
-    pub __wait_terminated: wait__bindgen_ty_1,
-    pub __wait_stopped: wait__bindgen_ty_2,
-    _bindgen_union_align: u32,
+pub struct wait {
+    pub w_status: __BindgenUnionField<::std::os::raw::c_int>,
+    pub __wait_terminated: __BindgenUnionField<wait__bindgen_ty_1>,
+    pub __wait_stopped: __BindgenUnionField<wait__bindgen_ty_2>,
+    pub bindgen_union_field: u32,
 }
 #[repr(C)]
 #[derive(Copy)]
@@ -1500,10 +1493,10 @@ impl Clone for wait {
 }
 #[repr(C)]
 #[derive(Copy)]
-pub union __WAIT_STATUS {
-    pub __uptr: *mut wait,
-    pub __iptr: *mut ::std::os::raw::c_int,
-    _bindgen_union_align: u64,
+pub struct __WAIT_STATUS {
+    pub __uptr: __BindgenUnionField<*mut wait>,
+    pub __iptr: __BindgenUnionField<*mut ::std::os::raw::c_int>,
+    pub bindgen_union_field: u64,
 }
 #[test]
 fn bindgen_test_layout___WAIT_STATUS() {
@@ -1832,10 +1825,10 @@ pub type fsfilcnt_t = __fsfilcnt_t;
 pub type pthread_t = ::std::os::raw::c_ulong;
 #[repr(C)]
 #[derive(Copy)]
-pub union pthread_attr_t {
-    pub __size: [::std::os::raw::c_char; 56usize],
-    pub __align: ::std::os::raw::c_long,
-    _bindgen_union_align: [u64; 7usize],
+pub struct pthread_attr_t {
+    pub __size: __BindgenUnionField<[::std::os::raw::c_char; 56usize]>,
+    pub __align: __BindgenUnionField<::std::os::raw::c_long>,
+    pub bindgen_union_field: [u64; 7usize],
 }
 #[test]
 fn bindgen_test_layout_pthread_attr_t() {
@@ -1888,11 +1881,11 @@ impl Clone for __pthread_internal_list {
 pub type __pthread_list_t = __pthread_internal_list;
 #[repr(C)]
 #[derive(Copy)]
-pub union pthread_mutex_t {
-    pub __data: pthread_mutex_t___pthread_mutex_s,
-    pub __size: [::std::os::raw::c_char; 40usize],
-    pub __align: ::std::os::raw::c_long,
-    _bindgen_union_align: [u64; 5usize],
+pub struct pthread_mutex_t {
+    pub __data: __BindgenUnionField<pthread_mutex_t___pthread_mutex_s>,
+    pub __size: __BindgenUnionField<[::std::os::raw::c_char; 40usize]>,
+    pub __align: __BindgenUnionField<::std::os::raw::c_long>,
+    pub bindgen_union_field: [u64; 5usize],
 }
 #[repr(C)]
 #[derive(Copy)]
@@ -1995,10 +1988,10 @@ impl Clone for pthread_mutex_t {
 }
 #[repr(C)]
 #[derive(Copy)]
-pub union pthread_mutexattr_t {
-    pub __size: [::std::os::raw::c_char; 4usize],
-    pub __align: ::std::os::raw::c_int,
-    _bindgen_union_align: u32,
+pub struct pthread_mutexattr_t {
+    pub __size: __BindgenUnionField<[::std::os::raw::c_char; 4usize]>,
+    pub __align: __BindgenUnionField<::std::os::raw::c_int>,
+    pub bindgen_union_field: u32,
 }
 #[test]
 fn bindgen_test_layout_pthread_mutexattr_t() {
@@ -2023,11 +2016,11 @@ impl Clone for pthread_mutexattr_t {
 }
 #[repr(C)]
 #[derive(Copy)]
-pub union pthread_cond_t {
-    pub __data: pthread_cond_t__bindgen_ty_1,
-    pub __size: [::std::os::raw::c_char; 48usize],
-    pub __align: ::std::os::raw::c_longlong,
-    _bindgen_union_align: [u64; 6usize],
+pub struct pthread_cond_t {
+    pub __data: __BindgenUnionField<pthread_cond_t__bindgen_ty_1>,
+    pub __size: __BindgenUnionField<[::std::os::raw::c_char; 48usize]>,
+    pub __align: __BindgenUnionField<::std::os::raw::c_longlong>,
+    pub bindgen_union_field: [u64; 6usize],
 }
 #[repr(C)]
 #[derive(Copy)]
@@ -2129,10 +2122,10 @@ impl Clone for pthread_cond_t {
 }
 #[repr(C)]
 #[derive(Copy)]
-pub union pthread_condattr_t {
-    pub __size: [::std::os::raw::c_char; 4usize],
-    pub __align: ::std::os::raw::c_int,
-    _bindgen_union_align: u32,
+pub struct pthread_condattr_t {
+    pub __size: __BindgenUnionField<[::std::os::raw::c_char; 4usize]>,
+    pub __align: __BindgenUnionField<::std::os::raw::c_int>,
+    pub bindgen_union_field: u32,
 }
 #[test]
 fn bindgen_test_layout_pthread_condattr_t() {
@@ -2158,11 +2151,11 @@ pub type pthread_key_t = ::std::os::raw::c_uint;
 pub type pthread_once_t = ::std::os::raw::c_int;
 #[repr(C)]
 #[derive(Copy)]
-pub union pthread_rwlock_t {
-    pub __data: pthread_rwlock_t__bindgen_ty_1,
-    pub __size: [::std::os::raw::c_char; 56usize],
-    pub __align: ::std::os::raw::c_long,
-    _bindgen_union_align: [u64; 7usize],
+pub struct pthread_rwlock_t {
+    pub __data: __BindgenUnionField<pthread_rwlock_t__bindgen_ty_1>,
+    pub __size: __BindgenUnionField<[::std::os::raw::c_char; 56usize]>,
+    pub __align: __BindgenUnionField<::std::os::raw::c_long>,
+    pub bindgen_union_field: [u64; 7usize],
 }
 #[repr(C)]
 #[derive(Copy)]
@@ -2295,10 +2288,10 @@ impl Clone for pthread_rwlock_t {
 }
 #[repr(C)]
 #[derive(Copy)]
-pub union pthread_rwlockattr_t {
-    pub __size: [::std::os::raw::c_char; 8usize],
-    pub __align: ::std::os::raw::c_long,
-    _bindgen_union_align: u64,
+pub struct pthread_rwlockattr_t {
+    pub __size: __BindgenUnionField<[::std::os::raw::c_char; 8usize]>,
+    pub __align: __BindgenUnionField<::std::os::raw::c_long>,
+    pub bindgen_union_field: u64,
 }
 #[test]
 fn bindgen_test_layout_pthread_rwlockattr_t() {
@@ -2324,10 +2317,10 @@ impl Clone for pthread_rwlockattr_t {
 pub type pthread_spinlock_t = ::std::os::raw::c_int;
 #[repr(C)]
 #[derive(Copy)]
-pub union pthread_barrier_t {
-    pub __size: [::std::os::raw::c_char; 32usize],
-    pub __align: ::std::os::raw::c_long,
-    _bindgen_union_align: [u64; 4usize],
+pub struct pthread_barrier_t {
+    pub __size: __BindgenUnionField<[::std::os::raw::c_char; 32usize]>,
+    pub __align: __BindgenUnionField<::std::os::raw::c_long>,
+    pub bindgen_union_field: [u64; 4usize],
 }
 #[test]
 fn bindgen_test_layout_pthread_barrier_t() {
@@ -2351,10 +2344,10 @@ impl Clone for pthread_barrier_t {
 }
 #[repr(C)]
 #[derive(Copy)]
-pub union pthread_barrierattr_t {
-    pub __size: [::std::os::raw::c_char; 4usize],
-    pub __align: ::std::os::raw::c_int,
-    _bindgen_union_align: u32,
+pub struct pthread_barrierattr_t {
+    pub __size: __BindgenUnionField<[::std::os::raw::c_char; 4usize]>,
+    pub __align: __BindgenUnionField<::std::os::raw::c_int>,
+    pub bindgen_union_field: u32,
 }
 #[test]
 fn bindgen_test_layout_pthread_barrierattr_t() {
@@ -3405,6 +3398,8 @@ pub type bits16 = uint16;
 pub type bits32 = uint32;
 pub type int64 = ::std::os::raw::c_long;
 pub type uint64 = ::std::os::raw::c_ulong;
+pub type int128 = [u64; 2usize];
+pub type uint128 = [u64; 2usize];
 pub type Size = usize;
 pub type Index = ::std::os::raw::c_uint;
 pub type Offset = ::std::os::raw::c_int;
@@ -3439,6 +3434,7 @@ impl Clone for IntArray {
     fn clone(&self) -> Self { *self }
 }
 #[repr(C)]
+#[derive(Copy)]
 pub struct varlena {
     pub vl_len_: [::std::os::raw::c_char; 4usize],
     pub vl_dat: __IncompleteArrayField<::std::os::raw::c_char>,
@@ -3450,11 +3446,15 @@ fn bindgen_test_layout_varlena() {
     assert_eq! (::std::mem::align_of::<varlena>() , 1usize , concat ! (
                 "Alignment of " , stringify ! ( varlena ) ));
 }
+impl Clone for varlena {
+    fn clone(&self) -> Self { *self }
+}
 pub type bytea = varlena;
 pub type text = varlena;
 pub type BpChar = varlena;
 pub type VarChar = varlena;
 #[repr(C)]
+#[derive(Copy)]
 pub struct int2vector {
     pub vl_len_: int32,
     pub ndim: ::std::os::raw::c_int,
@@ -3471,7 +3471,11 @@ fn bindgen_test_layout_int2vector() {
     assert_eq! (::std::mem::align_of::<int2vector>() , 4usize , concat ! (
                 "Alignment of " , stringify ! ( int2vector ) ));
 }
+impl Clone for int2vector {
+    fn clone(&self) -> Self { *self }
+}
 #[repr(C)]
+#[derive(Copy)]
 pub struct oidvector {
     pub vl_len_: int32,
     pub ndim: ::std::os::raw::c_int,
@@ -3488,8 +3492,10 @@ fn bindgen_test_layout_oidvector() {
     assert_eq! (::std::mem::align_of::<oidvector>() , 4usize , concat ! (
                 "Alignment of " , stringify ! ( oidvector ) ));
 }
+impl Clone for oidvector {
+    fn clone(&self) -> Self { *self }
+}
 #[repr(C)]
-#[derive(Copy)]
 pub struct nameData {
     pub data: [::std::os::raw::c_char; 64usize],
 }
@@ -3504,9 +3510,6 @@ fn bindgen_test_layout_nameData() {
                 } , 0usize , concat ! (
                 "Alignment of field: " , stringify ! ( nameData ) , "::" ,
                 stringify ! ( data ) ));
-}
-impl Clone for nameData {
-    fn clone(&self) -> Self { *self }
 }
 pub type NameData = nameData;
 pub type Name = *mut NameData;
@@ -3750,7 +3753,6 @@ impl Clone for sockaddr {
     fn clone(&self) -> Self { *self }
 }
 #[repr(C)]
-#[derive(Copy)]
 pub struct sockaddr_storage {
     pub ss_family: sa_family_t,
     pub __ss_padding: [::std::os::raw::c_char; 118usize],
@@ -3777,9 +3779,6 @@ fn bindgen_test_layout_sockaddr_storage() {
                 const _ as usize } , 120usize , concat ! (
                 "Alignment of field: " , stringify ! ( sockaddr_storage ) ,
                 "::" , stringify ! ( __ss_align ) ));
-}
-impl Clone for sockaddr_storage {
-    fn clone(&self) -> Self { *self }
 }
 pub const MSG_OOB: _bindgen_ty_2 = _bindgen_ty_2::MSG_OOB;
 pub const MSG_PEEK: _bindgen_ty_2 = _bindgen_ty_2::MSG_PEEK;
@@ -3880,6 +3879,7 @@ impl Clone for msghdr {
     fn clone(&self) -> Self { *self }
 }
 #[repr(C)]
+#[derive(Copy)]
 pub struct cmsghdr {
     pub cmsg_len: usize,
     pub cmsg_level: ::std::os::raw::c_int,
@@ -3892,6 +3892,9 @@ fn bindgen_test_layout_cmsghdr() {
                "Size of: " , stringify ! ( cmsghdr ) ));
     assert_eq! (::std::mem::align_of::<cmsghdr>() , 8usize , concat ! (
                 "Alignment of " , stringify ! ( cmsghdr ) ));
+}
+impl Clone for cmsghdr {
+    fn clone(&self) -> Self { *self }
 }
 extern "C" {
     pub fn __cmsg_nxthdr(__mhdr: *mut msghdr, __cmsg: *mut cmsghdr)
@@ -4072,7 +4075,6 @@ impl Clone for in_addr {
     fn clone(&self) -> Self { *self }
 }
 #[repr(C)]
-#[derive(Copy)]
 pub struct ip_opts {
     pub ip_dst: in_addr,
     pub ip_opts: [::std::os::raw::c_char; 40usize],
@@ -4093,9 +4095,6 @@ fn bindgen_test_layout_ip_opts() {
                 usize } , 4usize , concat ! (
                 "Alignment of field: " , stringify ! ( ip_opts ) , "::" ,
                 stringify ! ( ip_opts ) ));
-}
-impl Clone for ip_opts {
-    fn clone(&self) -> Self { *self }
 }
 #[repr(C)]
 #[derive(Copy)]
@@ -4298,11 +4297,11 @@ pub struct in6_addr {
 }
 #[repr(C)]
 #[derive(Copy)]
-pub union in6_addr__bindgen_ty_1 {
-    pub __u6_addr8: [u8; 16usize],
-    pub __u6_addr16: [u16; 8usize],
-    pub __u6_addr32: [u32; 4usize],
-    _bindgen_union_align: [u32; 4usize],
+pub struct in6_addr__bindgen_ty_1 {
+    pub __u6_addr8: __BindgenUnionField<[u8; 16usize]>,
+    pub __u6_addr16: __BindgenUnionField<[u16; 8usize]>,
+    pub __u6_addr32: __BindgenUnionField<[u32; 4usize]>,
+    pub bindgen_union_field: [u32; 4usize],
 }
 #[test]
 fn bindgen_test_layout_in6_addr__bindgen_ty_1() {
@@ -4521,7 +4520,6 @@ impl Clone for ipv6_mreq {
     fn clone(&self) -> Self { *self }
 }
 #[repr(C)]
-#[derive(Copy)]
 pub struct group_req {
     pub gr_interface: u32,
     pub gr_group: sockaddr_storage,
@@ -4543,11 +4541,7 @@ fn bindgen_test_layout_group_req() {
                 "Alignment of field: " , stringify ! ( group_req ) , "::" ,
                 stringify ! ( gr_group ) ));
 }
-impl Clone for group_req {
-    fn clone(&self) -> Self { *self }
-}
 #[repr(C)]
-#[derive(Copy)]
 pub struct group_source_req {
     pub gsr_interface: u32,
     pub gsr_group: sockaddr_storage,
@@ -4574,9 +4568,6 @@ fn bindgen_test_layout_group_source_req() {
                 const _ as usize } , 136usize , concat ! (
                 "Alignment of field: " , stringify ! ( group_source_req ) ,
                 "::" , stringify ! ( gsr_source ) ));
-}
-impl Clone for group_source_req {
-    fn clone(&self) -> Self { *self }
 }
 #[repr(C)]
 #[derive(Copy)]
@@ -4623,7 +4614,6 @@ impl Clone for ip_msfilter {
     fn clone(&self) -> Self { *self }
 }
 #[repr(C)]
-#[derive(Copy)]
 pub struct group_filter {
     pub gf_interface: u32,
     pub gf_group: sockaddr_storage,
@@ -4662,9 +4652,6 @@ fn bindgen_test_layout_group_filter() {
                 as usize } , 144usize , concat ! (
                 "Alignment of field: " , stringify ! ( group_filter ) , "::" ,
                 stringify ! ( gf_slist ) ));
-}
-impl Clone for group_filter {
-    fn clone(&self) -> Self { *self }
 }
 extern "C" {
     pub fn ntohl(__netlong: u32) -> u32;
@@ -6377,12 +6364,14 @@ pub enum vartag_external {
     VARTAG_ONDISK = 18,
 }
 #[repr(C)]
+#[derive(Copy)]
 pub struct varattrib_4b {
     pub va_4byte: __BindgenUnionField<varattrib_4b__bindgen_ty_1>,
     pub va_compressed: __BindgenUnionField<varattrib_4b__bindgen_ty_2>,
     pub bindgen_union_field: [u32; 2usize],
 }
 #[repr(C)]
+#[derive(Copy)]
 pub struct varattrib_4b__bindgen_ty_1 {
     pub va_header: uint32,
     pub va_data: __IncompleteArrayField<::std::os::raw::c_char>,
@@ -6397,7 +6386,11 @@ fn bindgen_test_layout_varattrib_4b__bindgen_ty_1() {
                 "Alignment of " , stringify ! ( varattrib_4b__bindgen_ty_1 )
                 ));
 }
+impl Clone for varattrib_4b__bindgen_ty_1 {
+    fn clone(&self) -> Self { *self }
+}
 #[repr(C)]
+#[derive(Copy)]
 pub struct varattrib_4b__bindgen_ty_2 {
     pub va_header: uint32,
     pub va_rawsize: uint32,
@@ -6413,6 +6406,9 @@ fn bindgen_test_layout_varattrib_4b__bindgen_ty_2() {
                 "Alignment of " , stringify ! ( varattrib_4b__bindgen_ty_2 )
                 ));
 }
+impl Clone for varattrib_4b__bindgen_ty_2 {
+    fn clone(&self) -> Self { *self }
+}
 #[test]
 fn bindgen_test_layout_varattrib_4b() {
     assert_eq!(::std::mem::size_of::<varattrib_4b>() , 8usize , concat ! (
@@ -6420,7 +6416,11 @@ fn bindgen_test_layout_varattrib_4b() {
     assert_eq! (::std::mem::align_of::<varattrib_4b>() , 4usize , concat ! (
                 "Alignment of " , stringify ! ( varattrib_4b ) ));
 }
+impl Clone for varattrib_4b {
+    fn clone(&self) -> Self { *self }
+}
 #[repr(C)]
+#[derive(Copy)]
 pub struct varattrib_1b {
     pub va_header: uint8,
     pub va_data: __IncompleteArrayField<::std::os::raw::c_char>,
@@ -6432,7 +6432,11 @@ fn bindgen_test_layout_varattrib_1b() {
     assert_eq! (::std::mem::align_of::<varattrib_1b>() , 1usize , concat ! (
                 "Alignment of " , stringify ! ( varattrib_1b ) ));
 }
+impl Clone for varattrib_1b {
+    fn clone(&self) -> Self { *self }
+}
 #[repr(C)]
+#[derive(Copy)]
 pub struct varattrib_1b_e {
     pub va_header: uint8,
     pub va_tag: uint8,
@@ -6444,6 +6448,9 @@ fn bindgen_test_layout_varattrib_1b_e() {
                "Size of: " , stringify ! ( varattrib_1b_e ) ));
     assert_eq! (::std::mem::align_of::<varattrib_1b_e>() , 1usize , concat ! (
                 "Alignment of " , stringify ! ( varattrib_1b_e ) ));
+}
+impl Clone for varattrib_1b_e {
+    fn clone(&self) -> Self { *self }
 }
 pub type Datum = usize;
 pub type DatumPtr = *mut Datum;
@@ -6648,7 +6655,6 @@ impl Clone for StringInfoData {
 }
 pub type fmStringInfo = *mut StringInfoData;
 #[repr(C)]
-#[derive(Copy)]
 pub struct FunctionCallInfoData {
     pub flinfo: *mut FmgrInfo,
     pub context: fmNodePtr,
@@ -6707,9 +6713,6 @@ fn bindgen_test_layout_FunctionCallInfoData() {
                 const _ as usize } , 832usize , concat ! (
                 "Alignment of field: " , stringify ! ( FunctionCallInfoData )
                 , "::" , stringify ! ( argnull ) ));
-}
-impl Clone for FunctionCallInfoData {
-    fn clone(&self) -> Self { *self }
 }
 pub type FunctionCallInfo = *mut FunctionCallInfoData;
 pub type PGFunction =
@@ -7725,6 +7728,7 @@ pub struct TBMSharedIterator {
     _unused: [u8; 0],
 }
 #[repr(C)]
+#[derive(Copy)]
 pub struct TBMIterateResult {
     pub blockno: BlockNumber,
     pub ntuples: ::std::os::raw::c_int,
@@ -7737,6 +7741,9 @@ fn bindgen_test_layout_TBMIterateResult() {
                ( "Size of: " , stringify ! ( TBMIterateResult ) ));
     assert_eq! (::std::mem::align_of::<TBMIterateResult>() , 4usize , concat !
                 ( "Alignment of " , stringify ! ( TBMIterateResult ) ));
+}
+impl Clone for TBMIterateResult {
+    fn clone(&self) -> Self { *self }
 }
 extern "C" {
     pub fn tbm_create(maxbytes: ::std::os::raw::c_long, dsa: *mut dsa_area)
@@ -7822,7 +7829,6 @@ impl Clone for xl_standby_lock {
     fn clone(&self) -> Self { *self }
 }
 #[repr(C)]
-#[derive(Copy)]
 pub struct FormData_pg_attribute {
     pub attrelid: Oid,
     pub attname: NameData,
@@ -7947,9 +7953,6 @@ fn bindgen_test_layout_FormData_pg_attribute() {
                 as * const _ as usize } , 104usize , concat ! (
                 "Alignment of field: " , stringify ! ( FormData_pg_attribute )
                 , "::" , stringify ! ( attcollation ) ));
-}
-impl Clone for FormData_pg_attribute {
-    fn clone(&self) -> Self { *self }
 }
 pub type Form_pg_attribute = *mut FormData_pg_attribute;
 #[repr(u32)]
@@ -8359,6 +8362,7 @@ pub enum NodeTag {
     T_ForeignKeyCacheInfo = 401,
 }
 #[repr(C)]
+#[derive(Copy)]
 pub struct Bitmapset {
     pub nwords: ::std::os::raw::c_int,
     pub words: __IncompleteArrayField<bitmapword>,
@@ -8369,6 +8373,9 @@ fn bindgen_test_layout_Bitmapset() {
                "Size of: " , stringify ! ( Bitmapset ) ));
     assert_eq! (::std::mem::align_of::<Bitmapset>() , 4usize , concat ! (
                 "Alignment of " , stringify ! ( Bitmapset ) ));
+}
+impl Clone for Bitmapset {
+    fn clone(&self) -> Self { *self }
 }
 extern "C" {
     pub fn outNode(str: *mut StringInfoData,
@@ -8489,11 +8496,11 @@ pub struct ListCell {
 }
 #[repr(C)]
 #[derive(Copy)]
-pub union ListCell__bindgen_ty_1 {
-    pub ptr_value: *mut ::std::os::raw::c_void,
-    pub int_value: ::std::os::raw::c_int,
-    pub oid_value: Oid,
-    _bindgen_union_align: u64,
+pub struct ListCell__bindgen_ty_1 {
+    pub ptr_value: __BindgenUnionField<*mut ::std::os::raw::c_void>,
+    pub int_value: __BindgenUnionField<::std::os::raw::c_int>,
+    pub oid_value: __BindgenUnionField<Oid>,
+    pub bindgen_union_field: u64,
 }
 #[test]
 fn bindgen_test_layout_ListCell__bindgen_ty_1() {
@@ -9630,6 +9637,7 @@ extern "C" {
     pub static mut criticalSharedRelcachesBuilt: bool_;
 }
 #[repr(C)]
+#[derive(Copy)]
 pub struct HeapTupleHeaderData {
     pub t_choice: HeapTupleHeaderData__bindgen_ty_1,
     pub t_ctid: ItemPointerData,
@@ -9640,10 +9648,10 @@ pub struct HeapTupleHeaderData {
 }
 #[repr(C)]
 #[derive(Copy)]
-pub union HeapTupleHeaderData__bindgen_ty_1 {
-    pub t_heap: HeapTupleFields,
-    pub t_datum: DatumTupleFields,
-    _bindgen_union_align: [u32; 3usize],
+pub struct HeapTupleHeaderData__bindgen_ty_1 {
+    pub t_heap: __BindgenUnionField<HeapTupleFields>,
+    pub t_datum: __BindgenUnionField<DatumTupleFields>,
+    pub bindgen_union_field: [u32; 3usize],
 }
 #[test]
 fn bindgen_test_layout_HeapTupleHeaderData__bindgen_ty_1() {
@@ -9679,8 +9687,12 @@ fn bindgen_test_layout_HeapTupleHeaderData() {
                 concat ! (
                 "Alignment of " , stringify ! ( HeapTupleHeaderData ) ));
 }
+impl Clone for HeapTupleHeaderData {
+    fn clone(&self) -> Self { *self }
+}
 pub type HeapTupleHeader = *mut HeapTupleHeaderData;
 #[repr(C)]
+#[derive(Copy)]
 pub struct MinimalTupleData {
     pub t_len: uint32,
     pub mt_padding: [::std::os::raw::c_char; 6usize],
@@ -9695,6 +9707,9 @@ fn bindgen_test_layout_MinimalTupleData() {
                ( "Size of: " , stringify ! ( MinimalTupleData ) ));
     assert_eq! (::std::mem::align_of::<MinimalTupleData>() , 4usize , concat !
                 ( "Alignment of " , stringify ! ( MinimalTupleData ) ));
+}
+impl Clone for MinimalTupleData {
+    fn clone(&self) -> Self { *self }
 }
 pub type MinimalTuple = *mut MinimalTupleData;
 #[repr(C)]
@@ -11624,7 +11639,6 @@ extern "C" {
     pub fn finish_spin_delay(status: *mut SpinDelayStatus);
 }
 #[repr(C)]
-#[derive(Copy)]
 pub struct PGPROC {
     pub links: SHM_QUEUE,
     pub procgloballist: *mut *mut PGPROC,
@@ -11862,9 +11876,6 @@ fn bindgen_test_layout_PGPROC() {
                 "Alignment of field: " , stringify ! ( PGPROC ) , "::" ,
                 stringify ! ( lockGroupLink ) ));
 }
-impl Clone for PGPROC {
-    fn clone(&self) -> Self { *self }
-}
 #[repr(C)]
 #[derive(Copy)]
 pub struct LWLock {
@@ -11899,10 +11910,10 @@ impl Clone for LWLock {
 }
 #[repr(C)]
 #[derive(Copy)]
-pub union LWLockPadded {
-    pub lock: LWLock,
-    pub pad: [::std::os::raw::c_char; 128usize],
-    _bindgen_union_align: [u32; 32usize],
+pub struct LWLockPadded {
+    pub lock: __BindgenUnionField<LWLock>,
+    pub pad: __BindgenUnionField<[::std::os::raw::c_char; 128usize]>,
+    pub bindgen_union_field: [u32; 32usize],
 }
 #[test]
 fn bindgen_test_layout_LWLockPadded() {
@@ -11926,10 +11937,10 @@ impl Clone for LWLockPadded {
 }
 #[repr(C)]
 #[derive(Copy)]
-pub union LWLockMinimallyPadded {
-    pub lock: LWLock,
-    pub pad: [::std::os::raw::c_char; 32usize],
-    _bindgen_union_align: [u32; 8usize],
+pub struct LWLockMinimallyPadded {
+    pub lock: __BindgenUnionField<LWLock>,
+    pub pad: __BindgenUnionField<[::std::os::raw::c_char; 32usize]>,
+    pub bindgen_union_field: [u32; 8usize],
 }
 #[test]
 fn bindgen_test_layout_LWLockMinimallyPadded() {
@@ -12442,7 +12453,6 @@ extern "C" {
     pub fn RequestAddinShmemSpace(size: Size);
 }
 #[repr(C)]
-#[derive(Copy)]
 pub struct ShmemIndexEnt {
     pub key: [::std::os::raw::c_char; 48usize],
     pub location: *mut ::std::os::raw::c_void,
@@ -12469,9 +12479,6 @@ fn bindgen_test_layout_ShmemIndexEnt() {
                 usize } , 56usize , concat ! (
                 "Alignment of field: " , stringify ! ( ShmemIndexEnt ) , "::"
                 , stringify ! ( size ) ));
-}
-impl Clone for ShmemIndexEnt {
-    fn clone(&self) -> Self { *self }
 }
 extern "C" {
     pub fn SHMQueueInit(queue: *mut SHM_QUEUE);
@@ -13376,12 +13383,12 @@ pub struct relopt_value {
 }
 #[repr(C)]
 #[derive(Copy)]
-pub union relopt_value__bindgen_ty_1 {
-    pub bool_val: bool_,
-    pub int_val: ::std::os::raw::c_int,
-    pub real_val: f64,
-    pub string_val: *mut ::std::os::raw::c_char,
-    _bindgen_union_align: u64,
+pub struct relopt_value__bindgen_ty_1 {
+    pub bool_val: __BindgenUnionField<bool_>,
+    pub int_val: __BindgenUnionField<::std::os::raw::c_int>,
+    pub real_val: __BindgenUnionField<f64>,
+    pub string_val: __BindgenUnionField<*mut ::std::os::raw::c_char>,
+    pub bindgen_union_field: u64,
 }
 #[test]
 fn bindgen_test_layout_relopt_value__bindgen_ty_1() {
@@ -13920,7 +13927,6 @@ pub enum BgWorkerStartTime {
     BgWorkerStart_RecoveryFinished = 2,
 }
 #[repr(C)]
-#[derive(Copy)]
 pub struct BackgroundWorker {
     pub bgw_name: [::std::os::raw::c_char; 64usize],
     pub bgw_flags: ::std::os::raw::c_int,
@@ -13983,9 +13989,6 @@ fn bindgen_test_layout_BackgroundWorker() {
                 * const _ as usize } , 344usize , concat ! (
                 "Alignment of field: " , stringify ! ( BackgroundWorker ) ,
                 "::" , stringify ! ( bgw_notify_pid ) ));
-}
-impl Clone for BackgroundWorker {
-    fn clone(&self) -> Self { *self }
 }
 #[repr(u32)]
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]
@@ -14059,10 +14062,10 @@ extern "C" {
 pub type sig_atomic_t = __sig_atomic_t;
 #[repr(C)]
 #[derive(Copy)]
-pub union sigval {
-    pub sival_int: ::std::os::raw::c_int,
-    pub sival_ptr: *mut ::std::os::raw::c_void,
-    _bindgen_union_align: u64,
+pub struct sigval {
+    pub sival_int: __BindgenUnionField<::std::os::raw::c_int>,
+    pub sival_ptr: __BindgenUnionField<*mut ::std::os::raw::c_void>,
+    pub bindgen_union_field: u64,
 }
 #[test]
 fn bindgen_test_layout_sigval() {
@@ -14096,16 +14099,16 @@ pub struct siginfo_t {
 }
 #[repr(C)]
 #[derive(Copy)]
-pub union siginfo_t__bindgen_ty_1 {
-    pub _pad: [::std::os::raw::c_int; 28usize],
-    pub _kill: siginfo_t__bindgen_ty_1__bindgen_ty_1,
-    pub _timer: siginfo_t__bindgen_ty_1__bindgen_ty_2,
-    pub _rt: siginfo_t__bindgen_ty_1__bindgen_ty_3,
-    pub _sigchld: siginfo_t__bindgen_ty_1__bindgen_ty_4,
-    pub _sigfault: siginfo_t__bindgen_ty_1__bindgen_ty_5,
-    pub _sigpoll: siginfo_t__bindgen_ty_1__bindgen_ty_6,
-    pub _sigsys: siginfo_t__bindgen_ty_1__bindgen_ty_7,
-    _bindgen_union_align: [u64; 14usize],
+pub struct siginfo_t__bindgen_ty_1 {
+    pub _pad: __BindgenUnionField<[::std::os::raw::c_int; 28usize]>,
+    pub _kill: __BindgenUnionField<siginfo_t__bindgen_ty_1__bindgen_ty_1>,
+    pub _timer: __BindgenUnionField<siginfo_t__bindgen_ty_1__bindgen_ty_2>,
+    pub _rt: __BindgenUnionField<siginfo_t__bindgen_ty_1__bindgen_ty_3>,
+    pub _sigchld: __BindgenUnionField<siginfo_t__bindgen_ty_1__bindgen_ty_4>,
+    pub _sigfault: __BindgenUnionField<siginfo_t__bindgen_ty_1__bindgen_ty_5>,
+    pub _sigpoll: __BindgenUnionField<siginfo_t__bindgen_ty_1__bindgen_ty_6>,
+    pub _sigsys: __BindgenUnionField<siginfo_t__bindgen_ty_1__bindgen_ty_7>,
+    pub bindgen_union_field: [u64; 14usize],
 }
 #[repr(C)]
 #[derive(Copy)]
@@ -14623,11 +14626,11 @@ pub struct sigevent {
 }
 #[repr(C)]
 #[derive(Copy)]
-pub union sigevent__bindgen_ty_1 {
-    pub _pad: [::std::os::raw::c_int; 12usize],
-    pub _tid: __pid_t,
-    pub _sigev_thread: sigevent__bindgen_ty_1__bindgen_ty_1,
-    _bindgen_union_align: [u64; 6usize],
+pub struct sigevent__bindgen_ty_1 {
+    pub _pad: __BindgenUnionField<[::std::os::raw::c_int; 12usize]>,
+    pub _tid: __BindgenUnionField<__pid_t>,
+    pub _sigev_thread: __BindgenUnionField<sigevent__bindgen_ty_1__bindgen_ty_1>,
+    pub bindgen_union_field: [u64; 6usize],
 }
 #[repr(C)]
 #[derive(Copy)]
@@ -14806,15 +14809,15 @@ pub struct sigaction {
 }
 #[repr(C)]
 #[derive(Copy)]
-pub union sigaction__bindgen_ty_1 {
-    pub sa_handler: __sighandler_t,
-    pub sa_sigaction: ::std::option::Option<unsafe extern "C" fn(arg1:
-                                                                     ::std::os::raw::c_int,
-                                                                 arg2:
-                                                                     *mut siginfo_t,
-                                                                 arg3:
-                                                                     *mut ::std::os::raw::c_void)>,
-    _bindgen_union_align: u64,
+pub struct sigaction__bindgen_ty_1 {
+    pub sa_handler: __BindgenUnionField<__sighandler_t>,
+    pub sa_sigaction: __BindgenUnionField<::std::option::Option<unsafe extern "C" fn(arg1:
+                                                                                         ::std::os::raw::c_int,
+                                                                                     arg2:
+                                                                                         *mut siginfo_t,
+                                                                                     arg3:
+                                                                                         *mut ::std::os::raw::c_void)>>,
+    pub bindgen_union_field: u64,
 }
 #[test]
 fn bindgen_test_layout_sigaction__bindgen_ty_1() {
@@ -15142,10 +15145,10 @@ pub struct sigcontext {
 }
 #[repr(C)]
 #[derive(Copy)]
-pub union sigcontext__bindgen_ty_1 {
-    pub fpstate: *mut _fpstate,
-    pub __fpstate_word: __uint64_t,
-    _bindgen_union_align: u64,
+pub struct sigcontext__bindgen_ty_1 {
+    pub fpstate: __BindgenUnionField<*mut _fpstate>,
+    pub __fpstate_word: __BindgenUnionField<__uint64_t>,
+    pub bindgen_union_field: u64,
 }
 #[test]
 fn bindgen_test_layout_sigcontext__bindgen_ty_1() {
@@ -15349,7 +15352,6 @@ impl Clone for _xsave_hdr {
     fn clone(&self) -> Self { *self }
 }
 #[repr(C)]
-#[derive(Copy)]
 pub struct _ymmh_state {
     pub ymmh_space: [__uint32_t; 64usize],
 }
@@ -15365,11 +15367,7 @@ fn bindgen_test_layout__ymmh_state() {
                 "Alignment of field: " , stringify ! ( _ymmh_state ) , "::" ,
                 stringify ! ( ymmh_space ) ));
 }
-impl Clone for _ymmh_state {
-    fn clone(&self) -> Self { *self }
-}
 #[repr(C)]
-#[derive(Copy)]
 pub struct _xstate {
     pub fpstate: _fpstate,
     pub xstate_hdr: _xsave_hdr,
@@ -15396,9 +15394,6 @@ fn bindgen_test_layout__xstate() {
                 } , 576usize , concat ! (
                 "Alignment of field: " , stringify ! ( _xstate ) , "::" ,
                 stringify ! ( ymmh ) ));
-}
-impl Clone for _xstate {
-    fn clone(&self) -> Self { *self }
 }
 extern "C" {
     pub fn sigreturn(__scp: *mut sigcontext) -> ::std::os::raw::c_int;
@@ -15879,7 +15874,6 @@ extern "C" {
     pub fn PGSemaphoreTryLock(sema: PGSemaphore) -> bool_;
 }
 #[repr(C)]
-#[derive(Copy)]
 pub struct XidCache {
     pub xids: [TransactionId; 64usize],
 }
@@ -15894,9 +15888,6 @@ fn bindgen_test_layout_XidCache() {
                 } , 0usize , concat ! (
                 "Alignment of field: " , stringify ! ( XidCache ) , "::" ,
                 stringify ! ( xids ) ));
-}
-impl Clone for XidCache {
-    fn clone(&self) -> Self { *self }
 }
 extern "C" {
     #[link_name = "MyProc"]
@@ -19230,6 +19221,7 @@ impl Clone for PageXLogRecPtr {
     fn clone(&self) -> Self { *self }
 }
 #[repr(C)]
+#[derive(Copy)]
 pub struct PageHeaderData {
     pub pd_lsn: PageXLogRecPtr,
     pub pd_checksum: uint16,
@@ -19247,6 +19239,9 @@ fn bindgen_test_layout_PageHeaderData() {
                "Size of: " , stringify ! ( PageHeaderData ) ));
     assert_eq! (::std::mem::align_of::<PageHeaderData>() , 4usize , concat ! (
                 "Alignment of " , stringify ! ( PageHeaderData ) ));
+}
+impl Clone for PageHeaderData {
+    fn clone(&self) -> Self { *self }
 }
 pub type PageHeader = *mut PageHeaderData;
 extern "C" {
@@ -20118,6 +20113,7 @@ impl Clone for Instrumentation {
     fn clone(&self) -> Self { *self }
 }
 #[repr(C)]
+#[derive(Copy)]
 pub struct WorkerInstrumentation {
     pub num_workers: ::std::os::raw::c_int,
     pub instrument: __IncompleteArrayField<Instrumentation>,
@@ -20131,6 +20127,9 @@ fn bindgen_test_layout_WorkerInstrumentation() {
     assert_eq! (::std::mem::align_of::<WorkerInstrumentation>() , 8usize ,
                 concat ! (
                 "Alignment of " , stringify ! ( WorkerInstrumentation ) ));
+}
+impl Clone for WorkerInstrumentation {
+    fn clone(&self) -> Self { *self }
 }
 extern "C" {
     #[link_name = "pgBufferUsage"]
@@ -20411,6 +20410,7 @@ impl Clone for ParamExternData {
     fn clone(&self) -> Self { *self }
 }
 #[repr(C)]
+#[derive(Copy)]
 pub struct ParamListInfoData {
     pub paramFetch: ParamFetchHook,
     pub paramFetchArg: *mut ::std::os::raw::c_void,
@@ -20426,6 +20426,9 @@ fn bindgen_test_layout_ParamListInfoData() {
                ( "Size of: " , stringify ! ( ParamListInfoData ) ));
     assert_eq! (::std::mem::align_of::<ParamListInfoData>() , 8usize , concat
                 ! ( "Alignment of " , stringify ! ( ParamListInfoData ) ));
+}
+impl Clone for ParamListInfoData {
+    fn clone(&self) -> Self { *self }
 }
 pub type ParamListInfo = *mut ParamListInfoData;
 pub type ParamFetchHook =
@@ -24180,10 +24183,11 @@ pub struct EState {
     pub es_epqTupleSet: *mut bool_,
     pub es_epqScanDone: *mut bool_,
     pub es_query_dsa: *mut dsa_area,
+    pub es_use_parallel_mode: bool_,
 }
 #[test]
 fn bindgen_test_layout_EState() {
-    assert_eq!(::std::mem::size_of::<EState>() , 280usize , concat ! (
+    assert_eq!(::std::mem::size_of::<EState>() , 288usize , concat ! (
                "Size of: " , stringify ! ( EState ) ));
     assert_eq! (::std::mem::align_of::<EState>() , 8usize , concat ! (
                 "Alignment of " , stringify ! ( EState ) ));
@@ -24377,6 +24381,11 @@ fn bindgen_test_layout_EState() {
                 usize } , 272usize , concat ! (
                 "Alignment of field: " , stringify ! ( EState ) , "::" ,
                 stringify ! ( es_query_dsa ) ));
+    assert_eq! (unsafe {
+                & ( * ( 0 as * const EState ) ) . es_use_parallel_mode as *
+                const _ as usize } , 280usize , concat ! (
+                "Alignment of field: " , stringify ! ( EState ) , "::" ,
+                stringify ! ( es_use_parallel_mode ) ));
 }
 impl Clone for EState {
     fn clone(&self) -> Self { *self }
@@ -24841,7 +24850,6 @@ impl Clone for WindowFuncExprState {
     fn clone(&self) -> Self { *self }
 }
 #[repr(C)]
-#[derive(Copy)]
 pub struct SetExprState {
     pub type_: NodeTag,
     pub expr: *mut Expr,
@@ -24928,9 +24936,6 @@ fn bindgen_test_layout_SetExprState() {
                 _ as usize } , 112usize , concat ! (
                 "Alignment of field: " , stringify ! ( SetExprState ) , "::" ,
                 stringify ! ( fcinfo_data ) ));
-}
-impl Clone for SetExprState {
-    fn clone(&self) -> Self { *self }
 }
 #[repr(C)]
 #[derive(Copy)]
@@ -26400,6 +26405,7 @@ pub enum SharedBitmapState {
     BM_FINISHED = 2,
 }
 #[repr(C)]
+#[derive(Copy)]
 pub struct ParallelBitmapHeapState {
     pub tbmiterator: dsa_pointer,
     pub prefetch_iterator: dsa_pointer,
@@ -26418,6 +26424,9 @@ fn bindgen_test_layout_ParallelBitmapHeapState() {
     assert_eq! (::std::mem::align_of::<ParallelBitmapHeapState>() , 8usize ,
                 concat ! (
                 "Alignment of " , stringify ! ( ParallelBitmapHeapState ) ));
+}
+impl Clone for ParallelBitmapHeapState {
+    fn clone(&self) -> Self { *self }
 }
 #[repr(C)]
 #[derive(Copy)]
@@ -27589,13 +27598,12 @@ pub struct AggState {
     pub num_hashes: ::std::os::raw::c_int,
     pub perhash: AggStatePerHash,
     pub hash_pergroup: *mut AggStatePerGroup,
-    pub evalslot: *mut TupleTableSlot,
-    pub evalproj: *mut ProjectionInfo,
-    pub evaldesc: TupleDesc,
+    pub combinedproj: *mut ProjectionInfo,
+    pub curperagg: AggStatePerAgg,
 }
 #[test]
 fn bindgen_test_layout_AggState() {
-    assert_eq!(::std::mem::size_of::<AggState>() , 384usize , concat ! (
+    assert_eq!(::std::mem::size_of::<AggState>() , 376usize , concat ! (
                "Size of: " , stringify ! ( AggState ) ));
     assert_eq! (::std::mem::align_of::<AggState>() , 8usize , concat ! (
                 "Alignment of " , stringify ! ( AggState ) ));
@@ -27765,20 +27773,15 @@ fn bindgen_test_layout_AggState() {
                 "Alignment of field: " , stringify ! ( AggState ) , "::" ,
                 stringify ! ( hash_pergroup ) ));
     assert_eq! (unsafe {
-                & ( * ( 0 as * const AggState ) ) . evalslot as * const _ as
-                usize } , 360usize , concat ! (
+                & ( * ( 0 as * const AggState ) ) . combinedproj as * const _
+                as usize } , 360usize , concat ! (
                 "Alignment of field: " , stringify ! ( AggState ) , "::" ,
-                stringify ! ( evalslot ) ));
+                stringify ! ( combinedproj ) ));
     assert_eq! (unsafe {
-                & ( * ( 0 as * const AggState ) ) . evalproj as * const _ as
+                & ( * ( 0 as * const AggState ) ) . curperagg as * const _ as
                 usize } , 368usize , concat ! (
                 "Alignment of field: " , stringify ! ( AggState ) , "::" ,
-                stringify ! ( evalproj ) ));
-    assert_eq! (unsafe {
-                & ( * ( 0 as * const AggState ) ) . evaldesc as * const _ as
-                usize } , 376usize , concat ! (
-                "Alignment of field: " , stringify ! ( AggState ) , "::" ,
-                stringify ! ( evaldesc ) ));
+                stringify ! ( curperagg ) ));
 }
 impl Clone for AggState {
     fn clone(&self) -> Self { *self }
@@ -28484,10 +28487,10 @@ pub struct Value {
 }
 #[repr(C)]
 #[derive(Copy)]
-pub union Value_ValUnion {
-    pub ival: ::std::os::raw::c_long,
-    pub str: *mut ::std::os::raw::c_char,
-    _bindgen_union_align: u64,
+pub struct Value_ValUnion {
+    pub ival: __BindgenUnionField<::std::os::raw::c_long>,
+    pub str: __BindgenUnionField<*mut ::std::os::raw::c_char>,
+    pub bindgen_union_field: u64,
 }
 #[test]
 fn bindgen_test_layout_Value_ValUnion() {
@@ -50074,7 +50077,6 @@ impl Clone for XLogRecordDataHeaderLong {
     fn clone(&self) -> Self { *self }
 }
 #[repr(C)]
-#[derive(Copy)]
 pub struct XLogReaderState {
     pub read_page: XLogPageReadCB,
     pub system_identifier: uint64,
@@ -50240,9 +50242,6 @@ fn bindgen_test_layout_XLogReaderState() {
                 "Alignment of field: " , stringify ! ( XLogReaderState ) ,
                 "::" , stringify ! ( errormsg_buf ) ));
 }
-impl Clone for XLogReaderState {
-    fn clone(&self) -> Self { *self }
-}
 pub type XLogPageReadCB =
     ::std::option::Option<unsafe extern "C" fn(xlogreader:
                                                    *mut XLogReaderState,
@@ -50400,7 +50399,6 @@ extern "C" {
                               blknum: *mut BlockNumber) -> bool_;
 }
 #[repr(C)]
-#[derive(Copy)]
 pub struct dirent {
     pub d_ino: __ino_t,
     pub d_off: __off_t,
@@ -50439,9 +50437,6 @@ fn bindgen_test_layout_dirent() {
                 } , 19usize , concat ! (
                 "Alignment of field: " , stringify ! ( dirent ) , "::" ,
                 stringify ! ( d_name ) ));
-}
-impl Clone for dirent {
-    fn clone(&self) -> Self { *self }
 }
 pub const DT_UNKNOWN: _bindgen_ty_17 = _bindgen_ty_17::DT_UNKNOWN;
 pub const DT_FIFO: _bindgen_ty_17 = _bindgen_ty_17::DT_FIFO;
@@ -51134,7 +51129,6 @@ extern "C" {
     pub fn get_backup_status() -> SessionBackupState;
 }
 #[repr(C)]
-#[derive(Copy)]
 pub struct FormData_pg_class {
     pub relname: NameData,
     pub relnamespace: Oid,
@@ -51325,15 +51319,13 @@ fn bindgen_test_layout_FormData_pg_class() {
                 "Alignment of field: " , stringify ! ( FormData_pg_class ) ,
                 "::" , stringify ! ( relminmxid ) ));
 }
-impl Clone for FormData_pg_class {
-    fn clone(&self) -> Self { *self }
-}
 pub type Form_pg_class = *mut FormData_pg_class;
 extern "C" {
     #[link_name = "no_such_variable"]
     pub static mut no_such_variable: ::std::os::raw::c_int;
 }
 #[repr(C)]
+#[derive(Copy)]
 pub struct FormData_pg_index {
     pub indexrelid: Oid,
     pub indrelid: Oid,
@@ -51356,6 +51348,9 @@ fn bindgen_test_layout_FormData_pg_index() {
                ( "Size of: " , stringify ! ( FormData_pg_index ) ));
     assert_eq! (::std::mem::align_of::<FormData_pg_index>() , 4usize , concat
                 ! ( "Alignment of " , stringify ! ( FormData_pg_index ) ));
+}
+impl Clone for FormData_pg_index {
+    fn clone(&self) -> Self { *self }
 }
 pub type Form_pg_index = *mut FormData_pg_index;
 #[repr(u32)]
@@ -51758,10 +51753,10 @@ impl Clone for ExpandedArrayHeader {
 }
 #[repr(C)]
 #[derive(Copy)]
-pub union AnyArrayType {
-    pub flt: ArrayType,
-    pub xpn: ExpandedArrayHeader,
-    _bindgen_union_align: [u64; 17usize],
+pub struct AnyArrayType {
+    pub flt: __BindgenUnionField<ArrayType>,
+    pub xpn: __BindgenUnionField<ExpandedArrayHeader>,
+    pub bindgen_union_field: [u64; 17usize],
 }
 #[test]
 fn bindgen_test_layout_AnyArrayType() {
@@ -52792,7 +52787,6 @@ extern "C" {
     pub fn strlist_to_textarray(list: *mut List) -> *mut ArrayType;
 }
 #[repr(C)]
-#[derive(Copy)]
 pub struct FormData_pg_publication {
     pub pubname: NameData,
     pub pubowner: Oid,
@@ -52839,9 +52833,6 @@ fn bindgen_test_layout_FormData_pg_publication() {
                 as * const _ as usize } , 71usize , concat ! (
                 "Alignment of field: " , stringify ! ( FormData_pg_publication
                 ) , "::" , stringify ! ( pubdelete ) ));
-}
-impl Clone for FormData_pg_publication {
-    fn clone(&self) -> Self { *self }
 }
 pub type Form_pg_publication = *mut FormData_pg_publication;
 #[repr(C)]
@@ -53563,10 +53554,10 @@ pub struct HeapTupleFields {
 }
 #[repr(C)]
 #[derive(Copy)]
-pub union HeapTupleFields__bindgen_ty_1 {
-    pub t_cid: CommandId,
-    pub t_xvac: TransactionId,
-    _bindgen_union_align: u32,
+pub struct HeapTupleFields__bindgen_ty_1 {
+    pub t_cid: __BindgenUnionField<CommandId>,
+    pub t_xvac: __BindgenUnionField<TransactionId>,
+    pub bindgen_union_field: u32,
 }
 #[test]
 fn bindgen_test_layout_HeapTupleFields__bindgen_ty_1() {
@@ -53925,15 +53916,15 @@ impl Clone for SharedInvalSnapshotMsg {
 }
 #[repr(C)]
 #[derive(Copy)]
-pub union SharedInvalidationMessage {
-    pub id: int8,
-    pub cc: SharedInvalCatcacheMsg,
-    pub cat: SharedInvalCatalogMsg,
-    pub rc: SharedInvalRelcacheMsg,
-    pub sm: SharedInvalSmgrMsg,
-    pub rm: SharedInvalRelmapMsg,
-    pub sn: SharedInvalSnapshotMsg,
-    _bindgen_union_align: [u32; 4usize],
+pub struct SharedInvalidationMessage {
+    pub id: __BindgenUnionField<int8>,
+    pub cc: __BindgenUnionField<SharedInvalCatcacheMsg>,
+    pub cat: __BindgenUnionField<SharedInvalCatalogMsg>,
+    pub rc: __BindgenUnionField<SharedInvalRelcacheMsg>,
+    pub sm: __BindgenUnionField<SharedInvalSmgrMsg>,
+    pub rm: __BindgenUnionField<SharedInvalRelmapMsg>,
+    pub sn: __BindgenUnionField<SharedInvalSnapshotMsg>,
+    pub bindgen_union_field: [u32; 4usize],
 }
 #[test]
 fn bindgen_test_layout_SharedInvalidationMessage() {
@@ -54350,13 +54341,13 @@ pub struct ReorderBufferChange {
 }
 #[repr(C)]
 #[derive(Copy)]
-pub union ReorderBufferChange__bindgen_ty_1 {
-    pub tp: ReorderBufferChange__bindgen_ty_1__bindgen_ty_1,
-    pub msg: ReorderBufferChange__bindgen_ty_1__bindgen_ty_2,
-    pub snapshot: Snapshot,
-    pub command_id: CommandId,
-    pub tuplecid: ReorderBufferChange__bindgen_ty_1__bindgen_ty_3,
-    _bindgen_union_align: [u64; 4usize],
+pub struct ReorderBufferChange__bindgen_ty_1 {
+    pub tp: __BindgenUnionField<ReorderBufferChange__bindgen_ty_1__bindgen_ty_1>,
+    pub msg: __BindgenUnionField<ReorderBufferChange__bindgen_ty_1__bindgen_ty_2>,
+    pub snapshot: __BindgenUnionField<Snapshot>,
+    pub command_id: __BindgenUnionField<CommandId>,
+    pub tuplecid: __BindgenUnionField<ReorderBufferChange__bindgen_ty_1__bindgen_ty_3>,
+    pub bindgen_union_field: [u64; 4usize],
 }
 #[repr(C)]
 #[derive(Copy)]
@@ -55320,7 +55311,6 @@ pub enum ReplicationSlotPersistency {
     RS_TEMPORARY = 2,
 }
 #[repr(C)]
-#[derive(Copy)]
 pub struct ReplicationSlotPersistentData {
     pub name: NameData,
     pub database: Oid,
@@ -55389,11 +55379,7 @@ fn bindgen_test_layout_ReplicationSlotPersistentData() {
                 ReplicationSlotPersistentData ) , "::" , stringify ! ( plugin
                 ) ));
 }
-impl Clone for ReplicationSlotPersistentData {
-    fn clone(&self) -> Self { *self }
-}
 #[repr(C)]
-#[derive(Copy)]
 pub struct ReplicationSlot {
     pub mutex: slock_t,
     pub in_use: bool_,
@@ -55491,11 +55477,7 @@ fn bindgen_test_layout_ReplicationSlot() {
                 "Alignment of field: " , stringify ! ( ReplicationSlot ) ,
                 "::" , stringify ! ( candidate_restart_lsn ) ));
 }
-impl Clone for ReplicationSlot {
-    fn clone(&self) -> Self { *self }
-}
 #[repr(C)]
-#[derive(Copy)]
 pub struct ReplicationSlotCtlData {
     pub replication_slots: [ReplicationSlot; 1usize],
 }
@@ -55513,9 +55495,6 @@ fn bindgen_test_layout_ReplicationSlotCtlData() {
                 (
                 "Alignment of field: " , stringify ! ( ReplicationSlotCtlData
                 ) , "::" , stringify ! ( replication_slots ) ));
-}
-impl Clone for ReplicationSlotCtlData {
-    fn clone(&self) -> Self { *self }
 }
 extern "C" {
     #[link_name = "ReplicationSlotCtl"]

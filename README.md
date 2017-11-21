@@ -1,6 +1,6 @@
 Imagine being able to create [postgresql extensions](https://www.postgresql.org/docs/9.4/static/extend-extensions.html) in rust. 
 
-We generate bindgen pg apis for
+We generate bindgen (0.29.1) pg apis for
 - logical decoding 
 - foreign wrappers
 - json support

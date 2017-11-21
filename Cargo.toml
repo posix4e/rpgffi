@@ -1,6 +1,6 @@
 [package]
 name = "rpgffi"
-version = "0.3.0"
+version = "0.3.3"
 authors = ["posix4e@gmail.com", "Jason Dusek <jason.dusek@gmail.com>"]
 build = "build.rs"
 description = "Toolkit for FDW, Logical Decoders  and extensions for postgresql"

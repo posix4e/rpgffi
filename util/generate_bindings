@@ -44,13 +44,12 @@ cat > tmp/pgheaders.h <<\EOF
 #include "utils/rel.h"
 EOF
 
-if (( $(bc <<< "$pg_version_num > 93") ))
-  then cat >> tmp/pgheaders.h <<\EOF
+[ "$pg_version_num" = "93" ] || \
+  cat >> tmp/pgheaders.h <<\EOF
 #include "replication/output_plugin.h"
 #include "replication/logical.h"
 EOF
-fi
 
-gcc -I "`pg_config --includedir-server`" -E tmp/pgheaders.h | grep -v int128 > tmp/pgexpanded.h
+gcc -I "`pg_config --includedir-server`" -E tmp/pgheaders.h > tmp/pgexpanded.h
 
 bindgen --no-derive-debug --builtins tmp/pgexpanded.h -o "$output"
