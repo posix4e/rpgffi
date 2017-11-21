@@ -44,7 +44,7 @@ cat > tmp/pgheaders.h <<\EOF
 #include "utils/rel.h"
 EOF
 
-if (( $(bc <<< "$pg_version_num > 9.3") ))
+if (( $(bc <<< "$pg_version_num > 93") ))
   then cat >> tmp/pgheaders.h <<\EOF
 #include "replication/output_plugin.h"
 #include "replication/logical.h"
