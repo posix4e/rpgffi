@@ -1,13 +1,13 @@
 version: '2'
 services:
-  rpgffi10:
+  rpgffi11:
     environment:
       - PATH=$PATH:/root/.cargo/bin
     build:
       context: .
       dockerfile: Dockerfile
       args:
-        - PG_VER=10
+        - PG_VER=11
         - RUST_VER=1.33.0
     volumes:
       - .:/source
@@ -15,27 +15,33 @@ services:
     command: >
       sh -c "util/generate_bindings &&
              cargo test --verbose"
+  rpgffi10:
+    extends:
+      service: rpgffi11
+    build:
+      args:
+        - PG_VER=10
   rpgffi96:
     extends:
-      service: rpgffi10
+      service: rpgffi11
     build:
       args:
         - PG_VER=9.6
   rpgffi95:
     extends:
-      service: rpgffi10
+      service: rpgffi11
     build:
       args:
         - PG_VER=9.5
   rpgffi94:
     extends:
-      service: rpgffi10
+      service: rpgffi11
     build:
       args:
         - PG_VER=9.4
   rpgffi93:
     extends:
-      service: rpgffi10
+      service: rpgffi11
     build:
       args:
         - PG_VER=9.3
