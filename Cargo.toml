@@ -1,9 +1,9 @@
 [package]
 name = "rpgffi"
-version = "0.3.3"
+version = "0.4.0"
 authors = ["posix4e@gmail.com", "Jason Dusek <jason.dusek@gmail.com>"]
 build = "build.rs"
-description = "Toolkit for FDW, Logical Decoders  and extensions for postgresql"
+description = "Toolkit for FDW, Logical Decoders, and extensions for postgresql"
 keywords = ["postgresql"]
 license = "Apache-2.0/PostgreSQL"
 repository = "http://github.com/posix4e/rpgffi"
