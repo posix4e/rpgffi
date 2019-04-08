@@ -9,7 +9,6 @@ where
     storage: Storage,
     align: [Align; 0],
 }
-
 impl<Storage, Align> __BindgenBitfieldUnit<Storage, Align>
 where
     Storage: AsRef<[u8]> + AsMut<[u8]>,
@@ -18,38 +17,29 @@ where
     pub fn new(storage: Storage) -> Self {
         Self { storage, align: [] }
     }
-
     #[inline]
     pub fn get_bit(&self, index: usize) -> bool {
         debug_assert!(index / 8 < self.storage.as_ref().len());
-
         let byte_index = index / 8;
         let byte = self.storage.as_ref()[byte_index];
-
         let bit_index = if cfg!(target_endian = "big") {
             7 - (index % 8)
         } else {
             index % 8
         };
-
         let mask = 1 << bit_index;
-
         byte & mask == mask
     }
-
     #[inline]
     pub fn set_bit(&mut self, index: usize, val: bool) {
         debug_assert!(index / 8 < self.storage.as_ref().len());
-
         let byte_index = index / 8;
         let byte = &mut self.storage.as_mut()[byte_index];
-
         let bit_index = if cfg!(target_endian = "big") {
             7 - (index % 8)
         } else {
             index % 8
         };
-
         let mask = 1 << bit_index;
         if val {
             *byte |= mask;
@@ -57,15 +47,12 @@ where
             *byte &= !mask;
         }
     }
-
     #[inline]
     pub fn get(&self, bit_offset: usize, bit_width: u8) -> u64 {
         debug_assert!(bit_width <= 64);
         debug_assert!(bit_offset / 8 < self.storage.as_ref().len());
         debug_assert!((bit_offset + (bit_width as usize)) / 8 <= self.storage.as_ref().len());
-
         let mut val = 0;
-
         for i in 0..(bit_width as usize) {
             if self.get_bit(i + bit_offset) {
                 let index = if cfg!(target_endian = "big") {
@@ -76,16 +63,13 @@ where
                 val |= 1 << index;
             }
         }
-
         val
     }
-
     #[inline]
     pub fn set(&mut self, bit_offset: usize, bit_width: u8, val: u64) {
         debug_assert!(bit_width <= 64);
         debug_assert!(bit_offset / 8 < self.storage.as_ref().len());
         debug_assert!((bit_offset + (bit_width as usize)) / 8 <= self.storage.as_ref().len());
-
         for i in 0..(bit_width as usize) {
             let mask = 1 << i;
             let val_bit_is_set = val & mask == mask;
@@ -100,11 +84,11 @@ where
 }
 #[repr(C)]
 #[derive(Default)]
-pub struct __IncompleteArrayField<T>(::std::marker::PhantomData<T>);
+pub struct __IncompleteArrayField<T>(::std::marker::PhantomData<T>, [T; 0]);
 impl<T> __IncompleteArrayField<T> {
     #[inline]
     pub fn new() -> Self {
-        __IncompleteArrayField(::std::marker::PhantomData)
+        __IncompleteArrayField(::std::marker::PhantomData, [])
     }
     #[inline]
     pub unsafe fn as_ptr(&self) -> *const T {
@@ -134,7 +118,6 @@ impl<T> ::std::clone::Clone for __IncompleteArrayField<T> {
         Self::new()
     }
 }
-impl<T> ::std::marker::Copy for __IncompleteArrayField<T> {}
 #[repr(C)]
 pub struct __BindgenUnionField<T>(::std::marker::PhantomData<T>);
 impl<T> __BindgenUnionField<T> {
@@ -180,10 +163,10 @@ impl<T> ::std::cmp::PartialEq for __BindgenUnionField<T> {
 impl<T> ::std::cmp::Eq for __BindgenUnionField<T> {}
 pub const __llvm__: u32 = 1;
 pub const __clang__: u32 = 1;
-pub const __clang_major__: u32 = 6;
-pub const __clang_minor__: u32 = 0;
+pub const __clang_major__: u32 = 3;
+pub const __clang_minor__: u32 = 8;
 pub const __clang_patchlevel__: u32 = 0;
-pub const __clang_version__: &'static [u8; 31usize] = b"6.0.0 (tags/RELEASE_600/final)\0";
+pub const __clang_version__: &'static [u8; 31usize] = b"3.8.0 (tags/RELEASE_380/final)\0";
 pub const __GNUC_MINOR__: u32 = 2;
 pub const __GNUC_PATCHLEVEL__: u32 = 1;
 pub const __GNUC__: u32 = 4;
@@ -194,16 +177,11 @@ pub const __ATOMIC_ACQUIRE: u32 = 2;
 pub const __ATOMIC_RELEASE: u32 = 3;
 pub const __ATOMIC_ACQ_REL: u32 = 4;
 pub const __ATOMIC_SEQ_CST: u32 = 5;
-pub const __OPENCL_MEMORY_SCOPE_WORK_ITEM: u32 = 0;
-pub const __OPENCL_MEMORY_SCOPE_WORK_GROUP: u32 = 1;
-pub const __OPENCL_MEMORY_SCOPE_DEVICE: u32 = 2;
-pub const __OPENCL_MEMORY_SCOPE_ALL_SVM_DEVICES: u32 = 3;
-pub const __OPENCL_MEMORY_SCOPE_SUB_GROUP: u32 = 4;
 pub const __PRAGMA_REDEFINE_EXTNAME: u32 = 1;
 pub const __VERSION__: &'static [u8; 54usize] =
-    b"4.2.1 Compatible Clang 6.0.0 (tags/RELEASE_600/final)\0";
-pub const __OBJC_BOOL_IS_BOOL: u32 = 0;
+    b"4.2.1 Compatible Clang 3.8.0 (tags/RELEASE_380/final)\0";
 pub const __CONSTANT_CFSTRINGS__: u32 = 1;
+pub const __GXX_RTTI: u32 = 1;
 pub const __ORDER_LITTLE_ENDIAN__: u32 = 1234;
 pub const __ORDER_BIG_ENDIAN__: u32 = 4321;
 pub const __ORDER_PDP_ENDIAN__: u32 = 3412;
@@ -215,15 +193,14 @@ pub const __CHAR_BIT__: u32 = 8;
 pub const __SCHAR_MAX__: u32 = 127;
 pub const __SHRT_MAX__: u32 = 32767;
 pub const __INT_MAX__: u32 = 2147483647;
-pub const __LONG_MAX__: f64 = 9223372036854776000.0;
+pub const __LONG_MAX__: u64 = 9223372036854775807;
 pub const __LONG_LONG_MAX__: u64 = 9223372036854775807;
 pub const __WCHAR_MAX__: u32 = 2147483647;
-pub const __WINT_MAX__: u32 = 4294967295;
-pub const __INTMAX_MAX__: f64 = 9223372036854776000.0;
+pub const __INTMAX_MAX__: u64 = 9223372036854775807;
 pub const __SIZE_MAX__: i32 = -1;
 pub const __UINTMAX_MAX__: i32 = -1;
-pub const __PTRDIFF_MAX__: f64 = 9223372036854776000.0;
-pub const __INTPTR_MAX__: f64 = 9223372036854776000.0;
+pub const __PTRDIFF_MAX__: u64 = 9223372036854775807;
+pub const __INTPTR_MAX__: u64 = 9223372036854775807;
 pub const __UINTPTR_MAX__: i32 = -1;
 pub const __SIZEOF_DOUBLE__: u32 = 8;
 pub const __SIZEOF_FLOAT__: u32 = 4;
@@ -266,16 +243,6 @@ pub const __UINTPTR_FMTu__: &'static [u8; 3usize] = b"lu\0";
 pub const __UINTPTR_FMTx__: &'static [u8; 3usize] = b"lx\0";
 pub const __UINTPTR_FMTX__: &'static [u8; 3usize] = b"lX\0";
 pub const __UINTPTR_WIDTH__: u32 = 64;
-pub const __FLT16_HAS_DENORM__: u32 = 1;
-pub const __FLT16_DIG__: u32 = 3;
-pub const __FLT16_DECIMAL_DIG__: u32 = 5;
-pub const __FLT16_HAS_INFINITY__: u32 = 1;
-pub const __FLT16_HAS_QUIET_NAN__: u32 = 1;
-pub const __FLT16_MANT_DIG__: u32 = 11;
-pub const __FLT16_MAX_10_EXP__: u32 = 4;
-pub const __FLT16_MAX_EXP__: u32 = 15;
-pub const __FLT16_MIN_10_EXP__: i32 = -13;
-pub const __FLT16_MIN_EXP__: i32 = -14;
 pub const __FLT_HAS_DENORM__: u32 = 1;
 pub const __FLT_DIG__: u32 = 6;
 pub const __FLT_DECIMAL_DIG__: u32 = 9;
@@ -340,7 +307,7 @@ pub const __UINT64_FMTu__: &'static [u8; 3usize] = b"lu\0";
 pub const __UINT64_FMTx__: &'static [u8; 3usize] = b"lx\0";
 pub const __UINT64_FMTX__: &'static [u8; 3usize] = b"lX\0";
 pub const __UINT64_MAX__: i32 = -1;
-pub const __INT64_MAX__: f64 = 9223372036854776000.0;
+pub const __INT64_MAX__: u64 = 9223372036854775807;
 pub const __INT_LEAST8_MAX__: u32 = 127;
 pub const __INT_LEAST8_FMTd__: &'static [u8; 4usize] = b"hhd\0";
 pub const __INT_LEAST8_FMTi__: &'static [u8; 4usize] = b"hhi\0";
@@ -365,7 +332,7 @@ pub const __UINT_LEAST32_FMTo__: &'static [u8; 2usize] = b"o\0";
 pub const __UINT_LEAST32_FMTu__: &'static [u8; 2usize] = b"u\0";
 pub const __UINT_LEAST32_FMTx__: &'static [u8; 2usize] = b"x\0";
 pub const __UINT_LEAST32_FMTX__: &'static [u8; 2usize] = b"X\0";
-pub const __INT_LEAST64_MAX__: f64 = 9223372036854776000.0;
+pub const __INT_LEAST64_MAX__: u64 = 9223372036854775807;
 pub const __INT_LEAST64_FMTd__: &'static [u8; 3usize] = b"ld\0";
 pub const __INT_LEAST64_FMTi__: &'static [u8; 3usize] = b"li\0";
 pub const __UINT_LEAST64_MAX__: i32 = -1;
@@ -397,7 +364,7 @@ pub const __UINT_FAST32_FMTo__: &'static [u8; 2usize] = b"o\0";
 pub const __UINT_FAST32_FMTu__: &'static [u8; 2usize] = b"u\0";
 pub const __UINT_FAST32_FMTx__: &'static [u8; 2usize] = b"x\0";
 pub const __UINT_FAST32_FMTX__: &'static [u8; 2usize] = b"X\0";
-pub const __INT_FAST64_MAX__: f64 = 9223372036854776000.0;
+pub const __INT_FAST64_MAX__: u64 = 9223372036854775807;
 pub const __INT_FAST64_FMTd__: &'static [u8; 3usize] = b"ld\0";
 pub const __INT_FAST64_FMTi__: &'static [u8; 3usize] = b"li\0";
 pub const __UINT_FAST64_MAX__: i32 = -1;
@@ -408,16 +375,6 @@ pub const __UINT_FAST64_FMTX__: &'static [u8; 3usize] = b"lX\0";
 pub const __FINITE_MATH_ONLY__: u32 = 0;
 pub const __GNUC_STDC_INLINE__: u32 = 1;
 pub const __GCC_ATOMIC_TEST_AND_SET_TRUEVAL: u32 = 1;
-pub const __CLANG_ATOMIC_BOOL_LOCK_FREE: u32 = 2;
-pub const __CLANG_ATOMIC_CHAR_LOCK_FREE: u32 = 2;
-pub const __CLANG_ATOMIC_CHAR16_T_LOCK_FREE: u32 = 2;
-pub const __CLANG_ATOMIC_CHAR32_T_LOCK_FREE: u32 = 2;
-pub const __CLANG_ATOMIC_WCHAR_T_LOCK_FREE: u32 = 2;
-pub const __CLANG_ATOMIC_SHORT_LOCK_FREE: u32 = 2;
-pub const __CLANG_ATOMIC_INT_LOCK_FREE: u32 = 2;
-pub const __CLANG_ATOMIC_LONG_LOCK_FREE: u32 = 2;
-pub const __CLANG_ATOMIC_LLONG_LOCK_FREE: u32 = 2;
-pub const __CLANG_ATOMIC_POINTER_LOCK_FREE: u32 = 2;
 pub const __GCC_ATOMIC_BOOL_LOCK_FREE: u32 = 2;
 pub const __GCC_ATOMIC_CHAR_LOCK_FREE: u32 = 2;
 pub const __GCC_ATOMIC_CHAR16_T_LOCK_FREE: u32 = 2;
@@ -450,7 +407,6 @@ pub const __GCC_HAVE_SYNC_COMPARE_AND_SWAP_1: u32 = 1;
 pub const __GCC_HAVE_SYNC_COMPARE_AND_SWAP_2: u32 = 1;
 pub const __GCC_HAVE_SYNC_COMPARE_AND_SWAP_4: u32 = 1;
 pub const __GCC_HAVE_SYNC_COMPARE_AND_SWAP_8: u32 = 1;
-pub const __SIZEOF_FLOAT128__: u32 = 16;
 pub const unix: u32 = 1;
 pub const __unix: u32 = 1;
 pub const __unix__: u32 = 1;
@@ -459,10 +415,9 @@ pub const __linux: u32 = 1;
 pub const __linux__: u32 = 1;
 pub const __gnu_linux__: u32 = 1;
 pub const __ELF__: u32 = 1;
-pub const __FLOAT128__: u32 = 1;
 pub const __STDC__: u32 = 1;
 pub const __STDC_HOSTED__: u32 = 1;
-pub const __STDC_VERSION__: f64 = 201112.0;
+pub const __STDC_VERSION__: u32 = 201112;
 pub const __STDC_UTF_16__: u32 = 1;
 pub const __STDC_UTF_32__: u32 = 1;
 pub type __gnuc_va_list = __builtin_va_list;
@@ -1362,7 +1317,7 @@ extern "C" {
 extern "C" {
     pub fn snprintf(
         __s: *mut ::std::os::raw::c_char,
-        __maxlen: usize,
+        __maxlen: ::std::os::raw::c_ulong,
         __format: *const ::std::os::raw::c_char,
         ...
     ) -> ::std::os::raw::c_int;
@@ -1370,7 +1325,7 @@ extern "C" {
 extern "C" {
     pub fn vsnprintf(
         __s: *mut ::std::os::raw::c_char,
-        __maxlen: usize,
+        __maxlen: ::std::os::raw::c_ulong,
         __format: *const ::std::os::raw::c_char,
         __arg: *mut __va_list_tag,
     ) -> ::std::os::raw::c_int;
@@ -1675,6 +1630,233 @@ pub const idtype_t_P_PGID: idtype_t = 2;
 pub type idtype_t = u32;
 #[repr(C)]
 #[derive(Copy, Clone)]
+pub union wait {
+    pub w_status: ::std::os::raw::c_int,
+    pub __wait_terminated: wait__bindgen_ty_1,
+    pub __wait_stopped: wait__bindgen_ty_2,
+    _bindgen_union_align: u32,
+}
+#[repr(C)]
+#[repr(align(4))]
+#[derive(Copy, Clone)]
+pub struct wait__bindgen_ty_1 {
+    pub _bitfield_1: __BindgenBitfieldUnit<[u8; 4usize], u8>,
+}
+#[test]
+fn bindgen_test_layout_wait__bindgen_ty_1() {
+    assert_eq!(
+        ::std::mem::size_of::<wait__bindgen_ty_1>(),
+        4usize,
+        concat!("Size of: ", stringify!(wait__bindgen_ty_1))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<wait__bindgen_ty_1>(),
+        4usize,
+        concat!("Alignment of ", stringify!(wait__bindgen_ty_1))
+    );
+}
+impl wait__bindgen_ty_1 {
+    #[inline]
+    pub fn __w_termsig(&self) -> ::std::os::raw::c_uint {
+        unsafe { ::std::mem::transmute(self._bitfield_1.get(0usize, 7u8) as u32) }
+    }
+    #[inline]
+    pub fn set___w_termsig(&mut self, val: ::std::os::raw::c_uint) {
+        unsafe {
+            let val: u32 = ::std::mem::transmute(val);
+            self._bitfield_1.set(0usize, 7u8, val as u64)
+        }
+    }
+    #[inline]
+    pub fn __w_coredump(&self) -> ::std::os::raw::c_uint {
+        unsafe { ::std::mem::transmute(self._bitfield_1.get(7usize, 1u8) as u32) }
+    }
+    #[inline]
+    pub fn set___w_coredump(&mut self, val: ::std::os::raw::c_uint) {
+        unsafe {
+            let val: u32 = ::std::mem::transmute(val);
+            self._bitfield_1.set(7usize, 1u8, val as u64)
+        }
+    }
+    #[inline]
+    pub fn __w_retcode(&self) -> ::std::os::raw::c_uint {
+        unsafe { ::std::mem::transmute(self._bitfield_1.get(8usize, 8u8) as u32) }
+    }
+    #[inline]
+    pub fn set___w_retcode(&mut self, val: ::std::os::raw::c_uint) {
+        unsafe {
+            let val: u32 = ::std::mem::transmute(val);
+            self._bitfield_1.set(8usize, 8u8, val as u64)
+        }
+    }
+    #[inline]
+    pub fn new_bitfield_1(
+        __w_termsig: ::std::os::raw::c_uint,
+        __w_coredump: ::std::os::raw::c_uint,
+        __w_retcode: ::std::os::raw::c_uint,
+    ) -> __BindgenBitfieldUnit<[u8; 4usize], u8> {
+        let mut __bindgen_bitfield_unit: __BindgenBitfieldUnit<[u8; 4usize], u8> =
+            Default::default();
+        __bindgen_bitfield_unit.set(0usize, 7u8, {
+            let __w_termsig: u32 = unsafe { ::std::mem::transmute(__w_termsig) };
+            __w_termsig as u64
+        });
+        __bindgen_bitfield_unit.set(7usize, 1u8, {
+            let __w_coredump: u32 = unsafe { ::std::mem::transmute(__w_coredump) };
+            __w_coredump as u64
+        });
+        __bindgen_bitfield_unit.set(8usize, 8u8, {
+            let __w_retcode: u32 = unsafe { ::std::mem::transmute(__w_retcode) };
+            __w_retcode as u64
+        });
+        __bindgen_bitfield_unit
+    }
+}
+#[repr(C)]
+#[repr(align(4))]
+#[derive(Copy, Clone)]
+pub struct wait__bindgen_ty_2 {
+    pub _bitfield_1: __BindgenBitfieldUnit<[u8; 4usize], u8>,
+}
+#[test]
+fn bindgen_test_layout_wait__bindgen_ty_2() {
+    assert_eq!(
+        ::std::mem::size_of::<wait__bindgen_ty_2>(),
+        4usize,
+        concat!("Size of: ", stringify!(wait__bindgen_ty_2))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<wait__bindgen_ty_2>(),
+        4usize,
+        concat!("Alignment of ", stringify!(wait__bindgen_ty_2))
+    );
+}
+impl wait__bindgen_ty_2 {
+    #[inline]
+    pub fn __w_stopval(&self) -> ::std::os::raw::c_uint {
+        unsafe { ::std::mem::transmute(self._bitfield_1.get(0usize, 8u8) as u32) }
+    }
+    #[inline]
+    pub fn set___w_stopval(&mut self, val: ::std::os::raw::c_uint) {
+        unsafe {
+            let val: u32 = ::std::mem::transmute(val);
+            self._bitfield_1.set(0usize, 8u8, val as u64)
+        }
+    }
+    #[inline]
+    pub fn __w_stopsig(&self) -> ::std::os::raw::c_uint {
+        unsafe { ::std::mem::transmute(self._bitfield_1.get(8usize, 8u8) as u32) }
+    }
+    #[inline]
+    pub fn set___w_stopsig(&mut self, val: ::std::os::raw::c_uint) {
+        unsafe {
+            let val: u32 = ::std::mem::transmute(val);
+            self._bitfield_1.set(8usize, 8u8, val as u64)
+        }
+    }
+    #[inline]
+    pub fn new_bitfield_1(
+        __w_stopval: ::std::os::raw::c_uint,
+        __w_stopsig: ::std::os::raw::c_uint,
+    ) -> __BindgenBitfieldUnit<[u8; 4usize], u8> {
+        let mut __bindgen_bitfield_unit: __BindgenBitfieldUnit<[u8; 4usize], u8> =
+            Default::default();
+        __bindgen_bitfield_unit.set(0usize, 8u8, {
+            let __w_stopval: u32 = unsafe { ::std::mem::transmute(__w_stopval) };
+            __w_stopval as u64
+        });
+        __bindgen_bitfield_unit.set(8usize, 8u8, {
+            let __w_stopsig: u32 = unsafe { ::std::mem::transmute(__w_stopsig) };
+            __w_stopsig as u64
+        });
+        __bindgen_bitfield_unit
+    }
+}
+#[test]
+fn bindgen_test_layout_wait() {
+    assert_eq!(
+        ::std::mem::size_of::<wait>(),
+        4usize,
+        concat!("Size of: ", stringify!(wait))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<wait>(),
+        4usize,
+        concat!("Alignment of ", stringify!(wait))
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<wait>())).w_status as *const _ as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(wait),
+            "::",
+            stringify!(w_status)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<wait>())).__wait_terminated as *const _ as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(wait),
+            "::",
+            stringify!(__wait_terminated)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<wait>())).__wait_stopped as *const _ as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(wait),
+            "::",
+            stringify!(__wait_stopped)
+        )
+    );
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub union __WAIT_STATUS {
+    pub __uptr: *mut wait,
+    pub __iptr: *mut ::std::os::raw::c_int,
+    _bindgen_union_align: u64,
+}
+#[test]
+fn bindgen_test_layout___WAIT_STATUS() {
+    assert_eq!(
+        ::std::mem::size_of::<__WAIT_STATUS>(),
+        8usize,
+        concat!("Size of: ", stringify!(__WAIT_STATUS))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<__WAIT_STATUS>(),
+        8usize,
+        concat!("Alignment of ", stringify!(__WAIT_STATUS))
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<__WAIT_STATUS>())).__uptr as *const _ as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(__WAIT_STATUS),
+            "::",
+            stringify!(__uptr)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<__WAIT_STATUS>())).__iptr as *const _ as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(__WAIT_STATUS),
+            "::",
+            stringify!(__iptr)
+        )
+    );
+}
+#[repr(C)]
+#[derive(Copy, Clone)]
 pub struct div_t {
     pub quot: ::std::os::raw::c_int,
     pub rem: ::std::os::raw::c_int,
@@ -1821,7 +2003,7 @@ extern "C" {
     pub fn strtold(
         __nptr: *const ::std::os::raw::c_char,
         __endptr: *mut *mut ::std::os::raw::c_char,
-    ) -> f64;
+    ) -> u128;
 }
 extern "C" {
     pub fn strtol(
@@ -3245,15 +3427,18 @@ extern "C" {
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
-    pub fn malloc(__size: usize) -> *mut ::std::os::raw::c_void;
+    pub fn malloc(__size: ::std::os::raw::c_ulong) -> *mut ::std::os::raw::c_void;
 }
 extern "C" {
-    pub fn calloc(__nmemb: usize, __size: usize) -> *mut ::std::os::raw::c_void;
+    pub fn calloc(
+        __nmemb: ::std::os::raw::c_ulong,
+        __size: ::std::os::raw::c_ulong,
+    ) -> *mut ::std::os::raw::c_void;
 }
 extern "C" {
     pub fn realloc(
         __ptr: *mut ::std::os::raw::c_void,
-        __size: usize,
+        __size: ::std::os::raw::c_ulong,
     ) -> *mut ::std::os::raw::c_void;
 }
 extern "C" {
@@ -3263,7 +3448,7 @@ extern "C" {
     pub fn cfree(__ptr: *mut ::std::os::raw::c_void);
 }
 extern "C" {
-    pub fn alloca(__size: usize) -> *mut ::std::os::raw::c_void;
+    pub fn alloca(__size: ::std::os::raw::c_ulong) -> *mut ::std::os::raw::c_void;
 }
 extern "C" {
     pub fn valloc(__size: usize) -> *mut ::std::os::raw::c_void;
@@ -3353,8 +3538,10 @@ extern "C" {
     ) -> *mut ::std::os::raw::c_char;
 }
 pub type __compar_fn_t = ::std::option::Option<
-    unsafe extern "C" fn(arg1: *const ::std::os::raw::c_void, arg2: *const ::std::os::raw::c_void)
-        -> ::std::os::raw::c_int,
+    unsafe extern "C" fn(
+        arg1: *const ::std::os::raw::c_void,
+        arg2: *const ::std::os::raw::c_void,
+    ) -> ::std::os::raw::c_int,
 >;
 extern "C" {
     pub fn bsearch(
@@ -3419,7 +3606,7 @@ extern "C" {
 }
 extern "C" {
     pub fn qecvt(
-        __value: f64,
+        __value: u128,
         __ndigit: ::std::os::raw::c_int,
         __decpt: *mut ::std::os::raw::c_int,
         __sign: *mut ::std::os::raw::c_int,
@@ -3427,7 +3614,7 @@ extern "C" {
 }
 extern "C" {
     pub fn qfcvt(
-        __value: f64,
+        __value: u128,
         __ndigit: ::std::os::raw::c_int,
         __decpt: *mut ::std::os::raw::c_int,
         __sign: *mut ::std::os::raw::c_int,
@@ -3435,7 +3622,7 @@ extern "C" {
 }
 extern "C" {
     pub fn qgcvt(
-        __value: f64,
+        __value: u128,
         __ndigit: ::std::os::raw::c_int,
         __buf: *mut ::std::os::raw::c_char,
     ) -> *mut ::std::os::raw::c_char;
@@ -3462,7 +3649,7 @@ extern "C" {
 }
 extern "C" {
     pub fn qecvt_r(
-        __value: f64,
+        __value: u128,
         __ndigit: ::std::os::raw::c_int,
         __decpt: *mut ::std::os::raw::c_int,
         __sign: *mut ::std::os::raw::c_int,
@@ -3472,7 +3659,7 @@ extern "C" {
 }
 extern "C" {
     pub fn qfcvt_r(
-        __value: f64,
+        __value: u128,
         __ndigit: ::std::os::raw::c_int,
         __decpt: *mut ::std::os::raw::c_int,
         __sign: *mut ::std::os::raw::c_int,
@@ -3517,14 +3704,14 @@ extern "C" {
     pub fn memcpy(
         __dest: *mut ::std::os::raw::c_void,
         __src: *const ::std::os::raw::c_void,
-        __n: usize,
+        __n: ::std::os::raw::c_ulong,
     ) -> *mut ::std::os::raw::c_void;
 }
 extern "C" {
     pub fn memmove(
         __dest: *mut ::std::os::raw::c_void,
         __src: *const ::std::os::raw::c_void,
-        __n: usize,
+        __n: ::std::os::raw::c_ulong,
     ) -> *mut ::std::os::raw::c_void;
 }
 extern "C" {
@@ -3539,21 +3726,21 @@ extern "C" {
     pub fn memset(
         __s: *mut ::std::os::raw::c_void,
         __c: ::std::os::raw::c_int,
-        __n: usize,
+        __n: ::std::os::raw::c_ulong,
     ) -> *mut ::std::os::raw::c_void;
 }
 extern "C" {
     pub fn memcmp(
         __s1: *const ::std::os::raw::c_void,
         __s2: *const ::std::os::raw::c_void,
-        __n: usize,
+        __n: ::std::os::raw::c_ulong,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
     pub fn memchr(
         __s: *const ::std::os::raw::c_void,
         __c: ::std::os::raw::c_int,
-        __n: usize,
+        __n: ::std::os::raw::c_ulong,
     ) -> *mut ::std::os::raw::c_void;
 }
 extern "C" {
@@ -3566,7 +3753,7 @@ extern "C" {
     pub fn strncpy(
         __dest: *mut ::std::os::raw::c_char,
         __src: *const ::std::os::raw::c_char,
-        __n: usize,
+        __n: ::std::os::raw::c_ulong,
     ) -> *mut ::std::os::raw::c_char;
 }
 extern "C" {
@@ -3579,7 +3766,7 @@ extern "C" {
     pub fn strncat(
         __dest: *mut ::std::os::raw::c_char,
         __src: *const ::std::os::raw::c_char,
-        __n: usize,
+        __n: ::std::os::raw::c_ulong,
     ) -> *mut ::std::os::raw::c_char;
 }
 extern "C" {
@@ -3592,7 +3779,7 @@ extern "C" {
     pub fn strncmp(
         __s1: *const ::std::os::raw::c_char,
         __s2: *const ::std::os::raw::c_char,
-        __n: usize,
+        __n: ::std::os::raw::c_ulong,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
@@ -3605,7 +3792,7 @@ extern "C" {
     pub fn strxfrm(
         __dest: *mut ::std::os::raw::c_char,
         __src: *const ::std::os::raw::c_char,
-        __n: usize,
+        __n: ::std::os::raw::c_ulong,
     ) -> ::std::os::raw::c_ulong;
 }
 #[repr(C)]
@@ -3703,7 +3890,7 @@ extern "C" {
 extern "C" {
     pub fn strndup(
         __string: *const ::std::os::raw::c_char,
-        __n: usize,
+        __n: ::std::os::raw::c_ulong,
     ) -> *mut ::std::os::raw::c_char;
 }
 extern "C" {
@@ -3796,7 +3983,7 @@ extern "C" {
     );
 }
 extern "C" {
-    pub fn bzero(__s: *mut ::std::os::raw::c_void, __n: usize);
+    pub fn bzero(__s: *mut ::std::os::raw::c_void, __n: ::std::os::raw::c_ulong);
 }
 extern "C" {
     pub fn bcmp(
@@ -3830,7 +4017,7 @@ extern "C" {
     pub fn strncasecmp(
         __s1: *const ::std::os::raw::c_char,
         __s2: *const ::std::os::raw::c_char,
-        __n: usize,
+        __n: ::std::os::raw::c_ulong,
     ) -> ::std::os::raw::c_int;
 }
 extern "C" {
@@ -3865,15 +4052,16 @@ extern "C" {
     pub fn stpncpy(
         __dest: *mut ::std::os::raw::c_char,
         __src: *const ::std::os::raw::c_char,
-        __n: usize,
+        __n: ::std::os::raw::c_ulong,
     ) -> *mut ::std::os::raw::c_char;
 }
 #[repr(C)]
+#[repr(align(16))]
 #[derive(Copy, Clone)]
 pub struct max_align_t {
     pub __max_align_ll: ::std::os::raw::c_longlong,
     pub __bindgen_padding_0: u64,
-    pub __max_align_ld: f64,
+    pub __max_align_ld: u128,
 }
 #[test]
 fn bindgen_test_layout_max_align_t() {
@@ -3881,6 +4069,11 @@ fn bindgen_test_layout_max_align_t() {
         ::std::mem::size_of::<max_align_t>(),
         32usize,
         concat!("Size of: ", stringify!(max_align_t))
+    );
+    assert_eq!(
+        ::std::mem::align_of::<max_align_t>(),
+        16usize,
+        concat!("Alignment of ", stringify!(max_align_t))
     );
     assert_eq!(
         unsafe { &(*(::std::ptr::null::<max_align_t>())).__max_align_ll as *const _ as usize },
@@ -4310,8 +4503,8 @@ pub type bits16 = uint16;
 pub type bits32 = uint32;
 pub type int64 = ::std::os::raw::c_long;
 pub type uint64 = ::std::os::raw::c_ulong;
-pub type int128 = [u64; 2];
-pub type uint128 = [u64; 2];
+pub type int128 = i128;
+pub type uint128 = u128;
 pub type Size = usize;
 pub type Index = ::std::os::raw::c_uint;
 pub type Offset = ::std::os::raw::c_int;
@@ -4876,7 +5069,6 @@ pub const MSG_ERRQUEUE: _bindgen_ty_2 = 8192;
 pub const MSG_NOSIGNAL: _bindgen_ty_2 = 16384;
 pub const MSG_MORE: _bindgen_ty_2 = 32768;
 pub const MSG_WAITFORONE: _bindgen_ty_2 = 65536;
-pub const MSG_BATCH: _bindgen_ty_2 = 262144;
 pub const MSG_FASTOPEN: _bindgen_ty_2 = 536870912;
 pub const MSG_CMSG_CLOEXEC: _bindgen_ty_2 = 1073741824;
 pub type _bindgen_ty_2 = u32;
@@ -5536,11 +5728,11 @@ fn bindgen_test_layout_in6_addr() {
 }
 extern "C" {
     #[link_name = "\u{1}in6addr_any"]
-    pub static mut in6addr_any: in6_addr;
+    pub static in6addr_any: in6_addr;
 }
 extern "C" {
     #[link_name = "\u{1}in6addr_loopback"]
-    pub static mut in6addr_loopback: in6_addr;
+    pub static in6addr_loopback: in6_addr;
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -7338,6 +7530,18 @@ extern "C" {
 }
 extern "C" {
     pub fn wait_result_to_str(exit_status: ::std::os::raw::c_int) -> *mut ::std::os::raw::c_char;
+}
+extern "C" {
+    pub fn wait_result_is_signal(
+        exit_status: ::std::os::raw::c_int,
+        signum: ::std::os::raw::c_int,
+    ) -> bool;
+}
+extern "C" {
+    pub fn wait_result_is_any_signal(
+        exit_status: ::std::os::raw::c_int,
+        include_command_not_found: bool,
+    ) -> bool;
 }
 pub type __jmp_buf = [::std::os::raw::c_long; 8usize];
 #[repr(C)]
@@ -9363,10 +9567,10 @@ fn bindgen_test_layout_BlockIdData() {
 }
 pub type BlockId = *mut BlockIdData;
 #[repr(C)]
+#[repr(align(4))]
 #[derive(Copy, Clone)]
 pub struct ItemIdData {
     pub _bitfield_1: __BindgenBitfieldUnit<[u8; 4usize], u16>,
-    pub __bindgen_align: [u32; 0usize],
 }
 #[test]
 fn bindgen_test_layout_ItemIdData() {
@@ -9442,10 +9646,11 @@ pub type ItemId = *mut ItemIdData;
 pub type ItemOffset = uint16;
 pub type ItemLength = uint16;
 pub type OffsetNumber = uint16;
-#[repr(C)]
+#[repr(C, packed(2))]
 #[derive(Copy, Clone)]
 pub struct ItemPointerData {
-    pub _bindgen_opaque_blob: [u16; 3usize],
+    pub ip_blkid: BlockIdData,
+    pub ip_posid: OffsetNumber,
 }
 #[test]
 fn bindgen_test_layout_ItemPointerData() {
@@ -9458,6 +9663,26 @@ fn bindgen_test_layout_ItemPointerData() {
         ::std::mem::align_of::<ItemPointerData>(),
         2usize,
         concat!("Alignment of ", stringify!(ItemPointerData))
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<ItemPointerData>())).ip_blkid as *const _ as usize },
+        0usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(ItemPointerData),
+            "::",
+            stringify!(ip_blkid)
+        )
+    );
+    assert_eq!(
+        unsafe { &(*(::std::ptr::null::<ItemPointerData>())).ip_posid as *const _ as usize },
+        4usize,
+        concat!(
+            "Offset of field: ",
+            stringify!(ItemPointerData),
+            "::",
+            stringify!(ip_posid)
+        )
     );
 }
 pub type ItemPointer = *mut ItemPointerData;
@@ -10982,8 +11207,10 @@ extern "C" {
     pub fn list_copy_tail(list: *const List, nskip: ::std::os::raw::c_int) -> *mut List;
 }
 pub type list_qsort_comparator = ::std::option::Option<
-    unsafe extern "C" fn(a: *const ::std::os::raw::c_void, b: *const ::std::os::raw::c_void)
-        -> ::std::os::raw::c_int,
+    unsafe extern "C" fn(
+        a: *const ::std::os::raw::c_void,
+        b: *const ::std::os::raw::c_void,
+    ) -> ::std::os::raw::c_int,
 >;
 extern "C" {
     pub fn list_qsort(list: *const List, cmp: list_qsort_comparator) -> *mut List;
@@ -12929,8 +13156,10 @@ pub type ambulkdelete_function = ::std::option::Option<
     ) -> *mut IndexBulkDeleteResult,
 >;
 pub type amvacuumcleanup_function = ::std::option::Option<
-    unsafe extern "C" fn(info: *mut IndexVacuumInfo, stats: *mut IndexBulkDeleteResult)
-        -> *mut IndexBulkDeleteResult,
+    unsafe extern "C" fn(
+        info: *mut IndexVacuumInfo,
+        stats: *mut IndexBulkDeleteResult,
+    ) -> *mut IndexBulkDeleteResult,
 >;
 pub type amcanreturn_function = ::std::option::Option<
     unsafe extern "C" fn(indexRelation: Relation, attno: ::std::os::raw::c_int) -> bool,
@@ -16834,8 +17063,11 @@ extern "C" {
 extern "C" {
     #[link_name = "\u{1}pg_comp_crc32c"]
     pub static mut pg_comp_crc32c: ::std::option::Option<
-        unsafe extern "C" fn(crc: pg_crc32c, data: *const ::std::os::raw::c_void, len: usize)
-            -> pg_crc32c,
+        unsafe extern "C" fn(
+            crc: pg_crc32c,
+            data: *const ::std::os::raw::c_void,
+            len: usize,
+        ) -> pg_crc32c,
     >;
 }
 extern "C" {
@@ -21651,7 +21883,7 @@ extern "C" {
 }
 extern "C" {
     #[link_name = "\u{1}shm_mq_minimum_size"]
-    pub static mut shm_mq_minimum_size: Size;
+    pub static shm_mq_minimum_size: Size;
 }
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -28000,10 +28232,10 @@ fn bindgen_test_layout_Instrumentation() {
     );
 }
 #[repr(C)]
+#[repr(align(8))]
 pub struct WorkerInstrumentation {
     pub num_workers: ::std::os::raw::c_int,
     pub instrument: __IncompleteArrayField<Instrumentation>,
-    pub __bindgen_align: [u64; 0usize],
 }
 #[test]
 fn bindgen_test_layout_WorkerInstrumentation() {
@@ -33005,8 +33237,10 @@ extern "C" {
             unsafe extern "C" fn(arg1: *const dirent) -> ::std::os::raw::c_int,
         >,
         __cmp: ::std::option::Option<
-            unsafe extern "C" fn(arg1: *mut *const dirent, arg2: *mut *const dirent)
-                -> ::std::os::raw::c_int,
+            unsafe extern "C" fn(
+                arg1: *mut *const dirent,
+                arg2: *mut *const dirent,
+            ) -> ::std::os::raw::c_int,
         >,
     ) -> ::std::os::raw::c_int;
 }
@@ -33025,6 +33259,10 @@ pub type File = ::std::os::raw::c_int;
 extern "C" {
     #[link_name = "\u{1}max_files_per_process"]
     pub static mut max_files_per_process: ::std::os::raw::c_int;
+}
+extern "C" {
+    #[link_name = "\u{1}data_sync_retry"]
+    pub static mut data_sync_retry: bool;
 }
 extern "C" {
     #[link_name = "\u{1}max_safe_fds"]
@@ -33274,6 +33512,9 @@ extern "C" {
 }
 extern "C" {
     pub fn SyncDataDirectory();
+}
+extern "C" {
+    pub fn data_sync_elevel(elevel: ::std::os::raw::c_int) -> ::std::os::raw::c_int;
 }
 extern "C" {
     pub fn SpinlockSemas() -> ::std::os::raw::c_int;
@@ -34429,8 +34670,11 @@ pub struct ExprEvalStep {
     _unused: [u8; 0],
 }
 pub type ExprStateEvalFunc = ::std::option::Option<
-    unsafe extern "C" fn(expression: *mut ExprState, econtext: *mut ExprContext, isNull: *mut bool)
-        -> Datum,
+    unsafe extern "C" fn(
+        expression: *mut ExprState,
+        econtext: *mut ExprContext,
+        isNull: *mut bool,
+    ) -> Datum,
 >;
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -36677,6 +36921,9 @@ extern "C" {
 }
 extern "C" {
     pub fn tuplehash_destroy(tb: *mut tuplehash_hash);
+}
+extern "C" {
+    pub fn tuplehash_reset(tb: *mut tuplehash_hash);
 }
 extern "C" {
     pub fn tuplehash_grow(tb: *mut tuplehash_hash, newsize: uint32);
@@ -40368,7 +40615,7 @@ pub struct TableFuncScanState {
     pub ns_uris: *mut List,
     pub notnulls: *mut Bitmapset,
     pub opaque: *mut ::std::os::raw::c_void,
-    pub routine: *mut TableFuncRoutine,
+    pub routine: *const TableFuncRoutine,
     pub in_functions: *mut FmgrInfo,
     pub typioparams: *mut Oid,
     pub ordinal: int64,
@@ -41545,10 +41792,10 @@ fn bindgen_test_layout_MaterialState() {
     );
 }
 #[repr(C)]
+#[repr(align(8))]
 pub struct SharedSortInfo {
     pub num_workers: ::std::os::raw::c_int,
     pub sinstrument: __IncompleteArrayField<TuplesortInstrumentation>,
-    pub __bindgen_align: [u64; 0usize],
 }
 #[test]
 fn bindgen_test_layout_SharedSortInfo() {
@@ -43226,10 +43473,10 @@ fn bindgen_test_layout_HashInstrumentation() {
     );
 }
 #[repr(C)]
+#[repr(align(8))]
 pub struct SharedHashInfo {
     pub num_workers: ::std::os::raw::c_int,
     pub hinstrument: __IncompleteArrayField<HashInstrumentation>,
-    pub __bindgen_align: [u64; 0usize],
 }
 #[test]
 fn bindgen_test_layout_SharedHashInfo() {
@@ -64550,8 +64797,11 @@ pub type InitializeWorkerForeignScan_function = ::std::option::Option<
 pub type ShutdownForeignScan_function =
     ::std::option::Option<unsafe extern "C" fn(node: *mut ForeignScanState)>;
 pub type IsForeignScanParallelSafe_function = ::std::option::Option<
-    unsafe extern "C" fn(root: *mut PlannerInfo, rel: *mut RelOptInfo, rte: *mut RangeTblEntry)
-        -> bool,
+    unsafe extern "C" fn(
+        root: *mut PlannerInfo,
+        rel: *mut RelOptInfo,
+        rte: *mut RangeTblEntry,
+    ) -> bool,
 >;
 pub type ReparameterizeForeignPathByChild_function = ::std::option::Option<
     unsafe extern "C" fn(
@@ -65987,6 +66237,13 @@ extern "C" {
         fdw_recheck_quals: *mut List,
         outer_plan: *mut Plan,
     ) -> *mut ForeignScan;
+}
+extern "C" {
+    pub fn change_plan_targetlist(
+        subplan: *mut Plan,
+        tlist: *mut List,
+        tlist_parallel_safe: bool,
+    ) -> *mut Plan;
 }
 extern "C" {
     pub fn materialize_finished_plan(subplan: *mut Plan) -> *mut Plan;
@@ -75618,8 +75875,11 @@ pub type PreParseColumnRefHook = ::std::option::Option<
     unsafe extern "C" fn(pstate: *mut ParseState, cref: *mut ColumnRef) -> *mut Node,
 >;
 pub type PostParseColumnRefHook = ::std::option::Option<
-    unsafe extern "C" fn(pstate: *mut ParseState, cref: *mut ColumnRef, var: *mut Node)
-        -> *mut Node,
+    unsafe extern "C" fn(
+        pstate: *mut ParseState,
+        cref: *mut ColumnRef,
+        var: *mut Node,
+    ) -> *mut Node,
 >;
 pub type ParseParamRefHook = ::std::option::Option<
     unsafe extern "C" fn(pstate: *mut ParseState, pref: *mut ParamRef) -> *mut Node,
@@ -77518,6 +77778,15 @@ extern "C" {
     pub fn get_user_default_acl(objtype: ObjectType, ownerId: Oid, nsp_oid: Oid) -> *mut Acl;
 }
 extern "C" {
+    pub fn recordDependencyOnNewAcl(
+        classId: Oid,
+        objectId: Oid,
+        objsubId: int32,
+        ownerId: Oid,
+        acl: *mut Acl,
+    );
+}
+extern "C" {
     pub fn aclupdate(
         old_acl: *const Acl,
         mod_aip: *const AclItem,
@@ -77891,7 +78160,7 @@ fn bindgen_test_layout_ObjectAddress() {
 }
 extern "C" {
     #[link_name = "\u{1}InvalidObjectAddress"]
-    pub static mut InvalidObjectAddress: ObjectAddress;
+    pub static InvalidObjectAddress: ObjectAddress;
 }
 extern "C" {
     pub fn get_object_address(
@@ -80113,6 +80382,13 @@ extern "C" {
         tup: HeapTuple,
         attnum: ::std::os::raw::c_int,
         tupleDesc: TupleDesc,
+        isnull: *mut bool,
+    ) -> Datum;
+}
+extern "C" {
+    pub fn getmissingattr(
+        tupleDesc: TupleDesc,
+        attnum: ::std::os::raw::c_int,
         isnull: *mut bool,
     ) -> Datum;
 }

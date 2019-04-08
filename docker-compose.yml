@@ -8,7 +8,7 @@ services:
       dockerfile: Dockerfile
       args:
         - PG_VER=11
-        - RUST_VER=1.29.2
+        - RUST_VER=1.33.0
     volumes:
       - .:/source
     working_dir: /source
