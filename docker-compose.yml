@@ -8,11 +8,13 @@ services:
       dockerfile: Dockerfile
       args:
         - PG_VER=10
-        - RUST_VER=1.20.0
+        - RUST_VER=1.33.0
     volumes:
       - .:/source
     working_dir: /source
-    command: util/generate_bindings
+    command: >
+      sh -c "util/generate_bindings &&
+             cargo test --verbose"
   rpgffi96:
     extends:
       service: rpgffi10
@@ -37,4 +39,3 @@ services:
     build:
       args:
         - PG_VER=9.3
-
