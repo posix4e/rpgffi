@@ -10,4 +10,4 @@ before_install:
   - sudo mv docker-compose /usr/local/bin
 
 script:
-  - docker-compose up rpgffi10
+  - docker-compose up rpgffi11
